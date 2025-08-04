@@ -10,16 +10,13 @@ use DateTime;
 
 I18n::setLocale('jp_JP');
 
-class AttendanceController extends AppController
-{
+class AttendanceController extends AppController {
 
-    public function initialize()
-    {
+    public function initialize() {
         parent::initialize();
     }
 
-    public function index()
-    {
+    public function index() {
         if ($this->request->is('post')) {
             $request_data = $this->request->getData();
             if (isset($request_data['user_id'])) {
@@ -57,31 +54,31 @@ class AttendanceController extends AppController
 
         $session = TableRegistry::getTableLocator()->get('scms_sessions');
         $sessions = $session
-            ->find()
-            ->toArray();
+                ->find()
+                ->toArray();
         $this->set('sessions', $sessions);
 
         $levels = $this->get_levels();
         $this->set('levels', $levels);
         $group = TableRegistry::getTableLocator()->get('scms_groups');
         $groups = $group
-            ->find()
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->toArray();
+                ->find()
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->toArray();
         $this->set('groups', $groups);
         $shift = TableRegistry::getTableLocator()->get('hr_shift');
         $shifts = $shift
-            ->find()
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->toArray();
+                ->find()
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->toArray();
         $this->set('shifts', $shifts);
-        $attendance_type = $this->get_settings_value('Attendance.Type');
-        $this->set('attendance_type', $attendance_type);
+         $attendance_type = $this->get_settings_value('Attendance.Type');
+         $this->set('attendance_type', $attendance_type);
     }
-
-
+    
+    
     public function add()
     {
 
@@ -347,23 +344,21 @@ class AttendanceController extends AppController
     }
 
 
-    public function deviceLog()
-    {
+    public function deviceLog() {
         $device_logs = TableRegistry::getTableLocator()->get('device_logs');
         $logs = $device_logs->find()
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->toArray();
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->toArray();
         $this->set('logs', $logs);
     }
-    private function get_term_cycle_id()
-    {
+      private function get_term_cycle_id() {
         $scms_term_cycle = TableRegistry::getTableLocator()->get('scms_term_cycle');
         $term_cycle = $scms_term_cycle
-            ->find()
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->toArray();
+                ->find()
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->toArray();
         $return_data = array();
         foreach ($term_cycle as $term) {
             $return_data[$term['session_id']][$term['level_id']][$term['term_id']] = $term['term_cycle_id'];
@@ -371,7 +366,7 @@ class AttendanceController extends AppController
         return $return_data;
     }
 
-    /* public function deviceAttendence() {
+   /* public function deviceAttendence() {
         if (!empty($this->request->data)) {
             $request_data = $this->request->getData();
             $term_cycle = $this->get_term_cycle_id();
@@ -547,8 +542,8 @@ class AttendanceController extends AppController
         $this->set('terms', $terms);
     }
     */
-
-
+    
+    
     public function atdReport()
     {
         $value['date'] = null;
@@ -560,7 +555,7 @@ class AttendanceController extends AppController
 
             $session = TableRegistry::getTableLocator()->get('scms_sessions');
             $sessions = $session
-                ->find()
+            ->find()
                 ->enableAutoFields(true)
                 ->enableHydration(false)
                 ->where(['session_name' => $year])
@@ -648,7 +643,7 @@ class AttendanceController extends AppController
         }
         $this->set('data', $value);
     }
-
+    
     //------Updated by @shovon 16/7/2024
     public function deviceAttendence()
     {
@@ -928,7 +923,7 @@ class AttendanceController extends AppController
                     }
                 }
 
-                ##hello
+
                 $arrg['students'] = array_values($filter_absent_student);
                 $arrg['date'] = date('d-m-Y', strtotime($request_data['date']));
                 $numbers = array();
@@ -972,8 +967,8 @@ class AttendanceController extends AppController
 
         $this->set('terms', $terms);
     }
-
-
+    
+    
     /*
     public function deviceAttendence()
     {
@@ -1174,7 +1169,7 @@ class AttendanceController extends AppController
 
         $this->set('terms', $terms);
     }  */
-
+    
     public function attendanceSheet()
     {
         $value['session_id'] = null;
@@ -1242,13 +1237,13 @@ class AttendanceController extends AppController
                 ->group('date')
 
                 ->toArray();
-
+                
             foreach ($dates as $date) {
                 $d = date('Y-m-d', strtotime($date['date']));
                 $inital_attandances[$d] = 'A';
                 $attandances_date[] = date('d-m', strtotime($date['date']));
             }
-
+            
             $this->set('dates', $attandances_date);
             foreach ($student_cycles as $key => $student_cycle) {
                 $student_cycles[$key]['attandances'] = $inital_attandances;
@@ -1277,7 +1272,7 @@ class AttendanceController extends AppController
                 }
                 $total_attendance[$key]['absent'] = $student_count - $total_attendance[$key]['present'];
             }
-
+            
             $this->set('total_attendance', $total_attendance);
             $this->set('students', $student_cycles);
             $value = $request_data;
@@ -1505,8 +1500,7 @@ class AttendanceController extends AppController
         $this->set('shifts', $shifts);
     }
 
-    private function save_attendance_log($request_data)
-    {
+    private function save_attendance_log($request_data) {
         if ($request_data['date']) {
             $where['date'] = $request_data['date'];
         }
@@ -1518,10 +1512,10 @@ class AttendanceController extends AppController
         }
         $scms_attendance_log = TableRegistry::getTableLocator()->get('scms_attendance_log');
         $scms_attendance_logs = $scms_attendance_log->find()
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->where($where)
-            ->toArray();
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->where($where)
+                ->toArray();
         if (count($scms_attendance_logs) == 0) {
             $scms_attendance_log_data['date'] = $request_data['date'];
             $scms_attendance_log_data['term_cycle_id'] = $request_data['term_cycle_id'];
@@ -1530,19 +1524,18 @@ class AttendanceController extends AppController
             if ($request_data['courses_cycle_id']) {
                 $scms_attendance_log_data['courses_cycle_id'] = $request_data['courses_cycle_id'];
                 $query->insert(['term_cycle_id', 'user_id', 'date', 'courses_cycle_id'])
-                    ->values($scms_attendance_log_data)
-                    ->execute();
+                        ->values($scms_attendance_log_data)
+                        ->execute();
             } else {
                 $query->insert(['term_cycle_id', 'user_id', 'date'])
-                    ->values($scms_attendance_log_data)
-                    ->execute();
+                        ->values($scms_attendance_log_data)
+                        ->execute();
             }
         }
         return true;
     }
 
-    private function search_student($request_data)
-    {
+    private function search_student($request_data) {
         if ($request_data['session_id']) {
             $where['sc.session_id'] = $request_data['session_id'];
         }
@@ -1564,33 +1557,33 @@ class AttendanceController extends AppController
         $where['s.status'] = 1;
         $student_term_cycle = TableRegistry::getTableLocator()->get('scms_student_term_cycle');
         $students = $student_term_cycle->find()
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->select([
-                'student_id' => 'sc.student_id',
-                'name' => 's.name',
-                'roll' => 'sc.roll',
-            ])
-            ->where($where)
-            ->order(['CAST(roll AS SIGNED)' => 'ASC'])
-            ->join([
-                'sc' => [
-                    'table' => 'scms_student_cycle',
-                    'type' => 'INNER',
-                    'conditions' => [
-                        'sc.student_cycle_id  = scms_student_term_cycle.student_cycle_id'
-                    ]
-                ],
-                's' => [
-                    'table' => 'scms_students',
-                    'type' => 'INNER',
-                    'conditions' => [
-                        's.student_id = sc.student_id',
-                        'status = 1',
-                    ]
-                ],
-            ])
-            ->toArray();
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->select([
+                    'student_id' => 'sc.student_id',
+                    'name' => 's.name',
+                    'roll' => 'sc.roll',
+                ])
+                ->where($where)
+                ->order(['CAST(roll AS SIGNED)' => 'ASC'])
+                ->join([
+                    'sc' => [
+                        'table' => 'scms_student_cycle',
+                        'type' => 'INNER',
+                        'conditions' => [
+                            'sc.student_cycle_id  = scms_student_term_cycle.student_cycle_id'
+                        ]
+                    ],
+                    's' => [
+                        'table' => 'scms_students',
+                        'type' => 'INNER',
+                        'conditions' => [
+                            's.student_id = sc.student_id',
+                            'status = 1',
+                        ]
+                    ],
+                ])
+                ->toArray();
         $filter_students = array();
         foreach ($students as $student) {
             $student['attendance'] = null;
@@ -1607,8 +1600,7 @@ class AttendanceController extends AppController
         return $filter_students;
     }
 
-    private function getAttendances($request_data)
-    {
+    private function getAttendances($request_data) {
         $courseStatus = Configure::read('attendance_course');
 
         if ($request_data['session_id']) {
@@ -1635,25 +1627,24 @@ class AttendanceController extends AppController
         $where['date'] = $request_data['date'];
         $scms_attendance = TableRegistry::getTableLocator()->get('scms_attendance');
         $attendances = $scms_attendance->find()
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->where($where)
-            ->join([
-                'sc' => [
-                    'table' => 'scms_student_cycle',
-                    'type' => 'INNER',
-                    'conditions' => [
-                        'sc.student_cycle_id  = scms_attendance.student_cycle_id'
-                    ]
-                ],
-            ])
-            ->toArray();
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->where($where)
+                ->join([
+                    'sc' => [
+                        'table' => 'scms_student_cycle',
+                        'type' => 'INNER',
+                        'conditions' => [
+                            'sc.student_cycle_id  = scms_attendance.student_cycle_id'
+                        ]
+                    ],
+                ])
+                ->toArray();
 
         return $attendances;
     }
 
-    private function save_attendance($request_data)
-    {
+    private function save_attendance($request_data) {
         $privious_attendances = $this->getAttendances($request_data);
         $privious_attendance_filter = array();
         foreach ($privious_attendances as $privious_attendance) {
@@ -1678,12 +1669,12 @@ class AttendanceController extends AppController
                     if ($request_data['courses_cycle_id']) {
                         $present_students[$key_student]['courses_cycle_id'] = $request_data['courses_cycle_id'];
                         $query->insert(['term_cycle_id', 'student_cycle_id', 'shift_id', 'level_id', 'section_id', 'user_id', 'date', 'courses_cycle_id'])
-                            ->values($present_students[$key_student])
-                            ->execute();
+                                ->values($present_students[$key_student])
+                                ->execute();
                     } else {
                         $query->insert(['term_cycle_id', 'student_cycle_id', 'shift_id', 'level_id', 'section_id', 'user_id', 'date'])
-                            ->values($present_students[$key_student])
-                            ->execute();
+                                ->values($present_students[$key_student])
+                                ->execute();
                     }
                 }
             }
@@ -1691,14 +1682,13 @@ class AttendanceController extends AppController
         foreach ($privious_attendance_filter as $delete_attendance) {
             $query = $attendance->query();
             $query->delete()
-                ->where(['attendance_id' => $delete_attendance['attendance_id']])
-                ->execute();
+                    ->where(['attendance_id' => $delete_attendance['attendance_id']])
+                    ->execute();
         }
         return true;
     }
 
-    private function sms($data)
-    {
+    private function sms($data) {
         $present_student_cycle_id = isset($data['student_cycle_id']) ? $data['student_cycle_id'] : array();
         $students = $this->search_student($data);
         $studnets_student_cycle_id = array();
@@ -1722,15 +1712,14 @@ class AttendanceController extends AppController
         }
     }
 
-    private function get_sms_number($student_cycle_ids)
-    {
+    private function get_sms_number($student_cycle_ids) {
         if ($student_cycle_ids != null) {
             $student_cycle = TableRegistry::getTableLocator()->get('scms_student_cycle');
             $student_cycles = $student_cycle->find()
-                ->enableAutoFields(true)
-                ->enableHydration(false)
-                ->where(['scms_student_cycle.student_cycle_id IN' => $student_cycle_ids])
-                ->toArray();
+                    ->enableAutoFields(true)
+                    ->enableHydration(false)
+                    ->where(['scms_student_cycle.student_cycle_id IN' => $student_cycle_ids])
+                    ->toArray();
 
             $student_ids = array();
             foreach ($student_cycles as $student_data) {
@@ -1739,33 +1728,33 @@ class AttendanceController extends AppController
 
             $guardian = TableRegistry::getTableLocator()->get('scms_guardians'); //Execute First
             $guardians = $guardian
-                ->find()
-                ->enableAutoFields(true)
-                ->enableHydration(false)
-                ->where(['scms_guardians.student_id IN' => $student_ids])
-                ->select([
-                    'student_name' => 'scms_students.name',
-                    'active_guardian' => 'scms_students.active_guardian',
-                    'level_name' => 'lv.level_name',
-                ])
-                ->join([
-                    'scms_students' => [
-                        'table' => 'scms_students',
-                        'type' => 'INNER',
-                        'conditions' => ['scms_students.student_id = scms_guardians.student_id'],
-                    ],
-                    'sscycle' => [
-                        'table' => 'scms_student_cycle',
-                        'type' => 'INNER',
-                        'conditions' => ['scms_students.student_id = sscycle.student_id'],
-                    ],
-                    'lv' => [
-                        'table' => 'scms_levels',
-                        'type' => 'INNER',
-                        'conditions' => ['lv.level_id = sscycle.level_id'],
-                    ],
-                ])
-                ->toArray();
+                    ->find()
+                    ->enableAutoFields(true)
+                    ->enableHydration(false)
+                    ->where(['scms_guardians.student_id IN' => $student_ids])
+                    ->select([
+                        'student_name' => 'scms_students.name',
+                        'active_guardian' => 'scms_students.active_guardian',
+                        'level_name' => 'lv.level_name',
+                    ])
+                    ->join([
+                        'scms_students' => [
+                            'table' => 'scms_students',
+                            'type' => 'INNER',
+                            'conditions' => ['scms_students.student_id = scms_guardians.student_id'],
+                        ],
+                        'sscycle' => [
+                            'table' => 'scms_student_cycle',
+                            'type' => 'INNER',
+                            'conditions' => ['scms_students.student_id = sscycle.student_id'],
+                        ],
+                        'lv' => [
+                            'table' => 'scms_levels',
+                            'type' => 'INNER',
+                            'conditions' => ['lv.level_id = sscycle.level_id'],
+                        ],
+                    ])
+                    ->toArray();
             $active_gurardian = array();
             foreach ($guardians as $guardian) {
                 if ($guardian['active_guardian'] == $guardian['rtype'] && $guardian['mobile']) {
@@ -1779,23 +1768,21 @@ class AttendanceController extends AppController
     }
 
 
-    private function get_levels()
-    {
+    private function get_levels() {
         $level = TableRegistry::getTableLocator()->get('scms_levels');
         $levels = $level
-            ->find()
-            ->toArray();
+                ->find()
+                ->toArray();
 
         return $levels;
     }
 
-    public function send_tipsoi()
-    {
+    public function send_tipsoi() {
         $url = "https://api-inovace360.com/api/v1/logs";
-
+ 
         $data = [
             "start" => date('Y-m-d 0:0:0'),
-            "end" => date('Y-m-d 23:59:59'),
+	        "end" => date('Y-m-d 23:59:59'),
             "api_token" => "fb93-508d-be66-64e7-a2cb-a9c7-458c-c849-f4d3-f45b-b665-7f4f-f3dd-b7e2-5342-5859",
             "per_page" => "500"
         ];
@@ -1820,4 +1807,5 @@ class AttendanceController extends AppController
 
         return json_decode($result, true);
     }
+
 }
