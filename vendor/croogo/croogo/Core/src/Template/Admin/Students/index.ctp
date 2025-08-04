@@ -27,30 +27,32 @@ $statuses = [
 ];
 
 ?>
-<!doctype html>
-<html lang="en">
+
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300i,400,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
-    <title>Student</title>
+  
+ 
+  
+   
+ 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
 </head>
 
 <body>
-    <div class="container">
+    <div class="container d-print-none">
         <div class="header">
-            <h3 class=" text-center" style="letter-spacing: 3px; word-spacing: 7px; text-transform:capitalize;">
-                <?= __d('students', 'Search Students') ?>
-            </h3>
+           <div style="background-color: #6e7691; padding: 5px 5px; border-radius: 8px;">
+    <h3 class="text-center fw-bold text-white mb-0" style="letter-spacing: 2px; word-spacing: 5px; text-transform: capitalize; font-size: 1.75rem; text-shadow: 1px 1px 0 #000;">
+        <i class="bi bi-search me-2"></i> <?= __d('students', 'Search Students') ?>
+    </h3>
+</div>
+
         </div>
         <?php echo  $this->Form->create(); ?>
-        <div class="form">
-            <section class="bg-light mt-1 p-2 m-auto" action="#">
+        <div class="">
+            <section class=" mt-1 p-2 mx-auto" action="#">
                 <fieldset>
-                    <div class=" form_area p-2" style="height: auto; width: 1000px;">
+                    <div class=" form_area p-2" style="">
                         <div class="row mb-3">
                             <div class="col-lg-4">
                                 <div class="row">
@@ -58,7 +60,7 @@ $statuses = [
                                         <p class="label-font13"><?= __d('students', 'Session') ?></p>
                                     </div>
                                     <div class="col-lg-9 row2Field">
-                                        <select class="form-control" name="session_id" id="session_id" required>
+                                        <select class="form-control"  name="session_id" id="session_id" required>
                                             <option value=""><?= __d('students', '-- Choose --') ?></option>
                                             <?php foreach ($sessions as $session) { ?>
                                                 <option value="<?php echo $session['session_id']; ?>" <?php if ($data['session_id'] == $session['session_id']) {
@@ -162,107 +164,154 @@ $statuses = [
                 </fieldset>
             </section>
         </div>
-        <div class="mt-3">
-            <button type="submit" class="btn btn-info"><?= __d('setup', 'Search') ?></button>
+        <div class="mt-3 text-center">
+            <button type="submit" class="btn btn-info px-5"><?= __d('setup', 'Search') ?></button>
         </div>
         <?php echo $this->Form->end(); ?>
     </div>
 
 
 
-    <?php if (isset($students)) { ?>
-        <div class="row" style="margin-right: 25px;">
-            <div class="col-11">
-                <div class="horizontal_scroll table-responsive-sm">
-                    <div style="color: #3d7fd1; margin-right: 10px;">Total:<?php echo (count($students)); ?></div>
-                    <div class="rows">
-                        <div class="flexButton mb-3">
-                            <?php //for student data export purpose 27/01/2024
-                            $this->Form->unlockField('session_id');
-                            $this->Form->unlockField('level_id');
-                            $this->Form->unlockField('shift_id');
-                            $this->Form->unlockField('section_id');
-                            $this->Form->unlockField('status');
-                            ?>
-                            <?php echo  $this->Form->create('Export Data', ['type' => 'file', 'url' => ['action' => 'export']]); ?>
-                            <input type="hidden" name="session_id" value="<?php echo isset($where['scms_student_cycle.session_id']) ? $where['scms_student_cycle.session_id'] : ''; ?>">
-                            <input type="hidden" name="level_id" value="<?php echo isset($where['scms_student_cycle.level_id']) ? $where['scms_student_cycle.level_id'] : ''; ?>">
-                            <input type="hidden" name="shift_id" value="<?php echo isset($where['scms_student_cycle.shift_id']) ? $where['scms_student_cycle.shift_id'] : ''; ?>">
-                            <input type="hidden" name="section_id" value="<?php echo isset($where['scms_student_cycle.section_id']) ? $where['scms_student_cycle.section_id'] : ''; ?>">
-                            <input type="hidden" name="status" value="<?php echo isset($where['s.status']) ? $where['s.status'] : ''; ?>">
-                            <button type="submit" class="btn btn-success"><?= __d('setup', 'Export Data') ?></button>
-                            <?php echo $this->Form->end(); ?>
-                        </div>
-                    </div>
-                    <table class="table table-bordered table-striped">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th><?= __d('students', 'Action') ?></th>
-                                <th><?= __d('students', 'SID') ?></th>
-                                <th><?= __d('students', 'Photo') ?></th>
-                                <th><?= __d('students', 'Name') ?></th>
-                                <th><?= __d('students', 'Class') ?></th>
-                                <th><?= __d('students', 'Section') ?></th>
-                                <th><?= __d('students', 'Roll') ?></th>
-                                <th><?= __d('students', 'RFID') ?></th>
-                                <th><?= __d('students', 'Resident Status') ?></th>
-                                <th><?= __d('students', 'Gender') ?></th>
-                                <th><?= __d('students', 'Religion Subject') ?></th>
-                                <th><?= __d('students', 'Present Address') ?></th>
-                                <th><?= __d('students', 'Contact Number') ?></th>
-                                <th><?= __d('students', 'Group') ?></th>
-                                <th><?= __d('students', '3rd Subject') ?></th>
-                                <th><?= __d('students', '4th Subject') ?></th>
-                                <th><?= __d('students', 'DOB') ?></th>
-                                <th><?= __d('students', 'Status') ?></th>
-                                <th><?= __d('students', 'Action') ?></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            foreach ($students as $student) {
-                            ?>
-                                <tr>
-                                    <td style="display: grid; grid-auto-flow: column; gap: 10px;">
-                                        <?= $this->Html->link('<i class="fa fa-pencil"></i>', ['action' => 'edit', $student['student_id']], ['class' => 'btn action-btn btn-warning', 'escape' => false, 'target' => '_blank']) ?>
-                                        <?= $this->Html->link('<i class="fa fa-print"></i>', ['action' => 'print', $student['student_id']], ['class' => 'btn action-btn btn-info', 'escape' => false, 'target' => '_blank']) ?>
-                                    </td>
-                                    <td><?php echo $student['sid'] ?></td>
-                                    <td class="student-thumbnail"><?php echo $this->Html->image('/webroot/uploads/students/thumbnail/' . $student['thumbnail']); ?></td>
-                                    <td class="wide_cell"><?php echo $student['name'] ?></td>
-                                    <td><?php echo $student['level_name'] ?></td>
-                                    <td><?php echo $student['section_name'] ?></td>
-                                    <td><?php echo $student['roll'] ?></td>
-                                    <td><?php echo $student['card_no'] ?></td>
-                                    <td><?php
-                                        if ($student['resedential'] == 1) {
-                                            echo 'Resident';
-                                        } else {
-                                            echo 'Non-Resident';
-                                        } ?>
-                                    <td><?php echo $student['gender'] ?></td>
-                                    <td><?php echo $student['religion_subject'] ?></td>
-                                    <td><?php echo $student['present_address'] ?></td>
-                                    <!--<td><?php echo $student['mobile'] ?></td>-->
-                                    <td><?php echo $student['guardians'][strtolower($student['active_guardian'])]['mobile'] ?></td>
-                                    <td><?php echo $student['group_name'] ?></td>
-                                    <td><?php echo $student['thrid_subject_name'] ?></td>
-                                    <td><?php echo $student['forth_subject_name'] ?></td>
-                                    <td><?php echo $student['date_of_birth'] ?></td>
-                                    <td><?php if ($student['status']) {
-                                            echo 'Active';
-                                        } else {
-                                            echo 'Inactive';
-                                        } ?></td>
-                                    <td style="display: grid; grid-auto-flow: column; gap: 10px;">
-                                        <?= $this->Html->link('<i class="fa fa-pencil"></i>', ['action' => 'edit', $student['student_id']], ['class' => 'btn action-btn btn-warning', 'escape' => false, 'target' => '_blank']) ?>
-                                        <?= $this->Html->link('<i class="fa fa-print"></i>', ['action' => 'print', $student['student_id']], ['class' => 'btn action-btn btn-info', 'escape' => false, 'target' => '_blank']) ?>
-                                    </td>
-                                </tr>
-                            <?php } ?>
 
-                        </tbody>
-                    </table>
+    <?php if (isset($students)) { 
+        
+        ?>
+
+
+
+    
+<div class="bg-light p-3 rounded shadow-sm d-flex align-items-center mt-3 mb-3 flex-wrap gap-3 justify-content-between">
+  <div class="fw-semibold">
+        <?php
+    $output = [];
+
+    if (!empty($head['session_name'])) {
+        $output[] = 'Session: ' . $head['session_name'];
+    }
+    if (!empty($head['shift_name'])) {
+        $output[] = 'Shift: ' . $head['shift_name'];
+    }
+    if (!empty($head['level_name'])) {
+        $output[] = 'Class: ' . $head['level_name'];
+    }
+    if (!empty($head['section_name'])) {
+        $output[] = 'Section: ' . $head['section_name'];
+    }
+     if (!empty($head['sid'])) {
+        $output[] = 'SID: ' . $head['sid'];
+    }
+    if (!empty($head['status_name'])) {
+        $output[] = 'Status: ' . $head['status_name'];
+    }
+  if (!empty($value['status'])) {
+    $output[] = 'Status: ' . ($value['status'] == 1 ? 'Active' : 'In-Active');
+}
+
+
+    echo implode(', ', $output);
+    ?>
+  </div>
+  <div style="display: grid; grid-auto-flow: column; gap: 8px; align-items: center;">
+    <div class="fw-semibold text-primary">
+        <?= __('Total: ') . count($students) ?>
+    </div>
+        <?php
+        // For student data export purpose 27/01/2024
+        $this->Form->unlockField('session_id');
+        $this->Form->unlockField('level_id');
+        $this->Form->unlockField('shift_id');
+        $this->Form->unlockField('section_id');
+        $this->Form->unlockField('status');
+        echo $this->Form->create(null, ['type' => 'file', 'url' => ['action' => 'export'], 'style' => 'display:inline-block; margin:0;']);
+        ?>
+        <input type="hidden" name="session_id" value="<?= isset($where['scms_student_cycle.session_id']) ? h($where['scms_student_cycle.session_id']) : '' ?>">
+        <input type="hidden" name="level_id" value="<?= isset($where['scms_student_cycle.level_id']) ? h($where['scms_student_cycle.level_id']) : '' ?>">
+        <input type="hidden" name="shift_id" value="<?= isset($where['scms_student_cycle.shift_id']) ? h($where['scms_student_cycle.shift_id']) : '' ?>">
+        <input type="hidden" name="section_id" value="<?= isset($where['scms_student_cycle.section_id']) ? h($where['scms_student_cycle.section_id']) : '' ?>">
+        <input type="hidden" name="status" value="<?= isset($where['s.status']) ? h($where['s.status']) : '' ?>">
+        <button type="submit" class="btn btn-success shadow-sm align-items-center gap-2 d-print-none">
+            <i class="fa fa-download"></i>
+            <?= __d('setup', 'Export Data') ?>
+        </button>
+        <?= $this->Form->end() ?>
+        <div class="d-print-none">
+    <button class="btn btn-dark" onclick="printStudentTable()">
+        <i class="fa fa-print"></i> <?= __('Print Table') ?>
+    </button>
+</div>
+  </div>
+</div>
+
+<div class="table-responsive rounded ">
+ <table class="table table-striped table-hover table-bordered " style="border: 1px solid #dee2e6; " id="studentTable">
+    <thead style="background-color: #f8f9fa; color: #333;">
+        
+            <tr>
+                <th style="min-width: 70px;"> <?= __d('students', 'Action') ?> </th>
+                <th style="min-width: 70px;"><?= __d('students', 'SID') ?><span class="sort-arrow fa fa-sort"></span></th>
+                <th style="min-width: 70px;"><?= __d('students', 'Photo') ?></th>
+                <th style="min-width: 70px;"><?= __d('students', 'Name') ?> <span class="sort-arrow fa fa-sort"></span></th>
+                <th style="min-width: 70px;"><?= __d('students', 'Class') ?><span class="sort-arrow fa fa-sort"></span></th>
+                <th style="min-width: 100px;"><?= __d('students', 'Section') ?><span class="sort-arrow fa fa-sort"></span></th>
+                <th style="min-width: 70px;"><?= __d('students', 'Roll') ?><span class="sort-arrow fa fa-sort" > </span></th>
+                <th style="min-width: 150px;"><?= __d('students', 'Resident Status') ?> <span class="sort-arrow fa fa-sort"></th>
+                <th style="min-width: 90px;"><?= __d('students', 'Gender') ?> <span class="sort-arrow fa fa-sort"></th>
+                <th style="min-width: 170px;"><?= __d('students', 'Religion Subject') ?><span class="sort-arrow fa fa-sort"></span></th>
+                <th style="min-width: 150px;"><?= __d('students', 'Present Address') ?><span class="sort-arrow fa fa-sort"></span></th>
+                <th style="min-width: 160px;"><?= __d('students', 'Contact Number') ?><span class="sort-arrow fa fa-sort"></span></th>
+                <th style="min-width: 80px;"><?= __d('students', 'Group') ?><span class="sort-arrow fa fa-sort"></span></th>
+                <th style="min-width: 120px;"><?= __d('students', '3rd Subject') ?><span class="sort-arrow fa fa-sort"></span></th>
+                <th style="min-width: 120px;"><?= __d('students', '4th Subject') ?><span class="sort-arrow fa fa-sort"></span></th>
+                <th style="min-width: 70px;"><?= __d('students', 'DOB') ?><span class="sort-arrow fa fa-sort"></span></th>
+                <th style="min-width: 70px;"><?= __d('students', 'Status') ?><span class="sort-arrow fa fa-sort"></span></th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($students as $student): ?>
+                <tr>
+                    <td class="text-center">
+                    <div style="display: grid; grid-auto-flow: column; gap: 8px; justify-content: center;">
+                        <?= $this->Html->link('<i class="fa fa-pencil-alt text-white"></i>', ['action' => 'edit', $student['student_id']], [
+                            'class' => 'btn btn-sm btn-warning',
+                            'escape' => false
+                        ]) ?>
+                        <?= $this->Html->link('<i class="fa fa-print text-white"></i>', ['action' => 'print', $student['student_id']], [
+                            'class' => 'btn btn-sm btn-info',
+                            'escape' => false
+                        ]) ?>
+                    </div>
+                    </td>
+
+                    <td><?= h($student['sid']) ?></td>
+                    <td class="text-center">
+                        <?= $this->Html->image('/webroot/uploads/students/thumbnail/' . $student['thumbnail'], ['class' => 'rounded-circle', 'style' => 'width:40px; height:40px; object-fit:cover;']) ?>
+                    </td>
+                    <td><?= h($student['name']) ?></td>
+                    <td><?= h($student['level_name']) ?></td>
+                    <td><?= h($student['section_name']) ?></td>
+                    <td><?= h($student['roll']) ?></td>
+                    <td><?= $student['resedential'] ? 'Resident' : 'Non-Resident' ?></td>
+                    <td><?= h($student['gender']) ?></td>
+                    <td><?= h($student['religion_subject']) ?></td>
+                    <td><?= h($student['present_address']) ?></td>
+                    <td><?= h($student['mobile']) ?></td>
+                    <td><?= h($student['group_name']) ?></td>
+                    <td><?= h($student['thrid_subject_name']) ?></td>
+                    <td><?= h($student['forth_subject_name']) ?></td>
+                    <td><?= h($student['date_of_birth']) ?></td>
+                    <td>
+                        <span class="badge <?= $student['status'] ? 'bg-success' : 'bg-danger' ?>">
+                            <?= $student['status'] ? 'Active' : 'Inactive' ?>
+                        </span>
+                    </td>
+
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+</table>
+</div>
+
                 </div>
             </div>
         </div>
@@ -315,3 +364,168 @@ $statuses = [
         return confirm("Are you sure you want to delete this file?");
     }
 </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const table = document.getElementById('studentTable');
+    if (!table) return;
+
+    const headers = table.querySelectorAll('thead th');
+    const tbody = table.tBodies[0];
+    let sortDirection = Array(headers.length).fill(null);
+
+    headers.forEach((header, index) => {
+      header.addEventListener('click', () => {
+        // Determine new direction
+        const isAsc = sortDirection[index] !== 'asc';
+        sortDirection.fill(null);
+        sortDirection[index] = isAsc ? 'asc' : 'desc';
+
+        // Sort rows
+        const rows = Array.from(tbody.rows);
+        rows.sort((a, b) => {
+          let cellA = a.cells[index].innerText.trim().toLowerCase();
+          let cellB = b.cells[index].innerText.trim().toLowerCase();
+
+          // Try numeric sort if possible
+          const numA = parseFloat(cellA);
+          const numB = parseFloat(cellB);
+
+          if (!isNaN(numA) && !isNaN(numB)) {
+            return isAsc ? numA - numB : numB - numA;
+          } else {
+            return isAsc ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+          }
+        });
+
+        // Append sorted rows
+        rows.forEach(row => tbody.appendChild(row));
+
+        // Update active arrow classes
+        headers.forEach((h, i) => {
+          h.classList.remove('active-asc', 'active-desc');
+          if (i === index) {
+            h.classList.add(isAsc ? 'active-asc' : 'active-desc');
+          }
+        });
+      });
+    });
+  });
+</script>
+
+
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+  rel="stylesheet"
+/>
+
+
+<style>
+     #studentTable th,
+    #studentTable td {
+        /* text-align: center; */
+        vertical-align: middle;
+    }
+
+
+  thead th,
+  tbody td {
+    /* text-align: center;              Horizontally center */
+    vertical-align: middle;         /* Vertically center */
+    position: relative;             /* Needed for sort icons */
+    padding: 10px;
+  }
+
+  /* Sort icon base style */
+  .sort-arrow {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: #ccc;
+    opacity: 1.8;
+    pointer-events: none;
+    
+  }
+
+  /* Hover effect */
+  thead th:hover .sort-arrow {
+    color: #333;
+    opacity: 1;
+  }
+
+  /* Active sort direction: Ascending */
+  thead th.active-asc .sort-arrow::before {
+    content: "\f0de"; /* FontAwesome fa-sort-up */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    color: #000;
+  }
+
+  /* Active sort direction: Descending */
+  thead th.active-desc .sort-arrow::before {
+    content: "\f0dd"; /* FontAwesome fa-sort-down */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    color: #000;
+  }
+
+  /* Default neutral sort icon */
+  thead th .sort-arrow::before {
+    content: "\f0dc"; /* FontAwesome fa-sort */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+  }
+
+
+</style>
+
+<script>
+function printStudentTable() {
+    const originalContents = document.body.innerHTML;
+    const tableContents = document.querySelector('.table-responsive').outerHTML;
+
+    const printWindow = window.open('', '', 'height=600,width=900');
+    printWindow.document.write('<html><head><title><?= __('Print Students Table') ?></title>');
+    printWindow.document.write('<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">');
+    printWindow.document.write('<style>th, td { text-align: center; vertical-align: middle; }</style>');
+    printWindow.document.write('</head><body>');
+    printWindow.document.write('<h3 class="text-center"><?= __('Students List') ?></h3>');
+    printWindow.document.write(tableContents);
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.print();
+}
+</script>
+<!-- <script>
+function printStudentTable() {
+    const originalContents = document.body.innerHTML;
+    const tableContents = document.querySelector('.table-responsive').outerHTML;
+
+    document.body.innerHTML = `
+        <html>
+        <head>
+            <title>Print Students Table</title>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+            <style>
+                th, td { text-align: center; vertical-align: middle; }
+                table { width: 100%; border-collapse: collapse; }
+            </style>
+        </head>
+        <body>
+            <h3 class="text-center">Students List</h3>
+            ${tableContents}
+        </body>
+        </html>
+    `;
+
+    window.print();
+
+    // Restore original content after print
+    setTimeout(() => {
+        document.body.innerHTML = originalContents;
+        location.reload(); // To restore event listeners, scripts, etc.
+    }, 100);
+}
+</script> -->
