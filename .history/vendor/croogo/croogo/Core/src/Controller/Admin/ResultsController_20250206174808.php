@@ -9,26 +9,22 @@ use Cake\Datasource\ConnectionManager;
 
 I18n::setLocale('jp_JP');
 
-class ResultsController extends AppController
-{
+class ResultsController extends AppController {
 
-    public function initialize()
-    {
+    public function initialize() {
         parent::initialize();
     }
 
-    private function get_levels()
-    {
+    private function get_levels() {
         $level = TableRegistry::getTableLocator()->get('scms_levels');
         $levels = $level
-            ->find()
-            ->toArray();
+                ->find()
+                ->toArray();
 
         return $levels;
     }
 
-    public function mergeResult()
-    {
+    public function mergeResult() {
         $where['scms_results.type'] = 'merge';
         if ($this->request->is(['post'])) {
             $request_data = $this->request->getData();
@@ -44,65 +40,64 @@ class ResultsController extends AppController
         }
         $session = TableRegistry::getTableLocator()->get('scms_sessions');
         $sessions = $session
-            ->find()
-            ->order(['session_name' => 'DESC'])
-            ->toArray();
+                ->find()
+                ->order(['session_name' => 'DESC'])
+                ->toArray();
         $this->set('sessions', $sessions);
 
         $levels = $this->get_levels();
         $this->set('levels', $levels);
         $scms_results = TableRegistry::getTableLocator()->get('scms_results');
         $results = $scms_results
-            ->find()
-            ->select([
-                'session_name' => 'scms_sessions.session_name',
-                'level_name' => 'scms_levels.level_name',
-                'term_name' => 'scms_term.term_name',
-                'template_name' => 'scms_result_template.name',
-                'gradings_system_name' => 'scms_gradings.gradings_system_name',
-            ])
-            ->where($where)
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->join([
-                'scms_sessions' => [
-                    'table' => 'scms_sessions',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_sessions.session_id  = scms_results.session_id'],
-                ],
-                'scms_levels' => [
-                    'table' => 'scms_levels',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_levels.level_id = scms_results.level_id'],
-                ],
-                'scms_term_cycle' => [
-                    'table' => 'scms_term_cycle',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_term_cycle.term_cycle_id = scms_results.term_cycle_id'],
-                ],
-                'scms_term' => [
-                    'table' => 'scms_term',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_term.term_id = scms_term_cycle.term_id'],
-                ],
-                'scms_result_template' => [
-                    'table' => 'scms_result_template',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_result_template.result_template_id = scms_results.result_template_id'],
-                ],
-                'scms_gradings' => [
-                    'table' => 'scms_gradings',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_gradings.gradings_id = scms_results.gradings_id'],
-                ],
-            ]);
+                ->find()
+                ->select([
+                    'session_name' => 'scms_sessions.session_name',
+                    'level_name' => 'scms_levels.level_name',
+                    'term_name' => 'scms_term.term_name',
+                    'template_name' => 'scms_result_template.name',
+                    'gradings_system_name' => 'scms_gradings.gradings_system_name',
+                ])
+                ->where($where)
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->join([
+            'scms_sessions' => [
+                'table' => 'scms_sessions',
+                'type' => 'LEFT',
+                'conditions' => ['scms_sessions.session_id  = scms_results.session_id'],
+            ],
+            'scms_levels' => [
+                'table' => 'scms_levels',
+                'type' => 'LEFT',
+                'conditions' => ['scms_levels.level_id = scms_results.level_id'],
+            ],
+            'scms_term_cycle' => [
+                'table' => 'scms_term_cycle',
+                'type' => 'LEFT',
+                'conditions' => ['scms_term_cycle.term_cycle_id = scms_results.term_cycle_id'],
+            ],
+            'scms_term' => [
+                'table' => 'scms_term',
+                'type' => 'LEFT',
+                'conditions' => ['scms_term.term_id = scms_term_cycle.term_id'],
+            ],
+            'scms_result_template' => [
+                'table' => 'scms_result_template',
+                'type' => 'LEFT',
+                'conditions' => ['scms_result_template.result_template_id = scms_results.result_template_id'],
+            ],
+            'scms_gradings' => [
+                'table' => 'scms_gradings',
+                'type' => 'LEFT',
+                'conditions' => ['scms_gradings.gradings_id = scms_results.gradings_id'],
+            ],
+        ]);
         $paginate = $this->paginate($results, ['limit' => $this->Paginate_limit]);
         $paginate = $paginate->toArray();
         $this->set('results', $paginate);
     }
 
-    public function index()
-    {
+    public function index() {
         $where['scms_results.type'] = 'single';
         if ($this->request->is(['post'])) {
             $request_data = $this->request->getData();
@@ -118,73 +113,72 @@ class ResultsController extends AppController
         }
         $session = TableRegistry::getTableLocator()->get('scms_sessions');
         $sessions = $session
-            ->find()
-            ->order(['session_name' => 'DESC'])
-            ->toArray();
+                ->find()
+                ->order(['session_name' => 'DESC'])
+                ->toArray();
         $this->set('sessions', $sessions);
 
         $levels = $this->get_levels();
         $this->set('levels', $levels);
         $scms_results = TableRegistry::getTableLocator()->get('scms_results');
         $results = $scms_results
-            ->find()
-            ->select([
-                'session_name' => 'scms_sessions.session_name',
-                'level_name' => 'scms_levels.level_name',
-                'term_name' => 'scms_term.term_name',
-                'template_name' => 'scms_result_template.name',
-                'gradings_system_name' => 'scms_gradings.gradings_system_name',
-            ])
-            ->where($where)
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->join([
-                'scms_sessions' => [
-                    'table' => 'scms_sessions',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_sessions.session_id  = scms_results.session_id'],
-                ],
-                'scms_levels' => [
-                    'table' => 'scms_levels',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_levels.level_id = scms_results.level_id'],
-                ],
-                'scms_term_cycle' => [
-                    'table' => 'scms_term_cycle',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_term_cycle.term_cycle_id = scms_results.term_cycle_id'],
-                ],
-                'scms_term' => [
-                    'table' => 'scms_term',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_term.term_id = scms_term_cycle.term_id'],
-                ],
-                'scms_result_template' => [
-                    'table' => 'scms_result_template',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_result_template.result_template_id = scms_results.result_template_id'],
-                ],
-                'scms_gradings' => [
-                    'table' => 'scms_gradings',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_gradings.gradings_id = scms_results.gradings_id'],
-                ],
-            ]);
+                ->find()
+                ->select([
+                    'session_name' => 'scms_sessions.session_name',
+                    'level_name' => 'scms_levels.level_name',
+                    'term_name' => 'scms_term.term_name',
+                    'template_name' => 'scms_result_template.name',
+                    'gradings_system_name' => 'scms_gradings.gradings_system_name',
+                ])
+                ->where($where)
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->join([
+            'scms_sessions' => [
+                'table' => 'scms_sessions',
+                'type' => 'LEFT',
+                'conditions' => ['scms_sessions.session_id  = scms_results.session_id'],
+            ],
+            'scms_levels' => [
+                'table' => 'scms_levels',
+                'type' => 'LEFT',
+                'conditions' => ['scms_levels.level_id = scms_results.level_id'],
+            ],
+            'scms_term_cycle' => [
+                'table' => 'scms_term_cycle',
+                'type' => 'LEFT',
+                'conditions' => ['scms_term_cycle.term_cycle_id = scms_results.term_cycle_id'],
+            ],
+            'scms_term' => [
+                'table' => 'scms_term',
+                'type' => 'LEFT',
+                'conditions' => ['scms_term.term_id = scms_term_cycle.term_id'],
+            ],
+            'scms_result_template' => [
+                'table' => 'scms_result_template',
+                'type' => 'LEFT',
+                'conditions' => ['scms_result_template.result_template_id = scms_results.result_template_id'],
+            ],
+            'scms_gradings' => [
+                'table' => 'scms_gradings',
+                'type' => 'LEFT',
+                'conditions' => ['scms_gradings.gradings_id = scms_results.gradings_id'],
+            ],
+        ]);
         $paginate = $this->paginate($results, ['limit' => $this->Paginate_limit]);
         $paginate = $paginate->toArray();
         $this->set('results', $paginate);
     }
 
-    public function deleteResult($id)
-    {
+    public function deleteResult($id) {
         $type = $this->get_result_type($id);
         $scms_result_students = TableRegistry::getTableLocator()->get('scms_result_students');
         $result_students = $scms_result_students
-            ->find()
-            ->where(['result_id' => $id])
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->toArray();
+                ->find()
+                ->where(['result_id' => $id])
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->toArray();
         foreach ($result_students as $result_student) {
             $result_student_ids[] = $result_student['result_student_id'];
         }
@@ -192,22 +186,22 @@ class ResultsController extends AppController
 
         $scms_results = TableRegistry::getTableLocator()->get('scms_results');
         $results = $scms_results
-            ->find()
-            ->where(['result_id' => $id])
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->toArray();
+                ->find()
+                ->where(['result_id' => $id])
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->toArray();
 
         $query = $scms_results->query();
         $query->delete()
-            ->where(['result_id' => $id])
-            ->execute();
+                ->where(['result_id' => $id])
+                ->execute();
 
         $scms_result_attendance_month = TableRegistry::getTableLocator()->get('scms_result_attendance_month');
         $query = $scms_result_attendance_month->query();
         $query->delete()
-            ->where(['result_id' => $id])
-            ->execute();
+                ->where(['result_id' => $id])
+                ->execute();
 
         $this->insert_delete_update_log('result', 'deleteResult', 'delete', json_encode($results[0]));
 
@@ -223,8 +217,7 @@ class ResultsController extends AppController
         }
     }
 
-    private function get_attendance_month_by_array()
-    {
+    private function get_attendance_month_by_array() {
         $month[1]['count'] = 0;
         $month[2]['count'] = 0;
         $month[3]['count'] = 0;
@@ -241,34 +234,33 @@ class ResultsController extends AppController
         return $month;
     }
 
-    private function get_studnet_attandance_by_term($student_cycle_ids, $term_cycle_id)
-    {
+    private function get_studnet_attandance_by_term($student_cycle_ids, $term_cycle_id) {
         $scms_student_cycle = TableRegistry::getTableLocator()->get('scms_student_cycle');
         $student_cycle = $scms_student_cycle
-            ->find()
-            ->where(['student_cycle_id' => $student_cycle_ids[0]])
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->toArray();
+                ->find()
+                ->where(['student_cycle_id' => $student_cycle_ids[0]])
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->toArray();
         $months = $this->get_attendance_month_by_array();
         $student_months = array();
         $data_months = array();
         $scms_attendance = TableRegistry::getTableLocator()->get('scms_attendance');
         $month_attendances = $scms_attendance
-            ->find()
-            ->where(['scms_student_cycle.level_id' => $student_cycle[0]['level_id']])
-            ->where(['term_cycle_id IN' => $term_cycle_id])
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->group('date')
-            ->join([
-                'scms_student_cycle' => [
-                    'table' => 'scms_student_cycle',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_attendance.student_cycle_id = scms_student_cycle.student_cycle_id'],
-                ],
-            ])
-            ->toArray();
+                ->find()
+                ->where(['scms_student_cycle.level_id' => $student_cycle[0]['level_id']])
+                ->where(['term_cycle_id IN' => $term_cycle_id])
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->group('date')
+                ->join([
+                    'scms_student_cycle' => [
+                        'table' => 'scms_student_cycle',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_attendance.student_cycle_id = scms_student_cycle.student_cycle_id'],
+                    ],
+                ])
+                ->toArray();
         foreach ($month_attendances as $key => $month_attendance) {
             $month_attendances[$key]['month_number'] = (int) date("m", strtotime($month_attendance['date']));
             $months[$month_attendances[$key]['month_number']]['count']++;
@@ -300,11 +292,11 @@ class ResultsController extends AppController
             $where['student_cycle_id in'] = $student_cycle_ids;
             $where['term_cycle_id'] = $term_cycle_id;
             $month_wise_attendances = $scms_attendance
-                ->find()
-                ->where($where)
-                ->enableAutoFields(true)
-                ->enableHydration(false)
-                ->toArray();
+                    ->find()
+                    ->where($where)
+                    ->enableAutoFields(true)
+                    ->enableHydration(false)
+                    ->toArray();
             foreach ($month_wise_attendances as $month_wise_attendance) {
                 $studnet_attendance_data[$month_wise_attendance['student_cycle_id']][$key]['count']++;
                 $studnet_attendance_data[$month_wise_attendance['student_cycle_id']][13]['count']++;
@@ -315,8 +307,7 @@ class ResultsController extends AppController
         return $return;
     }
 
-    public function generateResult()
-    {
+    public function generateResult() {
         if ($this->request->is(['post'])) {
             $request_data = $this->request->getData();
 
@@ -344,62 +335,62 @@ class ResultsController extends AppController
             if ($request_data['group_id']) {
                 $where['sc.group_id'] = $request_data['group_id'];
             }
-            //get the students
+//get the students
             $where['status'] = 1;
             $student = TableRegistry::getTableLocator()->get('scms_students');
             $nofilter_students = $student
-                ->find()
-                ->select([
-                    'level_id' => 'sc.level_id',
-                    'group_id' => 'sc.group_id',
-                    'shift_id' => 'sc.shift_id',
-                    'section_id' => 'sc.section_id',
-                    'roll' => 'sc.roll',
-                    'session_id' => 'sc.session_id',
-                    'student_cycle_id' => 'sc.student_cycle_id',
-                    'term_cycle_id' => 'stc.term_cycle_id',
-                    'student_term_cycle_id' => 'stc.student_term_cycle_id',
-                    'group_name' => 'scms_groups.group_name',
-                    'level_name' => 'scms_levels.level_name',
-                    'shift_name' => 'hr_shift.shift_name',
-                    'section_name' => 'scms_sections.section_name',
-                ])
-                ->where($where)
-                ->enableAutoFields(true)
-                ->enableHydration(false)
-                ->join([
-                    'sc' => [
-                        'table' => 'scms_student_cycle',
-                        'type' => 'LEFT',
-                        'conditions' => ['sc.student_id  = scms_students.student_id'],
-                    ],
-                    'stc' => [
-                        'table' => 'scms_student_term_cycle',
-                        'type' => 'LEFT',
-                        'conditions' => ['stc.student_cycle_id = sc.student_cycle_id'],
-                    ],
-                    'scms_levels' => [
-                        'table' => 'scms_levels',
-                        'type' => 'LEFT',
-                        'conditions' => ['scms_levels.level_id = sc.level_id'],
-                    ],
-                    'scms_groups' => [
-                        'table' => 'scms_groups',
-                        'type' => 'LEFT',
-                        'conditions' => ['scms_groups.group_id = sc.group_id'],
-                    ],
-                    'hr_shift' => [
-                        'table' => 'hr_shift',
-                        'type' => 'LEFT',
-                        'conditions' => ['hr_shift.shift_id = sc.shift_id'],
-                    ],
-                    'scms_sections' => [
-                        'table' => 'scms_sections',
-                        'type' => 'LEFT',
-                        'conditions' => ['scms_sections.section_id = sc.section_id'],
-                    ],
-                ])
-                ->toArray();
+                    ->find()
+                    ->select([
+                        'level_id' => 'sc.level_id',
+                        'group_id' => 'sc.group_id',
+                        'shift_id' => 'sc.shift_id',
+                        'section_id' => 'sc.section_id',
+                        'roll' => 'sc.roll',
+                        'session_id' => 'sc.session_id',
+                        'student_cycle_id' => 'sc.student_cycle_id',
+                        'term_cycle_id' => 'stc.term_cycle_id',
+                        'student_term_cycle_id' => 'stc.student_term_cycle_id',
+                        'group_name' => 'scms_groups.group_name',
+                        'level_name' => 'scms_levels.level_name',
+                        'shift_name' => 'hr_shift.shift_name',
+                        'section_name' => 'scms_sections.section_name',
+                    ])
+                    ->where($where)
+                    ->enableAutoFields(true)
+                    ->enableHydration(false)
+                    ->join([
+                        'sc' => [
+                            'table' => 'scms_student_cycle',
+                            'type' => 'LEFT',
+                            'conditions' => ['sc.student_id  = scms_students.student_id'],
+                        ],
+                        'stc' => [
+                            'table' => 'scms_student_term_cycle',
+                            'type' => 'LEFT',
+                            'conditions' => ['stc.student_cycle_id = sc.student_cycle_id'],
+                        ],
+                        'scms_levels' => [
+                            'table' => 'scms_levels',
+                            'type' => 'LEFT',
+                            'conditions' => ['scms_levels.level_id = sc.level_id'],
+                        ],
+                        'scms_groups' => [
+                            'table' => 'scms_groups',
+                            'type' => 'LEFT',
+                            'conditions' => ['scms_groups.group_id = sc.group_id'],
+                        ],
+                        'hr_shift' => [
+                            'table' => 'hr_shift',
+                            'type' => 'LEFT',
+                            'conditions' => ['hr_shift.shift_id = sc.shift_id'],
+                        ],
+                        'scms_sections' => [
+                            'table' => 'scms_sections',
+                            'type' => 'LEFT',
+                            'conditions' => ['scms_sections.section_id = sc.section_id'],
+                        ],
+                    ])
+                    ->toArray();
             if (count($nofilter_students) == 0) {
                 $this->Flash->success('No Student Found', [
                     'key' => 'Negative',
@@ -408,7 +399,7 @@ class ResultsController extends AppController
                 return $this->redirect(['action' => 'generateResult']);
             }
             $students = array();
-            //array indexing in students depand on "student_term_cycle_id"
+//array indexing in students depand on "student_term_cycle_id"
             foreach ($nofilter_students as $key => $student) {
                 $student = $this->get_guardians($student);
                 $students[$student['student_term_cycle_id']] = $student;
@@ -418,46 +409,46 @@ class ResultsController extends AppController
             $all_student_attandance = $this->get_studnet_attandance_by_term($student_cycle_ids, $request_data['term_cycle_id']);
             $student_third_fourth_subjects = $this->get_studnet_third_fourth_subjects($student_term_cycle_ids);
 
-            //get course cycle of students
+//get course cycle of students
             $student_term_course_cycle = TableRegistry::getTableLocator()->get('scms_student_term_course_cycle');
             $nofilter_student_term_course_cycles = $student_term_course_cycle
-                ->find()
-                ->order(['course_code' => 'ASC'])
-                ->select([
-                    'course_id' => 'c.course_id',
-                    'course_name' => 'c.course_name',
-                    'course_type_id' => 'c.course_type_id',
-                    'course_code' => 'c.course_code',
-                    'course_code' => 'c.course_code',
-                    'courses_cycle_id' => 'cc.courses_cycle_id',
-                    'student_course_cycle_id' => 'scc.student_course_cycle_id'
-                ])
-                ->where(['student_term_cycle_id  in' => $student_term_cycle_ids])
-                ->enableAutoFields(true)
-                ->enableHydration(false)
-                ->join([
-                    'scc' => [
-                        'table' => 'scms_student_course_cycle',
-                        'type' => 'LEFT',
-                        'conditions' => ['scc.student_course_cycle_id  = scms_student_term_course_cycle.student_course_cycle_id'],
-                    ],
-                ])
-                ->join([
-                    'cc' => [
-                        'table' => 'scms_courses_cycle',
-                        'type' => 'LEFT',
-                        'conditions' => ['cc.courses_cycle_id = scc.courses_cycle_id'],
-                    ],
-                ])
-                ->join([
-                    'c' => [
-                        'table' => 'scms_courses',
-                        'type' => 'LEFT',
-                        'conditions' => ['cc.course_id = c.course_id'],
-                    ],
-                ])
-                ->toArray();
-            //array indexing in course_cycles depand on "student_term_course_cycle_id"
+                    ->find()
+                    ->order(['course_code' => 'ASC'])
+                    ->select([
+                        'course_id' => 'c.course_id',
+                        'course_name' => 'c.course_name',
+                        'course_type_id' => 'c.course_type_id',
+                        'course_code' => 'c.course_code',
+                        'course_code' => 'c.course_code',
+                        'courses_cycle_id' => 'cc.courses_cycle_id',
+                        'student_course_cycle_id' => 'scc.student_course_cycle_id'
+                    ])
+                    ->where(['student_term_cycle_id  in' => $student_term_cycle_ids])
+                    ->enableAutoFields(true)
+                    ->enableHydration(false)
+                    ->join([
+                        'scc' => [
+                            'table' => 'scms_student_course_cycle',
+                            'type' => 'LEFT',
+                            'conditions' => ['scc.student_course_cycle_id  = scms_student_term_course_cycle.student_course_cycle_id'],
+                        ],
+                    ])
+                    ->join([
+                        'cc' => [
+                            'table' => 'scms_courses_cycle',
+                            'type' => 'LEFT',
+                            'conditions' => ['cc.courses_cycle_id = scc.courses_cycle_id'],
+                        ],
+                    ])
+                    ->join([
+                        'c' => [
+                            'table' => 'scms_courses',
+                            'type' => 'LEFT',
+                            'conditions' => ['cc.course_id = c.course_id'],
+                        ],
+                    ])
+                    ->toArray();
+//array indexing in course_cycles depand on "student_term_course_cycle_id"
             $student_term_course_cycles = array();
             foreach ($nofilter_student_term_course_cycles as $key2 => $student_term_course_cycle) {
                 $student_term_course_cycles[$student_term_course_cycle['student_term_course_cycle_id']] = $student_term_course_cycle;
@@ -465,48 +456,48 @@ class ResultsController extends AppController
             }
 
 
-            //get part marks of course cycle
+//get part marks of course cycle
             $term_course_cycle_part_mark = TableRegistry::getTableLocator()->get('scms_term_course_cycle_part_mark');
             $term_course_cycle_part_marks = $term_course_cycle_part_mark
-                ->find()
-                ->select([
-                    'term_course_cycle_part_type_id' => 'tccpt.term_course_cycle_part_type_id',
-                    'term_course_cycle_part_type_name' => 'tccpt.term_course_cycle_part_type_name',
-                    'short_form' => 'tccpt.short_form',
-                    'total_mark' => 'tccp.mark',
-                    'pass_mark' => 'tccp.pass_mark'
-                ])
-                ->where(['student_term_course_cycle_id in' => $student_term_course_cycle_ids])
-                ->enableAutoFields(true)
-                ->enableHydration(false)
-                ->join([
-                    'tccp' => [
-                        'table' => 'scms_term_course_cycle_part',
-                        'type' => 'LEFT',
-                        'conditions' => ['tccp.term_course_cycle_part_id  = scms_term_course_cycle_part_mark.term_course_cycle_part_id'],
-                    ],
-                ])
-                ->join([
-                    'tccpt' => [
-                        'table' => 'scms_term_course_cycle_part_type',
-                        'type' => 'LEFT',
-                        'conditions' => ['tccpt.term_course_cycle_part_type_id = tccp.term_course_cycle_part_type_id'],
-                    ],
-                ])
-                ->toArray();
+                    ->find()
+                    ->select([
+                        'term_course_cycle_part_type_id' => 'tccpt.term_course_cycle_part_type_id',
+                        'term_course_cycle_part_type_name' => 'tccpt.term_course_cycle_part_type_name',
+                        'short_form' => 'tccpt.short_form',
+                        'total_mark' => 'tccp.mark',
+                        'pass_mark' => 'tccp.pass_mark'
+                    ])
+                    ->where(['student_term_course_cycle_id in' => $student_term_course_cycle_ids])
+                    ->enableAutoFields(true)
+                    ->enableHydration(false)
+                    ->join([
+                        'tccp' => [
+                            'table' => 'scms_term_course_cycle_part',
+                            'type' => 'LEFT',
+                            'conditions' => ['tccp.term_course_cycle_part_id  = scms_term_course_cycle_part_mark.term_course_cycle_part_id'],
+                        ],
+                    ])
+                    ->join([
+                        'tccpt' => [
+                            'table' => 'scms_term_course_cycle_part_type',
+                            'type' => 'LEFT',
+                            'conditions' => ['tccpt.term_course_cycle_part_type_id = tccp.term_course_cycle_part_type_id'],
+                        ],
+                    ])
+                    ->toArray();
 
-            //assign part marks to course cycles depand on "student_term_course_cycle_id"
+//assign part marks to course cycles depand on "student_term_course_cycle_id"
             foreach ($term_course_cycle_part_marks as $key => $term_course_cycle_part_mark) {
                 $student_term_course_cycles[$term_course_cycle_part_mark['student_term_course_cycle_id']]['parts'][$term_course_cycle_part_mark['term_course_cycle_part_type_id']] = $term_course_cycle_part_mark;
             }
-            //assign course cycles to student depand on "student_term_cycle_id"
+//assign course cycles to student depand on "student_term_cycle_id"
             foreach ($student_term_course_cycles as $key => $student_term_course_cycle) {
                 if (isset($students[$student_term_course_cycle['student_term_cycle_id']])) {
                     $students[$student_term_course_cycle['student_term_cycle_id']]['courses'][$student_term_course_cycle['course_id']] = $student_term_course_cycle;
                 }
             }
-            //making of student array @end
-            //get template configaration
+//making of student array @end
+//get template configaration
             $template = $this->get_template($request_data['result_template_id']);
             $scms_activity_remarks = $this->default_activities();
             if (isset($template['activity'])) {
@@ -521,23 +512,23 @@ class ResultsController extends AppController
                     $scms_activity_remarks[1] = $return_scms_activity_remarks[1];
                 }
             }
-            //merge subject
+//merge subject
 
             $grade = TableRegistry::getTableLocator()->get('scms_grade');
             $grades = $grade
-                ->find()
-                ->enableAutoFields(true)
-                ->enableHydration(false)
-                ->order(['point' => 'ASC'])
-                ->where(['gradings_id' => $request_data['gradings_id']])
-                ->toArray();
+                    ->find()
+                    ->enableAutoFields(true)
+                    ->enableHydration(false)
+                    ->order(['point' => 'ASC'])
+                    ->where(['gradings_id' => $request_data['gradings_id']])
+                    ->toArray();
 
             $query = $grade->find()->where(['gradings_id' => $request_data['gradings_id']]);
             $query->select([
-                'max_point' => $query->func()->max('point')
-            ])
-                ->enableAutoFields(true)
-                ->enableHydration(false);
+                        'max_point' => $query->func()->max('point')
+                    ])
+                    ->enableAutoFields(true)
+                    ->enableHydration(false);
             foreach ($query as $row) {
                 $max_point = $row['max_point'];
             }
@@ -552,30 +543,30 @@ class ResultsController extends AppController
                     }
                 }
                 if (isset($template['indivisul_pass_check'])) {
-                    //indivisul_pass_check subject +total pass check
+//indivisul_pass_check subject +total pass check
                     $students[$key] = $this->indivisul_pass_check($students[$key]);
                 } else {
-                    //total pass check
+//total pass check
                     $students[$key] = $this->total_pass_check($students[$key]);
                 }
-                //group_pass_check subject
+//group_pass_check subject
                 if (isset($template['group_pass_check'])) {
                     $students[$key] = $this->group_pass_check($students[$key], $template['group_pass_check']);
                 }
-                //group_persentage_check subject
+//group_persentage_check subject
                 if (isset($template['group_persentage_check'])) {
                     $students[$key] = $this->group_persentage_and_calculate_total($students[$key], $template['group_persentage_check']);
                 } //total_persentage_check subject
                 else if (isset($template['total_persentage_check'])) {
                     $students[$key] = $this->total_persentage_and_calculate_total($students[$key], $template['total_persentage_check']['value']);
                 } else {
-                    //no persentage calculate total
+//no persentage calculate total
                     $students[$key] = $this->total_persentage_and_calculate_total($students[$key]);
                 }
-                //calculate course  gpa
+//calculate course  gpa
                 $students[$key] = $this->calculate_gpa($students[$key], $grades);
 
-                //calculate term total and gpa
+//calculate term total and gpa
                 $students[$key] = $this->result_calculation($students[$key], $max_point, $template, $grades);
 
                 $students[$key]['attandance_data'] = $all_student_attandance['studnet_data'][$students[$key]['student_cycle_id']];
@@ -584,8 +575,8 @@ class ResultsController extends AppController
                 }
             }
             usort($students, function ($a, $b) {
-                return [$a['section_id'], $a['roll']] <=>
-                    [$b['section_id'], $b['roll']];
+                return [$a ['section_id'], $a ['roll']] <=>
+                [$b ['section_id'], $b ['roll']];
             });
 
             if (isset($request_data['save']) && $request_data['save'] == 'yes') {
@@ -640,48 +631,47 @@ class ResultsController extends AppController
 
         $session = TableRegistry::getTableLocator()->get('scms_sessions');
         $sessions = $session
-            ->find()
-            ->order(['session_name' => 'DESC'])
-            ->toArray();
+                ->find()
+                ->order(['session_name' => 'DESC'])
+                ->toArray();
         $this->set('sessions', $sessions);
 
         $level = TableRegistry::getTableLocator()->get('scms_levels');
         $levels = $level
-            ->find()
-            ->toArray();
+                ->find()
+                ->toArray();
         $this->set('levels', $levels);
         $group = TableRegistry::getTableLocator()->get('scms_groups');
         $groups = $group
-            ->find()
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->toArray();
+                ->find()
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->toArray();
         $this->set('groups', $groups);
         $shift = TableRegistry::getTableLocator()->get('hr_shift');
         $shifts = $shift
-            ->find()
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->toArray();
+                ->find()
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->toArray();
         $this->set('shifts', $shifts);
         $result_template = TableRegistry::getTableLocator()->get('scms_result_template');
         $result_templates = $result_template
-            ->find()
-            ->where(['deleted' => 0])
-            ->where(['type' => 'single'])
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->toArray();
+                ->find()
+                ->where(['deleted' => 0])
+                ->where(['type' => 'single'])
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->toArray();
         $this->set('result_templates', $result_templates);
         $grading = TableRegistry::getTableLocator()->get('scms_gradings');
         $gradings = $grading
-            ->find()
-            ->toArray();
+                ->find()
+                ->toArray();
         $this->set('gradings', $gradings);
     }
 
-    private function viewAbleHead($heads)
-    {
+    private function viewAbleHead($heads) {
         $note = array();
         foreach ($heads as $key => $head) {
             $name = $head['name'];
@@ -716,37 +706,14 @@ class ResultsController extends AppController
         return $return;
     }
 
-    private function get_merge_studnet_result($terms, $request_data, $template)
-    {
+    private function get_merge_studnet_result($terms, $request_data, $template) {
         $term_ids = $terms['term_id'];
         $scms_result = TableRegistry::getTableLocator()->get('scms_results');
         $base_results = $scms_result
-            ->find()
-            ->where(['scms_results.session_id' => $request_data['session_id']])
-            ->where(['scms_results.level_id' => $request_data['level_id']])
-            ->where(['scms_term_cycle.term_id' => $term_ids[0]])
-            ->where(['type' => 'single'])
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->select([
-                'term_id' => 'scms_term_cycle.term_id',
-            ])
-            ->join([
-                'scms_term_cycle' => [
-                    'table' => 'scms_term_cycle',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_term_cycle.term_cycle_id  = scms_results.term_cycle_id'],
-                ],
-            ])
-            ->toArray();
-        unset($term_ids[0]);
-        $results = array();
-        if (count($terms['term_id'])) {
-            $results = $scms_result
                 ->find()
                 ->where(['scms_results.session_id' => $request_data['session_id']])
                 ->where(['scms_results.level_id' => $request_data['level_id']])
-                ->where(['scms_term_cycle.term_id IN' => $term_ids])
+                ->where(['scms_term_cycle.term_id' => $term_ids[0]])
                 ->where(['type' => 'single'])
                 ->enableAutoFields(true)
                 ->enableHydration(false)
@@ -761,6 +728,28 @@ class ResultsController extends AppController
                     ],
                 ])
                 ->toArray();
+        unset($term_ids[0]);
+        $results = array();
+        if (count($terms['term_id'])) {
+            $results = $scms_result
+                    ->find()
+                    ->where(['scms_results.session_id' => $request_data['session_id']])
+                    ->where(['scms_results.level_id' => $request_data['level_id']])
+                    ->where(['scms_term_cycle.term_id IN' => $term_ids])
+                    ->where(['type' => 'single'])
+                    ->enableAutoFields(true)
+                    ->enableHydration(false)
+                    ->select([
+                        'term_id' => 'scms_term_cycle.term_id',
+                    ])
+                    ->join([
+                        'scms_term_cycle' => [
+                            'table' => 'scms_term_cycle',
+                            'type' => 'LEFT',
+                            'conditions' => ['scms_term_cycle.term_cycle_id  = scms_results.term_cycle_id'],
+                        ],
+                    ])
+                    ->toArray();
         }
 
         if (count($base_results) != count($term_ids)) {
@@ -816,19 +805,19 @@ class ResultsController extends AppController
 
         $grade = TableRegistry::getTableLocator()->get('scms_grade');
         $grades = $grade
-            ->find()
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->order(['point' => 'ASC'])
-            ->where(['gradings_id' => $request_data['gradings_id']])
-            ->toArray();
+                ->find()
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->order(['point' => 'ASC'])
+                ->where(['gradings_id' => $request_data['gradings_id']])
+                ->toArray();
 
         $query = $grade->find()->where(['gradings_id' => $request_data['gradings_id']]);
         $query->select([
-            'max_point' => $query->func()->max('point')
-        ])
-            ->enableAutoFields(true)
-            ->enableHydration(false);
+                    'max_point' => $query->func()->max('point')
+                ])
+                ->enableAutoFields(true)
+                ->enableHydration(false);
         foreach ($query as $row) {
             $max_point = $row['max_point'];
         }
@@ -837,25 +826,25 @@ class ResultsController extends AppController
         foreach ($filter_students as $key => $filter_student) {
             $filter_students[$key] = $this->term_merge_courses($filter_student, $terms_perentage, $student_third_fourth_subjects);
             if (isset($template['indivisul_pass_check'])) {
-                //indivisul_pass_check subject +total pass check
+//indivisul_pass_check subject +total pass check
                 $filter_students[$key]['merge_term'] = $this->indivisul_pass_check($filter_students[$key]['merge_term']);
             } else {
-                //total pass check
+//total pass check
                 $filter_students[$key]['merge_term'] = $this->total_pass_check($filter_students[$key]['merge_term']);
             }
 
-            //group_pass_check subject
+//group_pass_check subject
             if (isset($template['group_pass_check'])) {
                 $filter_students[$key]['merge_term'] = $this->group_pass_check($filter_students[$key]['merge_term'], $template['group_pass_check']);
             }
-            //group_persentage_check subject
+//group_persentage_check subject
             if (isset($template['group_persentage_check'])) {
                 $filter_students[$key]['merge_term'] = $this->group_persentage_and_calculate_total($filter_students[$key]['merge_term'], $template['group_persentage_check']);
             } //total_persentage_check subject
             else if (isset($template['total_persentage_check'])) {
                 $filter_students[$key]['merge_term'] = $this->total_persentage_and_calculate_total($filter_students[$key]['merge_term'], $template['total_persentage_check']['value']);
             } else {
-                //no persentage calculate total
+//no persentage calculate total
                 $filter_students[$key]['merge_term'] = $this->total_persentage_and_calculate_total($filter_students[$key]['merge_term']);
             }
             if (isset($filter_students[$key]['merge_term']['merge_course'])) {
@@ -864,9 +853,9 @@ class ResultsController extends AppController
                 }
             }
 
-            //calculate course  gpa
+//calculate course  gpa
             $filter_students[$key]['merge_term'] = $this->calculate_gpa($filter_students[$key]['merge_term'], $grades);
-            //calculate term total and gpa
+//calculate term total and gpa
             $filter_students[$key]['merge_term'] = $this->result_calculation($filter_students[$key]['merge_term'], $max_point, $template, $grades);
             $student_cycle_ids[] = $filter_students[$key]['base_term']['student_cycle_id'];
             if (isset($request_data['save']) && $request_data['save'] == 'yes') {
@@ -976,35 +965,34 @@ class ResultsController extends AppController
         $this->render('/result/markSheet_merge');
     }
 
-    private function get_merge_attendances($student_cycle_ids, $term_ids, $level_id, $session_id)
-    {
+    private function get_merge_attendances($student_cycle_ids, $term_ids, $level_id, $session_id) {
         $scms_result_student_attendance_month = TableRegistry::getTableLocator()->get('scms_result_student_attendance_month');
         $result_attendance_months = $scms_result_student_attendance_month
-            ->find()
-            ->where(['scms_student_term_cycle.student_cycle_id IN' => $student_cycle_ids])
-            ->where(['scms_term_cycle.term_id IN' => $term_ids])
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->select([
-                'student_cycle_id' => 'scms_student_term_cycle.student_cycle_id',
-            ])
-            ->join([
-                'scms_result_students' => [
-                    'table' => 'scms_result_students',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_result_students.result_student_id = scms_result_student_attendance_month.result_student_id'],
-                ],
-                'scms_student_term_cycle' => [
-                    'table' => 'scms_student_term_cycle',
-                    'type' => 'INNER',
-                    'conditions' => ['scms_student_term_cycle.student_term_cycle_id = scms_result_students.student_term_cycle_id'],
-                ],
-                'scms_term_cycle' => [
-                    'table' => 'scms_term_cycle',
-                    'type' => 'INNER',
-                    'conditions' => ['scms_term_cycle.term_cycle_id = scms_student_term_cycle.term_cycle_id'],
-                ]
-            ])->toArray();
+                        ->find()
+                        ->where(['scms_student_term_cycle.student_cycle_id IN' => $student_cycle_ids])
+                        ->where(['scms_term_cycle.term_id IN' => $term_ids])
+                        ->enableAutoFields(true)
+                        ->enableHydration(false)
+                        ->select([
+                            'student_cycle_id' => 'scms_student_term_cycle.student_cycle_id',
+                        ])
+                        ->join([
+                            'scms_result_students' => [
+                                'table' => 'scms_result_students',
+                                'type' => 'LEFT',
+                                'conditions' => ['scms_result_students.result_student_id = scms_result_student_attendance_month.result_student_id'],
+                            ],
+                            'scms_student_term_cycle' => [
+                                'table' => 'scms_student_term_cycle',
+                                'type' => 'INNER',
+                                'conditions' => ['scms_student_term_cycle.student_term_cycle_id = scms_result_students.student_term_cycle_id'],
+                            ],
+                            'scms_term_cycle' => [
+                                'table' => 'scms_term_cycle',
+                                'type' => 'INNER',
+                                'conditions' => ['scms_term_cycle.term_cycle_id = scms_student_term_cycle.term_cycle_id'],
+                            ]
+                        ])->toArray();
 
         $month[1]['count'] = '--';
         $month[2]['count'] = '--';
@@ -1027,36 +1015,36 @@ class ResultsController extends AppController
             if ($attendance_data[$attendance_month['student_cycle_id']][$attendance_month['month_id']]['count'] == '--') {
                 $attendance_data[$attendance_month['student_cycle_id']][$attendance_month['month_id']]['count'] = $attendance_month['count'];
             } else {
-                $attendance_data[$attendance_month['student_cycle_id']][$attendance_month['month_id']]['count'] = +$attendance_month['count'];
+                $attendance_data[$attendance_month['student_cycle_id']][$attendance_month['month_id']]['count'] = + $attendance_month['count'];
             }
         }
 
 
         $scms_result_attendance_month = TableRegistry::getTableLocator()->get('scms_result_attendance_month');
         $attendance_months = $scms_result_attendance_month
-            ->find()
-            ->where(['scms_term_cycle.term_id IN' => $term_ids])
-            ->where(['scms_results.session_id' => $session_id])
-            ->where(['scms_results.level_id' => $level_id])
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->join([
-                'scms_results' => [
-                    'table' => 'scms_results',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_results.result_id = scms_result_attendance_month.result_id'],
-                ],
-                'scms_term_cycle' => [
-                    'table' => 'scms_term_cycle',
-                    'type' => 'INNER',
-                    'conditions' => ['scms_term_cycle.term_cycle_id = scms_results.term_cycle_id'],
-                ]
-            ])->toArray();
+                        ->find()
+                        ->where(['scms_term_cycle.term_id IN' => $term_ids])
+                        ->where(['scms_results.session_id' => $session_id])
+                        ->where(['scms_results.level_id' => $level_id])
+                        ->enableAutoFields(true)
+                        ->enableHydration(false)
+                        ->join([
+                            'scms_results' => [
+                                'table' => 'scms_results',
+                                'type' => 'LEFT',
+                                'conditions' => ['scms_results.result_id = scms_result_attendance_month.result_id'],
+                            ],
+                            'scms_term_cycle' => [
+                                'table' => 'scms_term_cycle',
+                                'type' => 'INNER',
+                                'conditions' => ['scms_term_cycle.term_cycle_id = scms_results.term_cycle_id'],
+                            ]
+                        ])->toArray();
         foreach ($attendance_months as $attendance_month) {
             if ($month[$attendance_month['month_id']]['count'] == '--') {
                 $month[$attendance_month['month_id']]['count'] = $attendance_month['count'];
             } else {
-                $month[$attendance_month['month_id']]['count'] = +$attendance_month['count'];
+                $month[$attendance_month['month_id']]['count'] = + $attendance_month['count'];
             }
         }
         $return['months'] = $month;
@@ -1064,8 +1052,7 @@ class ResultsController extends AppController
         return $return;
     }
 
-    private function find_merge_result_term_names($names)
-    {
+    private function find_merge_result_term_names($names) {
         $return['base_term'] = $names[0];
         unset($names[0]);
         foreach ($names as $name) {
@@ -1074,8 +1061,7 @@ class ResultsController extends AppController
         return $return;
     }
 
-    private function term_merge_courses($student, $terms, $student_third_fourth_subjects)
-    {
+    private function term_merge_courses($student, $terms, $student_third_fourth_subjects) {
         $merge_term = array();
         $return_studnet = array();
         foreach ($student as $term_id => $student_term) {
@@ -1125,8 +1111,7 @@ class ResultsController extends AppController
         return $return_studnet;
     }
 
-    private function set_initial_merge_course_for_single_studnet($term, $percentage)
-    {
+    private function set_initial_merge_course_for_single_studnet($term, $percentage) {
         foreach ($term['courses'] as $course_id => $single_course) {
             $new_term['courses'][$course_id]['course_name'] = $single_course['course_name'];
             $new_term['courses'][$course_id]['course_code'] = $single_course['course_code'];
@@ -1195,39 +1180,38 @@ class ResultsController extends AppController
         return $return;
     }
 
-    private function get_other_scms_result_students_for_merge($result_ids, $where)
-    {
+    private function get_other_scms_result_students_for_merge($result_ids, $where) {
         $scms_result_students = TableRegistry::getTableLocator()->get('scms_result_students');
         $result_students = $scms_result_students->find()->where($where)->enableAutoFields(true)->enableHydration(false)->select([
-            'shift_id' => 'scms_student_cycle.shift_id',
-            'section_ids' => 'scms_student_cycle.section_id',
-            'student_cycle_id' => 'scms_student_cycle.student_cycle_id',
-            'student_id' => 'scms_student_cycle.student_id',
-            'level_id' => 'scms_student_cycle.level_id',
-            'roll' => 'scms_student_cycle.roll',
-            'term_id' => 'scms_term_cycle.term_id',
-        ])->join([
-            'scms_student_term_cycle' => [
-                'table' => 'scms_student_term_cycle',
-                'type' => 'LEFT',
-                'conditions' => ['scms_student_term_cycle.student_term_cycle_id = scms_result_students.student_term_cycle_id'],
-            ],
-            'scms_term_cycle' => [
-                'table' => 'scms_term_cycle',
-                'type' => 'LEFT',
-                'conditions' => ['scms_student_term_cycle.term_cycle_id = scms_term_cycle.term_cycle_id'],
-            ],
-            'scms_student_cycle' => [
-                'table' => 'scms_student_cycle',
-                'type' => 'LEFT',
-                'conditions' => ['scms_student_cycle.student_cycle_id  = scms_student_term_cycle.student_cycle_id'],
-            ],
-            'scms_students' => [
-                'table' => 'scms_students',
-                'type' => 'LEFT',
-                'conditions' => ['scms_students.student_id  = scms_student_cycle.student_id'],
-            ],
-        ])->toArray();
+                    'shift_id' => 'scms_student_cycle.shift_id',
+                    'section_ids' => 'scms_student_cycle.section_id',
+                    'student_cycle_id' => 'scms_student_cycle.student_cycle_id',
+                    'student_id' => 'scms_student_cycle.student_id',
+                    'level_id' => 'scms_student_cycle.level_id',
+                    'roll' => 'scms_student_cycle.roll',
+                    'term_id' => 'scms_term_cycle.term_id',
+                ])->join([
+                    'scms_student_term_cycle' => [
+                        'table' => 'scms_student_term_cycle',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_student_term_cycle.student_term_cycle_id = scms_result_students.student_term_cycle_id'],
+                    ],
+                    'scms_term_cycle' => [
+                        'table' => 'scms_term_cycle',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_student_term_cycle.term_cycle_id = scms_term_cycle.term_cycle_id'],
+                    ],
+                    'scms_student_cycle' => [
+                        'table' => 'scms_student_cycle',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_student_cycle.student_cycle_id  = scms_student_term_cycle.student_cycle_id'],
+                    ],
+                    'scms_students' => [
+                        'table' => 'scms_students',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_students.student_id  = scms_student_cycle.student_id'],
+                    ],
+                ])->toArray();
 
         $filter_result_studnets = array();
         $result_student_ids = array();
@@ -1239,8 +1223,7 @@ class ResultsController extends AppController
         return $filter_result_studnets;
     }
 
-    public function generateMergeResult()
-    {
+    public function generateMergeResult() {
         if ($this->request->is(['post'])) {
             $request_data = $this->request->getData();
             $template = $this->get_template($request_data['result_template_id']);
@@ -1260,65 +1243,64 @@ class ResultsController extends AppController
 
         $session = TableRegistry::getTableLocator()->get('scms_sessions');
         $sessions = $session
-            ->find()
-            ->order(['session_name' => 'DESC'])
-            ->toArray();
+                ->find()
+                ->order(['session_name' => 'DESC'])
+                ->toArray();
         $this->set('sessions', $sessions);
 
         $level = TableRegistry::getTableLocator()->get('scms_levels');
         $levels = $level
-            ->find()
-            ->toArray();
+                ->find()
+                ->toArray();
         $this->set('levels', $levels);
         $group = TableRegistry::getTableLocator()->get('scms_groups');
         $groups = $group
-            ->find()
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->toArray();
+                ->find()
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->toArray();
         $this->set('groups', $groups);
         $shift = TableRegistry::getTableLocator()->get('hr_shift');
         $shifts = $shift
-            ->find()
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->toArray();
+                ->find()
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->toArray();
         $this->set('shifts', $shifts);
         $result_template = TableRegistry::getTableLocator()->get('scms_result_template');
         $result_templates = $result_template
-            ->find()
-            ->where(['deleted' => 0])
-            ->where(['type' => 'merge'])
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->toArray();
+                ->find()
+                ->where(['deleted' => 0])
+                ->where(['type' => 'merge'])
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->toArray();
         $this->set('result_templates', $result_templates);
         $grading = TableRegistry::getTableLocator()->get('scms_gradings');
         $gradings = $grading
-            ->find()
-            ->toArray();
+                ->find()
+                ->toArray();
         $this->set('gradings', $gradings);
     }
 
-    private function get_studnet_third_fourth_subjects($student_term_cycle_ids)
-    {
+    private function get_studnet_third_fourth_subjects($student_term_cycle_ids) {
         $scms_third_and_forth_subject = TableRegistry::getTableLocator()->get('scms_third_and_forth_subject');
         $students_third_and_forth_subjects = $scms_third_and_forth_subject
-            ->find()
-            ->where(['scms_student_term_cycle.student_term_cycle_id IN' => $student_term_cycle_ids])
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->select([
-                'student_term_cycle_id' => 'scms_student_term_cycle.student_term_cycle_id',
-            ])
-            ->join([
-                'scms_student_term_cycle' => [
-                    'table' => 'scms_student_term_cycle',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_third_and_forth_subject.student_cycle_id  = scms_student_term_cycle.student_cycle_id'],
-                ],
-            ])
-            ->toArray();
+                ->find()
+                ->where(['scms_student_term_cycle.student_term_cycle_id IN' => $student_term_cycle_ids])
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->select([
+                    'student_term_cycle_id' => 'scms_student_term_cycle.student_term_cycle_id',
+                ])
+                ->join([
+                    'scms_student_term_cycle' => [
+                        'table' => 'scms_student_term_cycle',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_third_and_forth_subject.student_cycle_id  = scms_student_term_cycle.student_cycle_id'],
+                    ],
+                ])
+                ->toArray();
 
         $return = array();
         foreach ($students_third_and_forth_subjects as $students_third_and_forth_subject) {
@@ -1327,8 +1309,7 @@ class ResultsController extends AppController
         return $return;
     }
 
-    private function default_activities()
-    {
+    private function default_activities() {
         $default_activity_single_1['activity_name'] = 'extra activities';
         $default_activity_single_1['remark'][0]['remark_name'] = 'Cultural Activity/Dramatic Performance';
         $default_activity_single_1['remark'][0]['activity_remark_id'] = null;
@@ -1354,26 +1335,25 @@ class ResultsController extends AppController
         return $default_activity;
     }
 
-    private function get_student_activity($student_term_cycle_ids, $value)
-    {
+    private function get_student_activity($student_term_cycle_ids, $value) {
         $scms_activity_remark = TableRegistry::getTableLocator()->get('scms_activity_remark');
         $scms_activity_remarks = $scms_activity_remark
-            ->find()
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->where(['scms_activity_remark.activity_id IN' => $value])
-            ->where(['scms_activity_remark.deleted' => 0])
-            ->select([
-                'activity_name' => 'scms_activity.name',
-            ])
-            ->join([
-                'scms_activity' => [
-                    'table' => 'scms_activity',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_activity.activity_id   = scms_activity_remark.activity_id'],
-                ],
-            ])
-            ->toArray();
+                ->find()
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->where(['scms_activity_remark.activity_id IN' => $value])
+                ->where(['scms_activity_remark.deleted' => 0])
+                ->select([
+                    'activity_name' => 'scms_activity.name',
+                ])
+                ->join([
+                    'scms_activity' => [
+                        'table' => 'scms_activity',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_activity.activity_id   = scms_activity_remark.activity_id'],
+                    ],
+                ])
+                ->toArray();
         $filter_scms_activity_remarks = array();
         foreach ($scms_activity_remarks as $activity_remark) {
             $filter_scms_activity_remarks[$activity_remark['activity_id']]['activity_name'] = $activity_remark['activity_name'];
@@ -1383,26 +1363,26 @@ class ResultsController extends AppController
         }
         $scms_student_activity = TableRegistry::getTableLocator()->get('scms_student_activity');
         $student_activities = $scms_student_activity
-            ->find()
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->where(['student_term_cycle_id IN' => $student_term_cycle_ids])
-            ->select([
-                'activity_id' => 'scms_activity_cycle.activity_id',
-            ])
-            ->join([
-                'scms_term_activity_cycle' => [
-                    'table' => 'scms_term_activity_cycle',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_term_activity_cycle.term_activity_cycle_id   = scms_student_activity.term_activity_cycle_id'],
-                ],
-                'scms_activity_cycle' => [
-                    'table' => 'scms_activity_cycle',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_term_activity_cycle.activity_cycle_id  = scms_activity_cycle.activity_cycle_id'],
-                ],
-            ])
-            ->toArray();
+                ->find()
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->where(['student_term_cycle_id IN' => $student_term_cycle_ids])
+                ->select([
+                    'activity_id' => 'scms_activity_cycle.activity_id',
+                ])
+                ->join([
+                    'scms_term_activity_cycle' => [
+                        'table' => 'scms_term_activity_cycle',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_term_activity_cycle.term_activity_cycle_id   = scms_student_activity.term_activity_cycle_id'],
+                    ],
+                    'scms_activity_cycle' => [
+                        'table' => 'scms_activity_cycle',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_term_activity_cycle.activity_cycle_id  = scms_activity_cycle.activity_cycle_id'],
+                    ],
+                ])
+                ->toArray();
         $filter_student_activities = array();
         foreach ($student_activities as $activity) {
             $activity_remarks = json_decode($activity['remark_id']);
@@ -1417,8 +1397,7 @@ class ResultsController extends AppController
         return $return;
     }
 
-    private function find_last_row_colspan($template)
-    {
+    private function find_last_row_colspan($template) {
         if (isset($template['group_persentage_check']) || isset($template['total_persentage_check'])) {
             $return = 11;
         } else {
@@ -1427,62 +1406,60 @@ class ResultsController extends AppController
         return $return;
     }
 
-    private function get_exam_result_title($session_id, $level_id, $term_cycle_id)
-    {
+    private function get_exam_result_title($session_id, $level_id, $term_cycle_id) {
         $level = TableRegistry::getTableLocator()->get('scms_levels');
         $levels = $level
-            ->find()
-            ->where(['level_id' => $level_id])
-            ->toArray();
+                ->find()
+                ->where(['level_id' => $level_id])
+                ->toArray();
 
         $session = TableRegistry::getTableLocator()->get('scms_sessions');
         $sessions = $session
-            ->find()
-            ->where(['session_id' => $session_id])
-            ->toArray();
+                ->find()
+                ->where(['session_id' => $session_id])
+                ->toArray();
 
         $scms_term_cycle = TableRegistry::getTableLocator()->get('scms_term_cycle');
         $scms_term_cycles = $scms_term_cycle
-            ->find()
-            ->where(['term_cycle_id' => $term_cycle_id])
-            ->select([
-                'term_name' => 'scms_term.term_name',
-            ])
-            ->join([
-                'scms_term' => [
-                    'table' => 'scms_term',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_term.term_id  = scms_term_cycle.term_id'],
-                ],
-            ])
-            ->toArray();
+                ->find()
+                ->where(['term_cycle_id' => $term_cycle_id])
+                ->select([
+                    'term_name' => 'scms_term.term_name',
+                ])
+                ->join([
+                    'scms_term' => [
+                        'table' => 'scms_term',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_term.term_id  = scms_term_cycle.term_id'],
+                    ],
+                ])
+                ->toArray();
         $title['title'] = $scms_term_cycles[0]->term_name;
         $title[0] = $scms_term_cycles[0]->term_name . '-' . $sessions[0]->session_name;
         $title[1] = $levels[0]->level_name . '/EQUIVALENT RESULT PUBLICATION ' . $sessions[0]->session_name;
         return $title;
     }
 
-    private function delete_student_result($ids)
-    {
+    private function delete_student_result($ids) {
         $scms_result_students = TableRegistry::getTableLocator()->get('scms_result_students');
         $query = $scms_result_students->query();
         $query->delete()
-            ->where(['result_student_id IN' => $ids])
-            ->execute();
+                ->where(['result_student_id IN' => $ids])
+                ->execute();
 
         $scms_result_student_attendance_month = TableRegistry::getTableLocator()->get('scms_result_student_attendance_month');
         $query = $scms_result_student_attendance_month->query();
         $query->delete()
-            ->where(['result_student_id IN' => $ids])
-            ->execute();
+                ->where(['result_student_id IN' => $ids])
+                ->execute();
 
         $scms_result_student_courses = TableRegistry::getTableLocator()->get('scms_result_student_courses');
         $result_student_courses = $scms_result_student_courses
-            ->find()
-            ->where(['result_student_id IN' => $ids])
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->toArray();
+                ->find()
+                ->where(['result_student_id IN' => $ids])
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->toArray();
 
         foreach ($result_student_courses as $result_student_course) {
             $result_student_course_ids[] = $result_student_course['result_student_course_id'];
@@ -1490,37 +1467,36 @@ class ResultsController extends AppController
         if (isset($result_student_course_ids)) {
             $query = $scms_result_student_courses->query();
             $query->delete()
-                ->where(['result_student_course_id IN' => $result_student_course_ids])
-                ->execute();
+                    ->where(['result_student_course_id IN' => $result_student_course_ids])
+                    ->execute();
 
             $scms_result_student_course_parts = TableRegistry::getTableLocator()->get('scms_result_student_course_parts');
             $query = $scms_result_student_course_parts->query();
             $query->delete()
-                ->where(['result_student_course_id IN' => $result_student_course_ids])
-                ->execute();
+                    ->where(['result_student_course_id IN' => $result_student_course_ids])
+                    ->execute();
 
             $scms_result_student_course_persentage_groups = TableRegistry::getTableLocator()->get('scms_result_student_course_persentage_groups');
             $query = $scms_result_student_course_persentage_groups->query();
             $query->delete()
-                ->where(['result_student_course_id IN' => $result_student_course_ids])
-                ->execute();
+                    ->where(['result_student_course_id IN' => $result_student_course_ids])
+                    ->execute();
         }
 
 
         return true;
     }
 
-    private function find_previous_student_course_result($result_id, $student_term_cycle_id)
-    {
+    private function find_previous_student_course_result($result_id, $student_term_cycle_id) {
         $student_term_cycle_id = $student_term_cycle_id * 1;
         $return = array();
         $scms_result_students = TableRegistry::getTableLocator()->get('scms_result_students');
         $previous_results = $scms_result_students
-            ->find()
-            ->where(['result_id' => $result_id])
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->toArray();
+                ->find()
+                ->where(['result_id' => $result_id])
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->toArray();
 
         foreach ($previous_results as $previous_result) {
             $filer_previous_results[$previous_result['student_term_cycle_id']] = $previous_result;
@@ -1533,8 +1509,7 @@ class ResultsController extends AppController
         return $return;
     }
 
-    private function update_and_save_result($result_where, $request_data, $students, $attendance_months_data, $template, $type)
-    {
+    private function update_and_save_result($result_where, $request_data, $students, $attendance_months_data, $template, $type) {
         $result_data['session_id'] = $request_data['session_id'];
         $result_data['level_id'] = $request_data['level_id'];
         $result_data['term_cycle_id'] = isset($request_data['term_cycle_id']) ? $request_data['term_cycle_id'] : null;
@@ -1546,26 +1521,26 @@ class ResultsController extends AppController
 
         $scms_result = TableRegistry::getTableLocator()->get('scms_results');
         $previous_result = $scms_result
-            ->find()
-            ->where($result_where)
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->toArray();
+                ->find()
+                ->where($result_where)
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->toArray();
         if (count($previous_result) > 0) {
             $query = $scms_result->query();
             $query->update()
-                ->set($result_data)
-                ->where(['result_id' => $previous_result[0]['result_id']])
-                ->execute();
+                    ->set($result_data)
+                    ->where(['result_id' => $previous_result[0]['result_id']])
+                    ->execute();
             $result_students_data['result_id'] = $previous_result[0]['result_id'];
 
-            //save to update log
+//save to update log
             $this->insert_delete_update_log('result', 'update_and_save_result', 'update', json_encode($previous_result[0]));
         } else {
             $query = $scms_result->query();
             $query->insert(['session_id', 'level_id', 'term_cycle_id', 'result_template_id', 'gradings_id', 'type', 'created_by', 'created_date'])
-                ->values($result_data)
-                ->execute();
+                    ->values($result_data)
+                    ->execute();
             $myrecords = $scms_result->find()->last(); //get the last id
             $result_students_data['result_id'] = $myrecords->result_id;
         }
@@ -1617,12 +1592,12 @@ class ResultsController extends AppController
             $all_filter_students[$student['student_term_cycle_id']] = $student;
         }
         $privious_students = $scms_result_students
-            ->find()
-            ->where(['result_id' => $result_id])
-            ->where(['student_term_cycle_id IN' => $student_term_cycle_ids])
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->toArray();
+                ->find()
+                ->where(['result_id' => $result_id])
+                ->where(['student_term_cycle_id IN' => $student_term_cycle_ids])
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->toArray();
         $delete_students_ids = array();
         foreach ($privious_students as $privious_student) {
             $delete_students_ids[] = $privious_student['result_student_id'];
@@ -1634,21 +1609,21 @@ class ResultsController extends AppController
         $result_student_columns = array_keys($all_students[0]);
         $insertQueryResultStudent = $scms_result_students->query();
         $insertQueryResultStudent->insert($result_student_columns);
-        // you must always alter the values clause AFTER insert
+// you must always alter the values clause AFTER insert
         $insertQueryResultStudent->clause('values')->values($all_students);
         $insertQueryResultStudent->execute();
 
         $saved_students = $scms_result_students
-            ->find()
-            ->where(['result_id' => $result_id])
-            ->where(['student_term_cycle_id IN' => $student_term_cycle_ids])
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->toArray();
+                ->find()
+                ->where(['result_id' => $result_id])
+                ->where(['student_term_cycle_id IN' => $student_term_cycle_ids])
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->toArray();
         $result_students_course_data_all = array();
         $result_student_attendance = array();
         foreach ($saved_students as $saved_student) {
-            //attandance_data start
+//attandance_data start
             if (isset($all_filter_students[$saved_student['student_term_cycle_id']]['attandance_data'])) {
                 foreach ($all_filter_students[$saved_student['student_term_cycle_id']]['attandance_data'] as $key => $attandance_data) {
                     if ($attandance_data['count'] != '--') {
@@ -1660,8 +1635,8 @@ class ResultsController extends AppController
                 }
             }
 
-            //attandance_data end
-            //single course start
+//attandance_data end
+//single course start
             if (isset($all_filter_students[$saved_student['student_term_cycle_id']]['courses'])) {
                 foreach ($all_filter_students[$saved_student['student_term_cycle_id']]['courses'] as $courses) {
                     $result_students_course_data['student_term_course_cycle_id'] = $courses['student_term_course_cycle_id'];
@@ -1680,8 +1655,8 @@ class ResultsController extends AppController
                 }
             }
 
-            //single course end
-            //marge course start
+//single course end
+//marge course start
             if (isset($all_filter_students[$saved_student['student_term_cycle_id']]['merge_course'])) {
                 foreach ($all_filter_students[$saved_student['student_term_cycle_id']]['merge_course'] as $merge_course) {
                     $result_students_merge_course_data['result_student_id'] = $saved_student['result_student_id'];
@@ -1700,49 +1675,49 @@ class ResultsController extends AppController
                 }
             }
 
-            //merge course end
+//merge course end
         }
 
 
 
         if (count($result_student_attendance) > 0) {
-            //insert scms_result_student_attendance_month start
+//insert scms_result_student_attendance_month start
             $scms_result_student_attendance_month = TableRegistry::getTableLocator()->get('scms_result_student_attendance_month');
             $insertQueryResultStudentAttendanceMonth = $scms_result_student_attendance_month->query();
             $result_student_attendance_month_columns = array_keys($result_student_attendance[0]);
             $insertQueryResultStudentAttendanceMonth->insert($result_student_attendance_month_columns);
             $insertQueryResultStudentAttendanceMonth->clause('values')->values($result_student_attendance);
             $insertQueryResultStudentAttendanceMonth->execute();
-            //end  scms_result_student_attendance_month
+//end  scms_result_student_attendance_month
         }
 
 
         $insertQueryResultStudentCourse = $scms_result_student_courses->query();
         $result_student_course_columns = array_keys($result_students_course_data_all[0]);
         $insertQueryResultStudentCourse->insert($result_student_course_columns);
-        // you must always alter the values clause AFTER insert
+// you must always alter the values clause AFTER insert
         $insertQueryResultStudentCourse->clause('values')->values($result_students_course_data_all);
         $insertQueryResultStudentCourse->execute();
 
         $saved_single_courses = $scms_result_student_courses
-            ->find()
-            ->where(['scms_result_students.result_id' => $result_id])
-            ->where(['scms_result_students.student_term_cycle_id IN' => $student_term_cycle_ids])
-            ->where(['parent_result_student_course_id is NULL'])
-            ->where(['type' => 'single'])
-            ->select([
-                'student_term_cycle_id' => 'scms_result_students.student_term_cycle_id'
-            ])
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->join([
-                'scms_result_students' => [
-                    'table' => 'scms_result_students',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_result_students.result_student_id  = scms_result_student_courses.result_student_id'],
-                ]
-            ])
-            ->toArray();
+                ->find()
+                ->where(['scms_result_students.result_id' => $result_id])
+                ->where(['scms_result_students.student_term_cycle_id IN' => $student_term_cycle_ids])
+                ->where(['parent_result_student_course_id is NULL'])
+                ->where(['type' => 'single'])
+                ->select([
+                    'student_term_cycle_id' => 'scms_result_students.student_term_cycle_id'
+                ])
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->join([
+                    'scms_result_students' => [
+                        'table' => 'scms_result_students',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_result_students.result_student_id  = scms_result_student_courses.result_student_id'],
+                    ]
+                ])
+                ->toArray();
 
         $result_student_course_parts_data_all = array();
         $persentage_groups_data_all = array();
@@ -1769,28 +1744,28 @@ class ResultsController extends AppController
             }
         }
         $saved_merge_courses = $scms_result_student_courses
-            ->find()
-            ->where(['scms_result_students.result_id' => $result_id])
-            ->where(['scms_result_students.student_term_cycle_id IN' => $student_term_cycle_ids])
-            ->where(['parent_result_student_course_id is NULL'])
-            ->where(['type' => 'merge'])
-            ->select([
-                'student_term_cycle_id' => 'scms_result_students.student_term_cycle_id'
-            ])
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->join([
-                'scms_result_students' => [
-                    'table' => 'scms_result_students',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_result_students.result_student_id  = scms_result_student_courses.result_student_id'],
-                ]
-            ])
-            ->toArray();
+                ->find()
+                ->where(['scms_result_students.result_id' => $result_id])
+                ->where(['scms_result_students.student_term_cycle_id IN' => $student_term_cycle_ids])
+                ->where(['parent_result_student_course_id is NULL'])
+                ->where(['type' => 'merge'])
+                ->select([
+                    'student_term_cycle_id' => 'scms_result_students.student_term_cycle_id'
+                ])
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->join([
+                    'scms_result_students' => [
+                        'table' => 'scms_result_students',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_result_students.result_student_id  = scms_result_student_courses.result_student_id'],
+                    ]
+                ])
+                ->toArray();
         if (count($saved_merge_courses) > 0) {
             $result_students_course_data_single_all = array();
             foreach ($saved_merge_courses as $saved_merge_course) {
-                //merge course parts
+//merge course parts
                 if (isset($all_filter_students[$saved_merge_course['student_term_cycle_id']]['merge_course'][$saved_merge_course['first_course_id_of_merge_course']]['total']['parts'])) {
                     foreach ($all_filter_students[$saved_merge_course['student_term_cycle_id']]['merge_course'][$saved_merge_course['first_course_id_of_merge_course']]['total']['parts'] as $parts) {
                         $result_student_course_parts_data['term_course_cycle_part_type_id'] = $parts['term_course_cycle_part_type_id'];
@@ -1802,7 +1777,7 @@ class ResultsController extends AppController
                         $result_student_course_parts_data_all[] = $result_student_course_parts_data;
                     }
                 }
-                //merge course percentage group
+//merge course percentage group
                 if (isset($all_filter_students[$saved_merge_course['student_term_cycle_id']]['merge_course'][$saved_merge_course['first_course_id_of_merge_course']]['total']['persentage_groups'])) {
                     foreach ($all_filter_students[$saved_merge_course['student_term_cycle_id']]['merge_course'][$saved_merge_course['first_course_id_of_merge_course']]['total']['persentage_groups'] as $persentage_groups) {
                         $persentage_groups_data['total_mark'] = $persentage_groups['total_marks'];
@@ -1834,29 +1809,29 @@ class ResultsController extends AppController
             $insertQueryResultStudentSingleCourse = $scms_result_student_courses->query();
             $result_student_single_course_columns = array_keys($result_students_course_data_single_all[0]);
             $insertQueryResultStudentSingleCourse->insert($result_student_single_course_columns);
-            // you must always alter the values clause AFTER insert
+// you must always alter the values clause AFTER insert
             $insertQueryResultStudentSingleCourse->clause('values')->values($result_students_course_data_single_all);
             $insertQueryResultStudentSingleCourse->execute();
 
             $saved_merge_single_courses = $scms_result_student_courses
-                ->find()
-                ->where(['scms_result_students.result_id' => $result_id])
-                ->where(['scms_result_students.student_term_cycle_id IN' => $student_term_cycle_ids])
-                ->where(['parent_result_student_course_id is Not NULL'])
-                ->where(['type' => 'single'])
-                ->select([
-                    'student_term_cycle_id' => 'scms_result_students.student_term_cycle_id'
-                ])
-                ->enableAutoFields(true)
-                ->enableHydration(false)
-                ->join([
-                    'scms_result_students' => [
-                        'table' => 'scms_result_students',
-                        'type' => 'LEFT',
-                        'conditions' => ['scms_result_students.result_student_id  = scms_result_student_courses.result_student_id'],
-                    ]
-                ])
-                ->toArray();
+                    ->find()
+                    ->where(['scms_result_students.result_id' => $result_id])
+                    ->where(['scms_result_students.student_term_cycle_id IN' => $student_term_cycle_ids])
+                    ->where(['parent_result_student_course_id is Not NULL'])
+                    ->where(['type' => 'single'])
+                    ->select([
+                        'student_term_cycle_id' => 'scms_result_students.student_term_cycle_id'
+                    ])
+                    ->enableAutoFields(true)
+                    ->enableHydration(false)
+                    ->join([
+                        'scms_result_students' => [
+                            'table' => 'scms_result_students',
+                            'type' => 'LEFT',
+                            'conditions' => ['scms_result_students.result_student_id  = scms_result_student_courses.result_student_id'],
+                        ]
+                    ])
+                    ->toArray();
 
             foreach ($saved_merge_single_courses as $saved_merge_single_course) {
                 foreach ($all_filter_students[$saved_merge_single_course['student_term_cycle_id']]['merge_course'][$saved_merge_single_course['first_course_id_of_merge_course']] as $merge_single_course) {
@@ -1892,7 +1867,7 @@ class ResultsController extends AppController
             $insertQueryResultStudentParts = $scms_result_student_course_parts->query();
             $parts_columns = array_keys($result_student_course_parts_data_all[0]);
             $insertQueryResultStudentParts->insert($parts_columns);
-            // you must always alter the values clause AFTER insert
+// you must always alter the values clause AFTER insert
             $insertQueryResultStudentParts->clause('values')->values($result_student_course_parts_data_all);
             $insertQueryResultStudentParts->execute();
         }
@@ -1902,39 +1877,37 @@ class ResultsController extends AppController
             $insertQueryResultStudentPersentage = $scms_result_student_course_persentage_groups->query();
             $persentage_columns = array_keys($persentage_groups_data_all[0]);
             $insertQueryResultStudentPersentage->insert($persentage_columns);
-            // you must always alter the values clause AFTER insert
+// you must always alter the values clause AFTER insert
             $insertQueryResultStudentPersentage->clause('values')->values($persentage_groups_data_all);
             $insertQueryResultStudentPersentage->execute();
         }
     }
 
-    private function delete_and_save_scms_result_attendance_month($result_attendance_month, $result_id)
-    {
+    private function delete_and_save_scms_result_attendance_month($result_attendance_month, $result_id) {
         $scms_result_attendance_month = TableRegistry::getTableLocator()->get('scms_result_attendance_month');
         $query = $scms_result_attendance_month->query();
         $query->delete()
-            ->where(['result_id' => $result_id])
-            ->execute();
+                ->where(['result_id' => $result_id])
+                ->execute();
         if (count($result_attendance_month) > 0) {
             $insertQueryResultAttendanceMonth = $scms_result_attendance_month->query();
             $result_attendance_month_columns = array_keys($result_attendance_month[0]);
             $insertQueryResultAttendanceMonth->insert($result_attendance_month_columns);
-            // you must always alter the values clause AFTER insert
+// you must always alter the values clause AFTER insert
             $insertQueryResultAttendanceMonth->clause('values')->values($result_attendance_month);
             $insertQueryResultAttendanceMonth->execute();
         }
     }
 
-    private function update_result_activity($activity_ids, $result_id)
-    {
+    private function update_result_activity($activity_ids, $result_id) {
         $scms_result_activity = TableRegistry::getTableLocator()->get('scms_result_activity');
         $scms_result_activity_remark = TableRegistry::getTableLocator()->get('scms_result_activity_remark');
         $previous_result_activity = $scms_result_activity
-            ->find()
-            ->where(['result_id' => $result_id])
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->toArray();
+                ->find()
+                ->where(['result_id' => $result_id])
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->toArray();
         if (count($previous_result_activity)) {
             $previous_result_activity_ids = array();
             foreach ($previous_result_activity as $previous_activity) {
@@ -1942,42 +1915,42 @@ class ResultsController extends AppController
             }
             $query = $scms_result_activity_remark->query();
             $query->delete()
-                ->where(['result_activity_id IN' => $previous_result_activity_ids])
-                ->execute();
+                    ->where(['result_activity_id IN' => $previous_result_activity_ids])
+                    ->execute();
 
             $query = $scms_result_activity->query();
             $query->delete()
-                ->where(['result_activity_id IN' => $previous_result_activity_ids])
-                ->execute();
+                    ->where(['result_activity_id IN' => $previous_result_activity_ids])
+                    ->execute();
         }
         $scms_activity = TableRegistry::getTableLocator()->get('scms_activity'); //Execute First
         $scms_result_activity_data['result_id'] = $result_id;
         foreach ($activity_ids as $activity_id) {
             $activity = $scms_activity
-                ->find()
-                ->enableAutoFields(true)
-                ->enableHydration(false)
-                ->where(['activity_id' => $activity_id])
-                ->toArray();
+                    ->find()
+                    ->enableAutoFields(true)
+                    ->enableHydration(false)
+                    ->where(['activity_id' => $activity_id])
+                    ->toArray();
             $scms_result_activity_data['activity_id'] = $activity[0]['activity_id'];
             $scms_result_activity_data['activity_name'] = $activity[0]['name'];
             $column = array_keys($scms_result_activity_data);
 
             $query = $scms_result_activity->query();
             $query->insert($column)
-                ->values($scms_result_activity_data)
-                ->execute();
+                    ->values($scms_result_activity_data)
+                    ->execute();
             $last_insert_result_activity = $scms_result_activity->find()->last(); //get the last id
             $result_activity_id = $last_insert_result_activity->result_activity_id;
 
             $scms_activity_remark = TableRegistry::getTableLocator()->get('scms_activity_remark');
             $scms_activity_remarks = $scms_activity_remark
-                ->find()
-                ->enableAutoFields(true)
-                ->enableHydration(false)
-                ->where(['scms_activity_remark.activity_id' => $activity_id])
-                ->where(['scms_activity_remark.deleted' => 0])
-                ->toArray();
+                    ->find()
+                    ->enableAutoFields(true)
+                    ->enableHydration(false)
+                    ->where(['scms_activity_remark.activity_id' => $activity_id])
+                    ->where(['scms_activity_remark.deleted' => 0])
+                    ->toArray();
             $scms_result_activity_remark_data = array();
             $scms_result_activity_remark_data_single['result_activity_id'] = $result_activity_id;
             foreach ($scms_activity_remarks as $scms_activity_remark) {
@@ -1986,20 +1959,19 @@ class ResultsController extends AppController
                 $scms_result_activity_remark_data[] = $scms_result_activity_remark_data_single;
             }
             if (count($scms_result_activity_remark_data) > 0) {
-                //insert scms_result_activity_remark start
+//insert scms_result_activity_remark start
                 $scms_result_activity_remark = TableRegistry::getTableLocator()->get('scms_result_activity_remark');
                 $insertQuery = $scms_result_activity_remark->query();
                 $columns = array_keys($scms_result_activity_remark_data[0]);
                 $insertQuery->insert($columns);
                 $insertQuery->clause('values')->values($scms_result_activity_remark_data);
                 $insertQuery->execute();
-                //end  scms_result_activity_remark
+//end  scms_result_activity_remark
             }
         }
     }
 
-    private function result_calculation($student, $max_point, $template, $grades)
-    {
+    private function result_calculation($student, $max_point, $template, $grades) {
         $student['result']['total_marks'] = 0;
         $student['result']['marks'] = 0;
         $student['result']['point'] = 0;
@@ -2058,7 +2030,7 @@ class ResultsController extends AppController
 
 
         if (isset($fourth_subject)) {
-            $cut_mark = ($fourth_subject['result']['total_marks'] * 40) / 100;
+            $cut_mark = ($fourth_subject['result']['total_marks'] * 40 ) / 100;
             if ($cut_mark <= $fourth_subject['result']['marks']) {
                 $student['result']['marks_with_forth_subject'] = $student['result']['marks'] + $fourth_subject['result']['marks'] - $cut_mark;
                 $student['result']['point_with_forth_subject'] = $student['result']['point'] + $fourth_subject['result']['point'] - 2;
@@ -2093,8 +2065,7 @@ class ResultsController extends AppController
         return $student;
     }
 
-    private function get_total_gpa($gpa, $grades)
-    {
+    private function get_total_gpa($gpa, $grades) {
         $max = count($grades) - 1;
         for ($i = 0; $i <= $max; $i++) {
             if ($i == $max) {
@@ -2109,8 +2080,7 @@ class ResultsController extends AppController
         }
     }
 
-    private function course_gpa($grades, $result)
-    {
+    private function course_gpa($grades, $result) {
         if ($result['result'] == 'pass') {
             $percentage_top = 0;
             foreach ($grades as $grade) {
@@ -2120,7 +2090,7 @@ class ResultsController extends AppController
                 }
             }
 
-            $marks_persentage = ($result['marks'] / $result['total_marks']) * 100;
+            $marks_persentage = ($result['marks'] / $result['total_marks'] ) * 100;
             if ($marks_persentage == $percentage_top) {
                 $course_gpa['grade_name'] = $top_grade['grade_name'];
                 $course_gpa['point'] = $top_grade['point'];
@@ -2139,9 +2109,8 @@ class ResultsController extends AppController
         return $course_gpa;
     }
 
-    private function calculate_gpa($student, $grades)
-    {
-        //single course start
+    private function calculate_gpa($student, $grades) {
+//single course start
         foreach ($student['courses'] as $key2 => $course) {
             $gpa_course = $this->course_gpa($grades, $course['result']);
             $student['courses'][$key2]['result']['grade_name'] = $gpa_course['grade_name'];
@@ -2150,8 +2119,8 @@ class ResultsController extends AppController
                 $student['courses'][$key2]['result']['result'] = 'fail';
             }
         }
-        //single course end
-        //merge course start
+//single course end
+//merge course start
         if (isset($student['merge_course'])) {
             foreach ($student['merge_course'] as $key4 => $merge_course) {
                 $gpa_course = $this->course_gpa($grades, $merge_course['result']);
@@ -2163,16 +2132,15 @@ class ResultsController extends AppController
             }
         }
 
-        //merge course end
+//merge course end
 
         return $student;
     }
 
-    private function total_persentage_and_calculate_total($student, $persentage = false)
-    {
-        //single course start
+    private function total_persentage_and_calculate_total($student, $persentage = false) {
+//single course start
         foreach ($student['courses'] as $key2 => $course) {
-            //initial total marks
+//initial total marks
             $result['total_marks'] = 0;
             $result['pass_marks'] = 0;
             $result['marks'] = 0;
@@ -2189,7 +2157,7 @@ class ResultsController extends AppController
             }
 
 
-            //calculate the persentage of marks
+//calculate the persentage of marks
             if ($persentage) {
                 $result['total_marks'] = $result['total_marks'] * ($persentage / 100);
                 $result['pass_marks'] = $result['pass_marks'] * ($persentage / 100);
@@ -2201,16 +2169,16 @@ class ResultsController extends AppController
                 $result['result'] = null;
             }
 
-            //assign total to the main array
+//assign total to the main array
             $student['courses'][$key2]['result'] = $result;
         }
-        //single course end
-        //merge course start
+//single course end
+//merge course start
         if (isset($student['merge_course'])) {
             foreach ($student['merge_course'] as $key4 => $merge_courses) {
 
                 foreach ($merge_courses as $key5 => $merge_course) {
-                    //initial total marks
+//initial total marks
                     $result['total_marks'] = 0;
                     $result['pass_marks'] = 0;
                     $result['marks'] = 0;
@@ -2221,14 +2189,14 @@ class ResultsController extends AppController
                         $result['pass_marks'] = $result['pass_marks'] + $part['pass_mark'];
                         $result['marks'] = $result['marks'] + $part['marks'];
                     }
-                    //calculate the persentage of marks
+//calculate the persentage of marks
                     if ($persentage) {
                         $result['total_marks'] = $result['total_marks'] * ($persentage / 100);
                         $result['pass_marks'] = $result['pass_marks'] * ($persentage / 100);
                         $result['marks'] = $result['marks'] * ($persentage / 100);
                     }
                     $result['result'] = $student['merge_course'][$key4][$key5]['result']['result'];
-                    //assign total to the main array
+//assign total to the main array
                     if ($key5 == 'total') {
                         $student['merge_course'][$key4]['result'] = $result;
                     } else {
@@ -2241,16 +2209,15 @@ class ResultsController extends AppController
             }
         }
 
-        //merge course end
+//merge course end
 
         return $student;
     }
 
-    private function group_persentage_and_calculate_total($student, $group_persentage_check)
-    {
-        //single course start
+    private function group_persentage_and_calculate_total($student, $group_persentage_check) {
+//single course start
         foreach ($student['courses'] as $key2 => $course) {
-            //initial total marks
+//initial total marks
             $result['total_marks'] = 0;
             $result['pass_marks'] = 0;
             $result['marks'] = 0;
@@ -2263,52 +2230,52 @@ class ResultsController extends AppController
                     $persentage = $part_ids['persentage'];
                     unset($part_ids['persentage']);
                     unset($part_ids['view']);
-                    //initial group marks
+//initial group marks
                     $group_marks['total_marks'] = 0;
                     $group_marks['pass_marks'] = 0;
                     $group_marks['marks'] = 0;
                     foreach ($part_ids as $part_id) {
                         if (isset($parts[$part_id])) {
-                            //calculate group marks
+//calculate group marks
                             $group_marks['total_marks'] = $group_marks['total_marks'] + $parts[$part_id]['total_mark'];
                             $group_marks['pass_marks'] = $group_marks['pass_marks'] + $parts[$part_id]['pass_mark'];
                             $group_marks['marks'] = $group_marks['marks'] + $parts[$part_id]['marks'];
                             unset($parts[$part_id]);
                         }
                     }
-                    //calculate the persentage of group marks
+//calculate the persentage of group marks
                     $group_marks['total_marks'] = $group_marks['total_marks'] * ($persentage / 100);
                     $group_marks['pass_marks'] = $group_marks['pass_marks'] * ($persentage / 100);
                     $group_marks['marks'] = $group_marks['marks'] * ($persentage / 100);
 
-                    //index group marks to main students array
+//index group marks to main students array
                     $student['courses'][$key2]['persentage_groups'][] = $group_marks;
 
-                    //calculate total marks
+//calculate total marks
                     $result['total_marks'] = $result['total_marks'] + $group_marks['total_marks'];
                     $result['pass_marks'] = $result['pass_marks'] + $group_marks['pass_marks'];
                     $result['marks'] = $result['marks'] + $group_marks['marks'];
 
-                    //add extra parts that are not in groups
+//add extra parts that are not in groups
                     foreach ($parts as $part) {
                         $result['total_marks'] = $result['total_marks'] + $part['total_mark'];
                         $result['pass_marks'] = $result['pass_marks'] + $part['pass_mark'];
                         $result['marks'] = $result['marks'] + $part['marks'];
                     }
                     $result['result'] = $student['courses'][$key2]['result']['result'];
-                    //assign total to the main array
+//assign total to the main array
                     $student['courses'][$key2]['result'] = $result;
                 }
             } else {
                 $student['courses'][$key2]['result'] = $result;
             }
         }
-        //single course end
-        //merge course start
+//single course end
+//merge course start
         if (isset($student['merge_course'])) {
             foreach ($student['merge_course'] as $key4 => $merge_courses) {
                 foreach ($merge_courses as $key5 => $merge_course) {
-                    //initial total marks
+//initial total marks
                     $result['total_marks'] = 0;
                     $result['pass_marks'] = 0;
                     $result['marks'] = 0;
@@ -2319,13 +2286,13 @@ class ResultsController extends AppController
                         $persentage = $part_ids['persentage'];
                         unset($part_ids['persentage']);
                         unset($part_ids['view']);
-                        //initial group marks
+//initial group marks
                         $group_marks['total_marks'] = 0;
                         $group_marks['pass_marks'] = 0;
                         $group_marks['marks'] = 0;
                         foreach ($part_ids as $part_id) {
                             if (isset($parts[$part_id])) {
-                                //calculate group marks
+//calculate group marks
                                 $group_marks['total_marks'] = $group_marks['total_marks'] + $parts[$part_id]['total_mark'];
                                 $group_marks['pass_marks'] = $group_marks['pass_marks'] + $parts[$part_id]['pass_mark'];
                                 $group_marks['marks'] = $group_marks['marks'] + $parts[$part_id]['marks'];
@@ -2333,20 +2300,20 @@ class ResultsController extends AppController
                             }
                         }
 
-                        //calculate the persentage of group marks
+//calculate the persentage of group marks
                         $group_marks['total_marks'] = $group_marks['total_marks'] * ($persentage / 100);
                         $group_marks['pass_marks'] = $group_marks['pass_marks'] * ($persentage / 100);
                         $group_marks['marks'] = $group_marks['marks'] * ($persentage / 100);
 
-                        //index group marks to main students array
+//index group marks to main students array
                         $student['merge_course'][$key4][$key5]['persentage_groups'][] = $group_marks;
 
-                        //calculate total marks
+//calculate total marks
                         $result['total_marks'] = $result['total_marks'] + $group_marks['total_marks'];
                         $result['pass_marks'] = $result['pass_marks'] + $group_marks['pass_marks'];
                         $result['marks'] = $result['marks'] + $group_marks['marks'];
 
-                        //add extra parts that are not in groups
+//add extra parts that are not in groups
                         foreach ($parts as $part) {
                             $result['total_marks'] = $result['total_marks'] + $part['total_mark'];
                             $result['pass_marks'] = $result['pass_marks'] + $part['pass_mark'];
@@ -2354,7 +2321,7 @@ class ResultsController extends AppController
                         }
 
                         $result['result'] = $student['merge_course'][$key4][$key5]['result']['result'];
-                        //assign total to the main array
+//assign total to the main array
                         if ($key5 == 'total') {
                             $student['merge_course'][$key4]['result'] = $result;
                         } else {
@@ -2371,9 +2338,8 @@ class ResultsController extends AppController
         return $student;
     }
 
-    private function total_pass_check($student)
-    {
-        //single course start
+    private function total_pass_check($student) {
+//single course start
         foreach ($student['courses'] as $key2 => $course) {
             if ($course['parts'][9999]['marks'] >= $course['parts'][9999]['pass_mark']) {
                 $student['courses'][$key2]['result']['result'] = 'pass';
@@ -2382,7 +2348,7 @@ class ResultsController extends AppController
                 $student['courses'][$key2]['result']['check'] = 'total';
             }
         }
-        //single course end
+//single course end
         if (isset($student['merge_course'])) {
             foreach ($student['merge_course'] as $key4 => $merge_courses) {
                 foreach ($merge_courses as $key5 => $merge_course) {
@@ -2399,12 +2365,11 @@ class ResultsController extends AppController
         return $student;
     }
 
-    private function group_pass_check($student, $group_pass_check)
-    {
+    private function group_pass_check($student, $group_pass_check) {
         foreach ($group_pass_check['value'] as $set => $groups) {
             unset($groups['view']);
 
-            //single course start
+//single course start
             foreach ($student['courses'] as $key2 => $course) {
                 $pass_mark = 0;
                 $marks = 0;
@@ -2428,7 +2393,7 @@ class ResultsController extends AppController
                     $student['courses'][$key2]['group_marks'][$set]['total_mark'] = $total_marks;
                 }
             }
-            //single course end
+//single course end
             if (isset($student['merge_course'])) {
                 foreach ($student['merge_course'] as $key4 => $merge_courses) {
                     foreach ($merge_courses as $key5 => $merge_course) {
@@ -2460,10 +2425,9 @@ class ResultsController extends AppController
         return $student;
     }
 
-    private function indivisul_pass_check($student)
-    {
+    private function indivisul_pass_check($student) {
 
-        //single course start
+//single course start
         foreach ($student['courses'] as $key2 => $course) {
             if (isset($course['parts'])) {
                 foreach ($course['parts'] as $key3 => $part) {
@@ -2478,7 +2442,7 @@ class ResultsController extends AppController
                 }
             }
         }
-        //single course end
+//single course end
         if (isset($student['merge_course'])) {
             foreach ($student['merge_course'] as $key4 => $merge_course) {
                 foreach ($merge_course as $key5 => $courses) {
@@ -2499,9 +2463,8 @@ class ResultsController extends AppController
         return $student;
     }
 
-    private function merge_subject($merge_subject, $student)
-    {
-        //separate merge subject start
+    private function merge_subject($merge_subject, $student) {
+//separate merge subject start
         foreach ($merge_subject['value'] as $group => $merge) {
             $student['merge_course'][$group][] = $student['courses'][$merge[0]]; //assgin course to merge_course
             $student['merge_course'][$group][] = $student['courses'][$merge[1]];
@@ -2533,12 +2496,11 @@ class ResultsController extends AppController
             unset($student['courses'][$merge[0]]); //remove course from main array
             unset($student['courses'][$merge[1]]); //remove course from main array
         }
-        //separate merge subject end
+//separate merge subject end
         return $student;
     }
 
-    private function merge_subject_total($subject_1, $subject_2)
-    {
+    private function merge_subject_total($subject_1, $subject_2) {
         $part_ids = array();
         foreach ($subject_1['parts'] as $key => $part) {
             $part_ids[$part['term_course_cycle_part_type_id']]['id'] = $part['term_course_cycle_part_type_id'];
@@ -2574,8 +2536,7 @@ class ResultsController extends AppController
         return $total;
     }
 
-    public function editTemplate($id)
-    {
+    public function editTemplate($id) {
         if ($this->request->is(['post'])) {
             $data = $this->request->getData();
             $grading_data['gradings_system_name'] = $data['gradings_system_name'];
@@ -2597,7 +2558,7 @@ class ResultsController extends AppController
                     $query->insert(['gradings_id', 'grade_name', 'point', 'percentage_down', 'percentage_top'])->values($grade_data)->execute();
                 }
             }
-            //Set Flash
+//Set Flash
             $this->Flash->success('Grade Add/Edit Successfully Done', [
                 'key' => 'positive',
                 'params' => [],
@@ -2612,14 +2573,13 @@ class ResultsController extends AppController
         $this->set('grades', $grades);
     }
 
-    public function deleteTemplate($id)
-    {
+    public function deleteTemplate($id) {
         $this->autoRender = false;
         $data['deleted'] = 1;
         $result_template = TableRegistry::getTableLocator()->get('scms_result_template');
         $query = $result_template->query();
         $query->update()->set($data)->where(['result_template_id' => $id])->execute();
-        //Set Flash
+//Set Flash
         $this->Flash->info('Template Deleted Successfully', [
             'key' => 'positive',
             'params' => [],
@@ -2627,8 +2587,7 @@ class ResultsController extends AppController
         return $this->redirect(['action' => 'indexTemplate']);
     }
 
-    private function get_courses_name($values)
-    {
+    private function get_courses_name($values) {
         foreach ($values as $key => $value) {
             $course = TableRegistry::getTableLocator()->get('scms_courses');
             $courses = $course->find()->where(['course_id in' => $value])->enableAutoFields(true)->enableHydration(false)->toArray();
@@ -2643,8 +2602,7 @@ class ResultsController extends AppController
         return $values;
     }
 
-    private function get_type_name($values)
-    {
+    private function get_type_name($values) {
         foreach ($values as $key => $value) {
             $values[$key] = (array) $value;
         }
@@ -2670,8 +2628,7 @@ class ResultsController extends AppController
         return $values;
     }
 
-    private function get_template($id)
-    {
+    private function get_template($id) {
         $result_template_rule = TableRegistry::getTableLocator()->get('scms_result_template_rule');
         $result_template_rules = $result_template_rule->find()->where(['result_template_id' => $id])->enableAutoFields(true)->enableHydration(false)->toArray();
         foreach ($result_template_rules as $key => $result_template_rule) {
@@ -2704,34 +2661,31 @@ class ResultsController extends AppController
         return $rules;
     }
 
-    private function get_term_name($value)
-    {
+    private function get_term_name($value) {
         foreach ($value['term_id'] as $key => $term_id) {
             $term = TableRegistry::getTableLocator()->get('scms_term'); //Execute First
             $terms = $term
-                ->find()
-                ->where(['term_id' => $term_id])
-                ->toArray();
+                    ->find()
+                    ->where(['term_id' => $term_id])
+                    ->toArray();
             $value['term_name'][$key] = $terms[0]->term_name;
         }
         return $value;
     }
 
-    private function get_activity_name($value)
-    {
+    private function get_activity_name($value) {
         foreach ($value as $key => $activity_id) {
             $scms_activity = TableRegistry::getTableLocator()->get('scms_activity'); //Execute First
             $activity = $scms_activity
-                ->find()
-                ->where(['activity_id' => $activity_id])
-                ->toArray();
+                    ->find()
+                    ->where(['activity_id' => $activity_id])
+                    ->toArray();
             $value['activity_name'][] = $activity[0]->name;
         }
         return $value;
     }
 
-    public function viewTemplate($id)
-    {
+    public function viewTemplate($id) {
         $rules = $this->get_template($id);
         $this->set('rules', $rules);
         $template = TableRegistry::getTableLocator()->get('scms_result_template');
@@ -2739,8 +2693,7 @@ class ResultsController extends AppController
         $this->set('result_templates', $templates);
     }
 
-    public function addMergeTemplate()
-    {
+    public function addMergeTemplate() {
         if ($this->request->is(['post'])) {
             $data = $this->request->getData();
             $result_template_configuration = TableRegistry::getTableLocator()->get('scms_result_template_configuration');
@@ -2788,7 +2741,7 @@ class ResultsController extends AppController
                 }
             }
 
-            //Set Flash
+//Set Flash
             $this->Flash->success('Template Added Successfully', [
                 'key' => 'positive',
                 'params' => [],
@@ -2813,8 +2766,7 @@ class ResultsController extends AppController
         $this->set('activities', $activities);
     }
 
-    public function addTemplate()
-    {
+    public function addTemplate() {
         if ($this->request->is(['post'])) {
             $data = $this->request->getData();
             $result_template_configuration = TableRegistry::getTableLocator()->get('scms_result_template_configuration');
@@ -2865,7 +2817,7 @@ class ResultsController extends AppController
                 }
             }
 
-            //Set Flash
+//Set Flash
             $this->Flash->success('Template Added Successfully', [
                 'key' => 'positive',
                 'params' => [],
@@ -2887,8 +2839,7 @@ class ResultsController extends AppController
         $this->set('activities', $activities);
     }
 
-    public function indexTemplate()
-    {
+    public function indexTemplate() {
         $result_template = TableRegistry::getTableLocator()->get('scms_result_template');
         $result_templates_single = $result_template->find()->where(['deleted' => 0])->where(['type' => 'single'])->toArray();
         $this->set('single_result_templates', $result_templates_single);
@@ -2897,8 +2848,7 @@ class ResultsController extends AppController
         $this->set('result_templates_marge', $result_templates_marge);
     }
 
-    private function get_guardians($student)
-    {
+    private function get_guardians($student) {
         $scms_guardian = TableRegistry::getTableLocator()->get('scms_guardians');
         $scms_guardians = $scms_guardian->find()->enableAutoFields(true)->enableHydration(false)->where(['student_id' => $student['student_id']])->toArray();
         $guardians = array();
@@ -2909,8 +2859,7 @@ class ResultsController extends AppController
         return $student;
     }
 
-    private function genarate_marks_heads($template, $merge = false)
-    {
+    private function genarate_marks_heads($template, $merge = false) {
         $term_course_cycle_part_type = TableRegistry::getTableLocator()->get('scms_term_course_cycle_part_type');
         $types = $term_course_cycle_part_type->find()->enableAutoFields(true)->enableHydration(false)->where(['term_course_cycle_part_type_id  !=' => '9999'])->toArray();
         foreach ($types as $type) {
@@ -2921,19 +2870,19 @@ class ResultsController extends AppController
         }
         if (isset($template['total_persentage_check'])) {
 
-            //single_head_for_total
+//single_head_for_total
             unset($single_head);
             $single_head['name'] = 'Total';
             $single_head['style'] = 'class="res5 colspan="1" rowspan="1"';
             $head[] = $single_head;
 
-            //single_head_for_$template['total_persentage_check']['value'] . '% Of Total'
+//single_head_for_$template['total_persentage_check']['value'] . '% Of Total'
             unset($single_head);
             $single_head['name'] = $template['total_persentage_check']['value'] . '% Of Total';
             $single_head['style'] = 'class="res5 colspan="1" rowspan="1"';
             $head[] = $single_head;
 
-            //single_head_for_Grand Total
+//single_head_for_Grand Total
             unset($single_head);
             $single_head['name'] = 'Grand Total';
             $single_head['style'] = 'class="res5 colspan="1" rowspan="1"';
@@ -2948,14 +2897,14 @@ class ResultsController extends AppController
                 }
                 $unset_nmaes = substr($unset_nmaes, 1);
 
-                //single_head_for_"Total Without " . $unset_nmaes
+//single_head_for_"Total Without " . $unset_nmaes
                 unset($single_head);
                 $single_head['name'] = "Total Without " . $unset_nmaes;
                 $single_head['style'] = 'class="res5" colspan="1" rowspan="1"';
                 $head[] = $single_head;
 
                 $persentage_key = array_keys($template['group_persentage_check']['value']);
-                //single_head_for_$template['group_persentage_check']['value'][$persentage_key[0]]['persentage'] . '% Of Total'
+//single_head_for_$template['group_persentage_check']['value'][$persentage_key[0]]['persentage'] . '% Of Total'
                 unset($single_head);
                 $single_head['name'] = $template['group_persentage_check']['value'][$persentage_key[0]]['persentage'] . '% Of Total';
                 $single_head['style'] = 'class="res5" colspan="1" rowspan="1"';
@@ -2970,13 +2919,13 @@ class ResultsController extends AppController
                     $head[] = $single_head;
                 }
 
-                //single_head_for_'Grand Total With ' . $unset_nmaes
+//single_head_for_'Grand Total With ' . $unset_nmaes
                 unset($single_head);
                 $single_head['name'] = 'Grand Total With ' . $unset_nmaes;
                 $single_head['style'] = 'class="res5" colspan="1" rowspan="1"';
                 $head[] = $single_head;
             } else {
-                //single_head_for_total
+//single_head_for_total
                 unset($single_head);
                 $single_head['name'] = 'Total';
                 $single_head['style'] = 'class="res5" colspan="1" rowspan="1"';
@@ -2984,26 +2933,26 @@ class ResultsController extends AppController
 
                 $persentage_key = array_keys($template['group_persentage_check']['value']);
 
-                //single_head_for_ $template['group_persentage_check']['value'][$persentage_key[0]]['persentage'] . '% Of Total';
+//single_head_for_ $template['group_persentage_check']['value'][$persentage_key[0]]['persentage'] . '% Of Total';
                 unset($single_head);
                 $single_head['name'] = $template['group_persentage_check']['value'][$persentage_key[0]]['persentage'] . '% Of Total';
                 $single_head['style'] = 'class="res5" colspan="1" rowspan="1"';
                 $head[] = $single_head;
 
-                //single_head_for_'Grand Total'
+//single_head_for_'Grand Total'
                 unset($single_head);
                 $single_head['name'] = 'Grand Total';
                 $single_head['style'] = 'class="res5" colspan="1" rowspan="1"';
                 $head[] = $single_head;
             }
         } else {
-            //single_head_for_total
+//single_head_for_total
             unset($single_head);
             $single_head['name'] = 'Total';
             $single_head['style'] = 'class="res5" colspan="1" rowspan="1"';
             $head[] = $single_head;
         }
-        //single_head_for_Highest
+//single_head_for_Highest
         if (!$merge) {
             unset($single_head);
             $single_head['name'] = 'Highest';
@@ -3011,13 +2960,13 @@ class ResultsController extends AppController
             $head[] = $single_head;
         }
 
-        //single_head_for_GP
+//single_head_for_GP
         unset($single_head);
         $single_head['name'] = 'GP';
         $single_head['style'] = 'class="res4" colspan="1" rowspan="1"';
         $head[] = $single_head;
 
-        //single_head_for_Grade
+//single_head_for_Grade
         if (!$merge) {
             unset($single_head);
             $single_head['name'] = 'Grade';
@@ -3027,8 +2976,7 @@ class ResultsController extends AppController
         return $head;
     }
 
-    private function filter_data_for_view_single_course($students, $filter_heads, $template, $merit, $overall = false)
-    {
+    private function filter_data_for_view_single_course($students, $filter_heads, $template, $merit, $overall = false) {
         foreach ($students as $key => $student) {
             $filter_courses = array();
             foreach ($student['courses'] as $courses) {
@@ -3037,7 +2985,7 @@ class ResultsController extends AppController
                 $new_course['course_details']['course_code'] = $courses['course_code'];
                 $new_course['course_details']['course_id'] = $courses['course_id'];
                 $table_data = $filter_heads;
-                //term result add for merge result
+//term result add for merge result
                 if (isset($courses['term'])) {
                     foreach ($courses['term'] as $term_id => $term) {
                         if ($term['GP-' . $term_id] == 0) {
@@ -3048,7 +2996,7 @@ class ResultsController extends AppController
                         $table_data['Total-' . $term_id]['value'] = $term['Total-' . $term_id];
                     }
                 }
-                //term result add for merge result  end
+//term result add for merge result  end
                 if (isset($courses['parts'])) {
                     foreach ($courses['parts'] as $part_keys => $part) {
                         if ($part_keys != 9999) {
@@ -3070,8 +3018,8 @@ class ResultsController extends AppController
                         $table_data['Total']['result'] = null;
                     }
                     $total_persentage_head = $template['total_persentage_check']['value'] . '% Of Total';
-                    $table_data[$total_persentage_head]['value'] = ($courses['parts'][9999]['marks'] * $template['total_persentage_check']['value']) / 100;
-                    //grand total with
+                    $table_data[$total_persentage_head]['value'] = ($courses['parts'][9999]['marks'] * $template['total_persentage_check']['value'] ) / 100;
+//grand total with
                     $grand_total_head = 'Grand Total';
                     $table_data[$grand_total_head]['value'] = $table_data[$total_persentage_head]['value'];
                 } else if (isset($template['group_persentage_check'])) {
@@ -3093,19 +3041,19 @@ class ResultsController extends AppController
                         }
                         $unset_nmaes = substr($unset_nmaes, 1);
                         $withouts_head = "Total Without " . $unset_nmaes;
-                        //total_without
+//total_without
                         if (isset($courses['parts'][9999]['marks'])) {
                             $table_data[$withouts_head]['value'] = $courses['parts'][9999]['marks'] - $seubtrac_marks;
                         } else {
                             $table_data[$withouts_head]['value'] = 0;
                         }
-                        //persentage of total
+//persentage of total
                         $group_persentage_check = array_values($template['group_persentage_check']['value']);
                         $persentage = $group_persentage_check[0]['persentage'];
                         $persentage_head = $persentage . '% Of Total';
-                        $table_data[$persentage_head]['value'] = ($table_data[$withouts_head]['value'] * $persentage) / 100;
+                        $table_data[$persentage_head]['value'] = ($table_data[$withouts_head]['value'] * $persentage ) / 100;
 
-                        //grand total with
+//grand total with
                         $grand_total_head = 'Grand Total With ' . $unset_nmaes;
                         $table_data[$grand_total_head]['value'] = $table_data[$persentage_head]['value'] + $seubtrac_marks;
                     } else {
@@ -3116,13 +3064,13 @@ class ResultsController extends AppController
                             $table_data['Total']['result'] = null;
                         }
 
-                        //persentage of total
+//persentage of total
                         $group_persentage_check = array_values($template['group_persentage_check']['value']);
                         $persentage = $group_persentage_check[0]['persentage'];
                         $persentage_head = $persentage . '% Of Total';
-                        $table_data[$persentage_head]['value'] = ($table_data['Total']['value'] * $persentage) / 100;
+                        $table_data[$persentage_head]['value'] = ( $table_data['Total']['value'] * $persentage ) / 100;
 
-                        //grand total with
+//grand total with
                         $grand_total_head = 'Grand Total';
                         $table_data[$grand_total_head]['value'] = $table_data[$persentage_head]['value'];
                     }
@@ -3137,22 +3085,22 @@ class ResultsController extends AppController
                     }
                 }
 
-
-
-                $table_data['Grade']['value'] = $courses['result']['grade_name'];
+               
+                
+               $table_data['Grade']['value'] = $courses['result']['grade_name'];
                 if ($courses['result']['grade_name'] == 'F' || $courses['result']['grade_name'] == 'f') {
                     $table_data['Grade']['result'] = 'F';
                 } else {
                     $table_data['Grade']['result'] = null;
                 }
-                $table_data['GP']['value'] = $courses['result']['point'];
+                 $table_data['GP']['value'] = $courses['result']['point'];
                 $table_data['GP']['style'] = null;
                 if ($courses['result']['point'] == 0) {
                     $table_data['GP']['result'] = 'F';
                 } else {
                     $table_data['GP']['result'] = null;
                 }
-
+                
                 if (isset($courses['result']['highest_in_' . $merit]) && !$overall) {
                     $table_data['Highest']['value'] = $courses['result']['highest_in_' . $merit];
                 }
@@ -3171,8 +3119,7 @@ class ResultsController extends AppController
         return $students;
     }
 
-    private function filter_data_for_view_merge_course($students, $filter_heads, $template, $merit)
-    {
+    private function filter_data_for_view_merge_course($students, $filter_heads, $template, $merit) {
         foreach ($students as $key => $student) {
             $new_merge_course = array();
             foreach ($student['merge_course'] as $merge_course_key => $merge_courses) {
@@ -3202,7 +3149,7 @@ class ResultsController extends AppController
 
                 }
 
-                //merge_course_merge
+//merge_course_merge
                 $table_data = $filter_heads;
                 foreach ($total['parts'] as $part_keys => $part) {
                     if ($part_keys != 9999) {
@@ -3222,8 +3169,8 @@ class ResultsController extends AppController
                         $table_data['Total']['result'] = null;
                     }
                     $total_persentage_head = $template['total_persentage_check']['value'] . '% Of Total';
-                    $table_data[$total_persentage_head]['value'] = ($total['parts'][9999]['marks'] * $template['total_persentage_check']['value']) / 100;
-                    //grand total with
+                    $table_data[$total_persentage_head]['value'] = ($total['parts'][9999]['marks'] * $template['total_persentage_check']['value'] ) / 100;
+//grand total with
                     $grand_total_head = 'Grand Total';
                     $table_data[$grand_total_head]['value'] = $table_data[$total_persentage_head]['value'];
                 } else if (isset($template['group_persentage_check'])) {
@@ -3243,16 +3190,16 @@ class ResultsController extends AppController
                         }
                         $unset_nmaes = substr($unset_nmaes, 1);
                         $withouts_head = "Total Without " . $unset_nmaes;
-                        //total_without
+//total_without
                         $table_data[$withouts_head]['value'] = $total['parts'][9999]['marks'] - $seubtrac_marks;
 
-                        //persentage of total
+//persentage of total
                         $group_persentage_check = array_values($template['group_persentage_check']['value']);
                         $persentage = $group_persentage_check[0]['persentage'];
                         $persentage_head = $persentage . '% Of Total';
-                        $table_data[$persentage_head]['value'] = ($table_data[$withouts_head]['value'] * $persentage) / 100;
+                        $table_data[$persentage_head]['value'] = ($table_data[$withouts_head]['value'] * $persentage ) / 100;
 
-                        //grand total with
+//grand total with
                         $grand_total_head = 'Grand Total With ' . $unset_nmaes;
                         $table_data[$grand_total_head]['value'] = $table_data[$persentage_head]['value'] + $seubtrac_marks;
                     } else {
@@ -3263,13 +3210,13 @@ class ResultsController extends AppController
                             $table_data['Total']['result'] = null;
                         }
 
-                        //persentage of total
+//persentage of total
                         $group_persentage_check = array_values($template['group_persentage_check']['value']);
                         $persentage = $group_persentage_check[0]['persentage'];
                         $persentage_head = $persentage . '% Of Total';
-                        $table_data[$persentage_head]['value'] = ($table_data['Total']['value'] * $persentage) / 100;
+                        $table_data[$persentage_head]['value'] = ( $table_data['Total']['value'] * $persentage ) / 100;
 
-                        //grand total with
+//grand total with
                         $grand_total_head = 'Grand Total';
                         $table_data[$grand_total_head]['value'] = $table_data[$persentage_head]['value'];
                     }
@@ -3309,8 +3256,7 @@ class ResultsController extends AppController
         return $students;
     }
 
-    private function merge_course_set($new_merge_course)
-    {
+    private function merge_course_set($new_merge_course) {
         foreach ($new_merge_course as $key => $merge_course) {
             $single_courses = array_values($merge_course['single']);
             foreach ($single_courses[0]['table_data'] as $key => $unit) {
@@ -3327,7 +3273,7 @@ class ResultsController extends AppController
                 }
             }
 
-            //term result add for merge result
+//term result add for merge result
             if (isset($merge_course['term'])) {
                 foreach ($merge_course['term'] as $term_id => $term) {
                     $merge_set1['GP-' . $term_id]['value'] = $term['GP-' . $term_id];
@@ -3340,7 +3286,7 @@ class ResultsController extends AppController
                     }
                 }
             }
-            //term result add for merge result end
+//term result add for merge result end
 
             $set_merge_course['1st_course']['course_details'] = $single_courses[0]['course_details'];
             $set_merge_course['1st_course']['table_data'] = $merge_set1;
@@ -3359,8 +3305,7 @@ class ResultsController extends AppController
         return $course;
     }
 
-    private function filter_data_for_view($students, $heads, $template, $overall = false)
-    {
+    private function filter_data_for_view($students, $heads, $template, $overall = false) {
         $filter_heads = array();
         foreach ($heads as $head) {
             $filter_heads[$head['name']]['value'] = null;
@@ -3381,8 +3326,7 @@ class ResultsController extends AppController
         return $students;
     }
 
-    private function find_without_group_persentage_check($heads, $group_persentage_check)
-    {
+    private function find_without_group_persentage_check($heads, $group_persentage_check) {
         foreach ($heads as $key => $head) {
             $only_names[$key] = $head['name'];
         }
@@ -3393,8 +3337,7 @@ class ResultsController extends AppController
         return $diff;
     }
 
-    private function find_without_group_persentage_check_single($heads, $group_persentage_check)
-    {
+    private function find_without_group_persentage_check_single($heads, $group_persentage_check) {
         $group_persentage_check = array_values($group_persentage_check);
         $parts = explode(", ", $group_persentage_check[0]['view']);
         $diff = array_diff($heads, $parts);
@@ -3402,31 +3345,30 @@ class ResultsController extends AppController
         return $diff;
     }
 
-    public function resultMerit($id)
-    {
+    public function resultMerit($id) {
         $scms_result_students = TableRegistry::getTableLocator()->get('scms_result_students');
         $result_students = $scms_result_students->find()->where(['result_id' => $id])->enableAutoFields(true)->enableHydration(false)->select([
-            'shift_id_cycle' => 'scms_student_cycle.shift_id',
-            'section_id_cycle' => 'scms_student_cycle.section_id',
-            'level_id_cycle' => 'scms_student_cycle.level_id',
-            'roll' => 'scms_student_cycle.roll',
-        ])->join([
-            'scms_student_term_cycle' => [
-                'table' => 'scms_student_term_cycle',
-                'type' => 'LEFT',
-                'conditions' => ['scms_student_term_cycle.student_term_cycle_id  = scms_result_students.student_term_cycle_id'],
-            ],
-            'scms_student_cycle' => [
-                'table' => 'scms_student_cycle',
-                'type' => 'LEFT',
-                'conditions' => ['scms_student_cycle.student_cycle_id   = scms_student_term_cycle.student_cycle_id'],
-            ],
-        ])->toArray();
+                    'shift_id_cycle' => 'scms_student_cycle.shift_id',
+                    'section_id_cycle' => 'scms_student_cycle.section_id',
+                    'level_id_cycle' => 'scms_student_cycle.level_id',
+                    'roll' => 'scms_student_cycle.roll',
+                ])->join([
+                    'scms_student_term_cycle' => [
+                        'table' => 'scms_student_term_cycle',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_student_term_cycle.student_term_cycle_id  = scms_result_students.student_term_cycle_id'],
+                    ],
+                    'scms_student_cycle' => [
+                        'table' => 'scms_student_cycle',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_student_cycle.student_cycle_id   = scms_student_term_cycle.student_cycle_id'],
+                    ],
+                ])->toArray();
 
         if (count($result_students) > 0) {
             usort($result_students, function ($a, $b) {
-                return [$a['gpa_with_forth_subject'], $a['marks_with_forth_subject'], $b['roll'], $a['section_id']] <=>
-                    [$b['gpa_with_forth_subject'], $b['marks_with_forth_subject'], $a['roll'], $b['section_id']];
+                return [$a['gpa_with_forth_subject'], $a ['marks_with_forth_subject'], $b ['roll'], $a ['section_id']] <=>
+                [$b['gpa_with_forth_subject'], $b ['marks_with_forth_subject'], $a ['roll'], $b ['section_id']];
             });
 
             foreach ($result_students as $key => $students) {
@@ -3441,7 +3383,7 @@ class ResultsController extends AppController
             $this->save_highest($students_and_highest, 'level');
             $this->calculate_course_highest($students, 'level');
 
-            //filter in shift
+//filter in shift
             foreach ($students as $result_student) {
                 $shifts_students[$result_student['shift_id_cycle']][] = $result_student;
             }
@@ -3451,7 +3393,7 @@ class ResultsController extends AppController
                 $this->save_highest($students_and_highest, 'shift');
                 $this->calculate_course_highest($shifts_students[$key], 'shift');
 
-                //filter in section
+//filter in section
                 foreach ($shifts_students[$key] as $shift_student) {
                     $sections_shifts_students[$key][$shift_student['section_id_cycle']][] = $shift_student;
                 }
@@ -3464,7 +3406,7 @@ class ResultsController extends AppController
                 }
             }
 
-            //save position in database
+//save position in database
             foreach ($sections_shifts_students as $sections_shift_students) {
                 foreach ($sections_shift_students as $section_shift_students) {
                     foreach ($section_shift_students as $student) {
@@ -3477,7 +3419,7 @@ class ResultsController extends AppController
                 }
             }
         }
-        //Set Flash
+//Set Flash
         $type = $this->get_result_type($id);
         $level = TableRegistry::getTableLocator()->get('scms_levels');
         $levels = $level
@@ -3502,19 +3444,17 @@ class ResultsController extends AppController
         }
     }
 
-    private function get_result_type($id)
-    {
+    private function get_result_type($id) {
         $scms_results = TableRegistry::getTableLocator()->get('scms_results');
         $results = $scms_results->find()->where(['result_id' => $id])->enableAutoFields(true)->enableHydration(false)->toArray();
         return $results[0]['type'];
     }
 
-    private function calculate_course_highest($students, $type)
-    {
+    private function calculate_course_highest($students, $type) {
         foreach ($students as $student) {
             $result_student_ids[] = $student['result_student_id'];
         }
-        //highest for single course start
+//highest for single course start
         $scms_result_student_courses = TableRegistry::getTableLocator()->get('scms_result_student_courses');
         $courses = $scms_result_student_courses->find()->where(['result_student_id  in' => $result_student_ids])->where(['course_id  !=' => 0])->group('course_id')->enableAutoFields(true)->enableHydration(false)->toArray();
         foreach ($courses as $course) {
@@ -3529,9 +3469,9 @@ class ResultsController extends AppController
             $update_query = $scms_result_student_courses->query();
             $update_query->update()->set($data)->where(['result_student_id  in' => $result_student_ids])->where(['course_id' => $course['course_id']])->execute();
         }
-        //highest for single course end
-        //----*------*------
-        //highest for merge course start
+//highest for single course end
+//----*------*------
+//highest for merge course start
         $merge_courses = $scms_result_student_courses->find()->where(['result_student_id  in' => $result_student_ids])->where(['type' => 'merge'])->group('first_course_id_of_merge_course')->enableAutoFields(true)->enableHydration(false)->toArray();
 
         foreach ($merge_courses as $merge_course) {
@@ -3546,13 +3486,12 @@ class ResultsController extends AppController
             $update_query = $scms_result_student_courses->query();
             $update_query->update()->set($data)->where(['result_student_id  in' => $result_student_ids])->where(['first_course_id_of_merge_course' => $merge_course['first_course_id_of_merge_course']])->execute();
         }
-        //highest for merge course end
+//highest for merge course end
 
         return true;
     }
 
-    private function save_highest($students_and_highest, $type)
-    {
+    private function save_highest($students_and_highest, $type) {
         $scms_result_highest_data['result_id'] = $students_and_highest['students'][0]['result_id'];
         $scms_result_highest_data['highest_mark'] = $students_and_highest['highest']['highest_mark'];
         $scms_result_highest_data['highest_gpa'] = $students_and_highest['highest']['highest_gpa'];
@@ -3595,8 +3534,7 @@ class ResultsController extends AppController
         return true;
     }
 
-    private function set_position($students, $type)
-    {
+    private function set_position($students, $type) {
         $index = 'position_in_' . $type;
         $previous_gpa = 0;
         $previous_total = 0;
@@ -3615,10 +3553,10 @@ class ResultsController extends AppController
                     $previous_gpa = $students[$i]['gpa_with_forth_subject'];
                     $previous_total = $students[$i]['marks_with_forth_subject'];
                 }
-                if ($highest['highest_mark'] < $students[$i]['marks_with_forth_subject']) {
+                if ($highest['highest_mark'] < $students [$i]['marks_with_forth_subject']) {
                     $highest['highest_mark'] = $students[$i]['marks_with_forth_subject'];
                 }
-                if ($highest['highest_gpa'] < $students[$i]['gpa_with_forth_subject']) {
+                if ($highest['highest_gpa'] < $students [$i]['gpa_with_forth_subject']) {
                     $highest['highest_gpa'] = $students[$i]['gpa_with_forth_subject'];
                 }
             }
@@ -3627,10 +3565,10 @@ class ResultsController extends AppController
                 if ($students[$i]['gpa_with_forth_subject']) {
                     $students[$i][$index] = $this->ordinal($i + 1);
                 }
-                if ($highest['highest_mark'] < $students[$i]['marks_with_forth_subject']) {
+                if ($highest['highest_mark'] < $students [$i]['marks_with_forth_subject']) {
                     $highest['highest_mark'] = $students[$i]['marks_with_forth_subject'];
                 }
-                if ($highest['highest_gpa'] < $students[$i]['gpa_with_forth_subject']) {
+                if ($highest['highest_gpa'] < $students [$i]['gpa_with_forth_subject']) {
                     $highest['highest_gpa'] = $students[$i]['gpa_with_forth_subject'];
                 }
             }
@@ -3640,23 +3578,21 @@ class ResultsController extends AppController
         return $return;
     }
 
-    private function ordinal($number)
-    {
+    private function ordinal($number) {
         $ends = array('th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th');
-        if ((($number % 100) >= 11) && (($number % 100) <= 13)) {
+        if ((($number % 100 ) >= 11 ) && (($number % 100 ) <= 13)) {
             return $number . 'th';
         } else {
-            return $number . $ends[$number % 10];
+            return $number . $ends [$number % 10];
         }
     }
 
-    private function result_summary($students, $results)
-    {
+    private function result_summary($students, $results) {
         $grade = TableRegistry::getTableLocator()->get('scms_grade');
         $grades = $grade->find()->enableAutoFields(true)->enableHydration(false)->order(['point' => 'ASC'])->where(['gradings_id' => $results['gradings_id']])->toArray();
         usort($grades, function ($a, $b) {
             return [$a['point']] <=>
-                [$b['point']];
+            [$b['point']];
         });
         $grades = array_reverse($grades);
         $filter_grade = array();
@@ -3718,8 +3654,7 @@ class ResultsController extends AppController
         $this->render('/result/result_summary');
     }
 
-    private function result_tabulation($students, $results, $section_id = false)
-    {
+    private function result_tabulation($students, $results, $section_id = false) {
         $grade = TableRegistry::getTableLocator()->get('scms_grade');
         $grades = $grade->find()->enableAutoFields(true)->enableHydration(false)->order(['point' => 'ASC'])->where(['gradings_id' => $results['gradings_id']])->toArray();
 
@@ -3728,15 +3663,15 @@ class ResultsController extends AppController
         }
         $scms_result_student_course = TableRegistry::getTableLocator()->get('scms_result_student_courses');
         $scms_result_student_courses = $scms_result_student_course->find()->where(['result_student_id IN' => $result_student_ids])->where(['scms_result_student_courses.course_id !=' => 0])->enableAutoFields(true)->enableHydration(false)->group('scms_courses.course_code')->select([
-            'course_name' => 'scms_courses.course_name',
-            'course_code' => 'scms_courses.course_code',
-        ])->join([
-            'scms_courses' => [
-                'table' => 'scms_courses',
-                'type' => 'LEFT',
-                'conditions' => ['scms_courses.course_id   = scms_result_student_courses.course_id'],
-            ],
-        ])->toArray();
+                    'course_name' => 'scms_courses.course_name',
+                    'course_code' => 'scms_courses.course_code',
+                ])->join([
+                    'scms_courses' => [
+                        'table' => 'scms_courses',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_courses.course_id   = scms_result_student_courses.course_id'],
+                    ],
+                ])->toArray();
         $term_course_cycle_part_type = TableRegistry::getTableLocator()->get('scms_term_course_cycle_part_type');
         $types = $term_course_cycle_part_type->find()->enableAutoFields(true)->enableHydration(false)->where(['term_course_cycle_part_type_id  !=' => '9999'])->toArray();
         foreach ($types as $type) {
@@ -3830,8 +3765,7 @@ class ResultsController extends AppController
         $this->render('/result/tabulation');
     }
 
-    private function result_marksheet($students, $results)
-    {
+    private function result_marksheet($students, $results) {
         $template = $this->get_template($results['result_template_id']);
         $heads = $this->genarate_marks_heads($template);
         $students = $this->filter_data_for_view($students, $heads, $template);
@@ -3882,20 +3816,18 @@ class ResultsController extends AppController
         $this->render('/result/markSheet');
     }
 
-    private function get_position($id)
-    {
+    private function get_position($id) {
         $result_template = TableRegistry::getTableLocator()->get('scms_result_template');
         $result_templates = $result_template
-            ->find()
-            ->where(['result_template_id' => $id])
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->toArray();
+                ->find()
+                ->where(['result_template_id' => $id])
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->toArray();
         return $result_templates[0]['merit'];
     }
 
-    public function viewResult()
-    {
+    public function viewResult() {
         if ($this->request->is(['post'])) {
             $data = $this->request->getData();
             $scms_results = TableRegistry::getTableLocator()->get('scms_results');
@@ -3934,13 +3866,13 @@ class ResultsController extends AppController
 
                 if ($data['sort'] == 'roll') {
                     usort($students, function ($a, $b) {
-                        return [$a['section_id'], $a['roll']] <=>
-                            [$b['section_id'], $b['roll']];
+                        return [$a ['section_id'], $a ['roll']] <=>
+                        [$b ['section_id'], $b ['roll']];
                     });
                 } else {
                     usort($students, function ($a, $b) {
-                        return [$b['gpa_with_forth_subject'], $b['marks_with_forth_subject'], $a['roll']] <=>
-                            [$a['gpa_with_forth_subject'], $a['marks_with_forth_subject'], $b['roll']];
+                        return [$b ['gpa_with_forth_subject'], $b ['marks_with_forth_subject'], $a ['roll']] <=>
+                        [$a ['gpa_with_forth_subject'], $a ['marks_with_forth_subject'], $b ['roll']];
                     });
                 }
 
@@ -3977,8 +3909,7 @@ class ResultsController extends AppController
         $this->set('sort_by', $sort_by);
     }
 
-    private function get_result_total_highest($id)
-    {
+    private function get_result_total_highest($id) {
         $scms_result_highest = TableRegistry::getTableLocator()->get('scms_result_highest');
         $scms_result_highests = $scms_result_highest->find()->where(['result_id' => $id])->enableAutoFields(true)->enableHydration(false)->toArray();
         $return = array();
@@ -3994,80 +3925,78 @@ class ResultsController extends AppController
         return $return;
     }
 
-    private function get_only_result_students($where)
-    {
+    private function get_only_result_students($where) {
         $scms_result_students = TableRegistry::getTableLocator()->get('scms_result_students');
         $result_students = $scms_result_students->find()->where($where)->enableAutoFields(true)->enableHydration(false)->select([
-            'shift_id' => 'scms_student_cycle.shift_id',
-            'section_ids' => 'scms_student_cycle.section_id',
-            'student_cycle_id' => 'scms_student_cycle.student_cycle_id',
-            'level_id' => 'scms_student_cycle.level_id',
-            'group_id' => 'scms_student_cycle.group_id',
-            'roll' => 'scms_student_cycle.roll',
-            'shift_name' => 'hr_shift.shift_name',
-            'level_name' => 'scms_levels.level_name',
-            'section_name' => 'scms_sections.section_name',
-            'section_name' => 'scms_sections.section_name',
-            'student_id' => 'scms_student_cycle.student_id',
-            'name' => 'scms_students.name',
-            'sid' => 'scms_students.sid',
-            'date_of_birth' => 'scms_students.date_of_birth',
-            'group_name' => 'scms_groups.group_name',
-            'session_name' => 'scms_sessions.session_name',
-            'session_id' => 'scms_sessions.session_id',
-            'term_id' => 'scms_term_cycle.term_id',
-        ])->join([
-            'scms_student_term_cycle' => [
-                'table' => 'scms_student_term_cycle',
-                'type' => 'LEFT',
-                'conditions' => ['scms_student_term_cycle.student_term_cycle_id = scms_result_students.student_term_cycle_id'],
-            ],
-            'scms_term_cycle' => [
-                'table' => 'scms_term_cycle',
-                'type' => 'LEFT',
-                'conditions' => ['scms_student_term_cycle.term_cycle_id = scms_term_cycle.term_cycle_id'],
-            ],
-            'scms_student_cycle' => [
-                'table' => 'scms_student_cycle',
-                'type' => 'LEFT',
-                'conditions' => ['scms_student_cycle.student_cycle_id  = scms_student_term_cycle.student_cycle_id'],
-            ],
-            'hr_shift' => [
-                'table' => 'hr_shift',
-                'type' => 'LEFT',
-                'conditions' => ['scms_student_cycle.shift_id = hr_shift.shift_id'],
-            ],
-            'scms_levels' => [
-                'table' => 'scms_levels',
-                'type' => 'LEFT',
-                'conditions' => ['scms_student_cycle.level_id = scms_levels.level_id'],
-            ],
-            'scms_sections' => [
-                'table' => 'scms_sections',
-                'type' => 'LEFT',
-                'conditions' => ['scms_student_cycle.section_id = scms_sections.section_id'],
-            ],
-            'scms_students' => [
-                'table' => 'scms_students',
-                'type' => 'LEFT',
-                'conditions' => ['scms_students.student_id  = scms_student_cycle.student_id'],
-            ],
-            'scms_groups' => [
-                'table' => 'scms_groups',
-                'type' => 'LEFT',
-                'conditions' => ['scms_groups.group_id = scms_student_cycle.group_id'],
-            ],
-            'scms_sessions' => [
-                'table' => 'scms_sessions',
-                'type' => 'LEFT',
-                'conditions' => ['scms_sessions.session_id  = scms_student_cycle.session_id'],
-            ],
-        ])->toArray();
+                    'shift_id' => 'scms_student_cycle.shift_id',
+                    'section_ids' => 'scms_student_cycle.section_id',
+                    'student_cycle_id' => 'scms_student_cycle.student_cycle_id',
+                    'level_id' => 'scms_student_cycle.level_id',
+                    'group_id' => 'scms_student_cycle.group_id',
+                    'roll' => 'scms_student_cycle.roll',
+                    'shift_name' => 'hr_shift.shift_name',
+                    'level_name' => 'scms_levels.level_name',
+                    'section_name' => 'scms_sections.section_name',
+                    'section_name' => 'scms_sections.section_name',
+                    'student_id' => 'scms_student_cycle.student_id',
+                    'name' => 'scms_students.name',
+                    'sid' => 'scms_students.sid',
+                    'date_of_birth' => 'scms_students.date_of_birth',
+                    'group_name' => 'scms_groups.group_name',
+                    'session_name' => 'scms_sessions.session_name',
+                    'session_id' => 'scms_sessions.session_id',
+                    'term_id' => 'scms_term_cycle.term_id',
+                ])->join([
+                    'scms_student_term_cycle' => [
+                        'table' => 'scms_student_term_cycle',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_student_term_cycle.student_term_cycle_id = scms_result_students.student_term_cycle_id'],
+                    ],
+                    'scms_term_cycle' => [
+                        'table' => 'scms_term_cycle',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_student_term_cycle.term_cycle_id = scms_term_cycle.term_cycle_id'],
+                    ],
+                    'scms_student_cycle' => [
+                        'table' => 'scms_student_cycle',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_student_cycle.student_cycle_id  = scms_student_term_cycle.student_cycle_id'],
+                    ],
+                    'hr_shift' => [
+                        'table' => 'hr_shift',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_student_cycle.shift_id = hr_shift.shift_id'],
+                    ],
+                    'scms_levels' => [
+                        'table' => 'scms_levels',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_student_cycle.level_id = scms_levels.level_id'],
+                    ],
+                    'scms_sections' => [
+                        'table' => 'scms_sections',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_student_cycle.section_id = scms_sections.section_id'],
+                    ],
+                    'scms_students' => [
+                        'table' => 'scms_students',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_students.student_id  = scms_student_cycle.student_id'],
+                    ],
+                    'scms_groups' => [
+                        'table' => 'scms_groups',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_groups.group_id = scms_student_cycle.group_id'],
+                    ],
+                    'scms_sessions' => [
+                        'table' => 'scms_sessions',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_sessions.session_id  = scms_student_cycle.session_id'],
+                    ],
+                ])->toArray();
         return $result_students;
     }
 
-    public function get_scms_result_students($id, $where)
-    {
+    public function get_scms_result_students($id, $where) {
         $result_students = $this->get_only_result_students($where);
         if (count($result_students) == 0) {
             return $result_students;
@@ -4126,26 +4055,25 @@ class ResultsController extends AppController
         return $filter_result_studnets;
     }
 
-    private function get_result_activity_names($result_id)
-    {
+    private function get_result_activity_names($result_id) {
         $scms_result_activity_remark = TableRegistry::getTableLocator()->get('scms_result_activity_remark');
         $activity_remarks = $scms_result_activity_remark
-            ->find()
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->where(['scms_result_activity.result_id' => $result_id])
-            ->select([
-                'activity_name' => 'scms_result_activity.activity_name',
-                'activity_id' => 'scms_result_activity.activity_id',
-            ])
-            ->join([
-                'scms_result_activity' => [
-                    'table' => 'scms_result_activity',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_result_activity.result_activity_id  = scms_result_activity_remark.result_activity_id'],
-                ],
-            ])
-            ->toArray();
+                ->find()
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->where(['scms_result_activity.result_id' => $result_id])
+                ->select([
+                    'activity_name' => 'scms_result_activity.activity_name',
+                    'activity_id' => 'scms_result_activity.activity_id',
+                ])
+                ->join([
+                    'scms_result_activity' => [
+                        'table' => 'scms_result_activity',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_result_activity.result_activity_id  = scms_result_activity_remark.result_activity_id'],
+                    ],
+                ])
+                ->toArray();
 
         $filter_scms_activity_remarks = array();
         foreach ($activity_remarks as $activity_remark) {
@@ -4157,36 +4085,35 @@ class ResultsController extends AppController
         return $filter_scms_activity_remarks;
     }
 
-    private function get_result_student_activity($result_id, $student_term_cycle_ids, $filter_result_studnets)
-    {
+    private function get_result_student_activity($result_id, $student_term_cycle_ids, $filter_result_studnets) {
         $scms_student_activity = TableRegistry::getTableLocator()->get('scms_student_activity');
         $student_activities = $scms_student_activity
-            ->find()
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->where(['scms_student_activity.student_term_cycle_id IN' => $student_term_cycle_ids])
-            ->select([
-                'activity_id' => 'scms_activity_cycle.activity_id',
-                'result_student_id' => 'scms_result_students.result_student_id',
-            ])
-            ->join([
-                'scms_term_activity_cycle' => [
-                    'table' => 'scms_term_activity_cycle',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_term_activity_cycle.term_activity_cycle_id   = scms_student_activity.term_activity_cycle_id'],
-                ],
-                'scms_activity_cycle' => [
-                    'table' => 'scms_activity_cycle',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_term_activity_cycle.activity_cycle_id  = scms_activity_cycle.activity_cycle_id'],
-                ],
-                'scms_result_students' => [
-                    'table' => 'scms_result_students',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_result_students.student_term_cycle_id  = scms_student_activity.student_term_cycle_id'],
-                ],
-            ])
-            ->toArray();
+                ->find()
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->where(['scms_student_activity.student_term_cycle_id IN' => $student_term_cycle_ids])
+                ->select([
+                    'activity_id' => 'scms_activity_cycle.activity_id',
+                    'result_student_id' => 'scms_result_students.result_student_id',
+                ])
+                ->join([
+                    'scms_term_activity_cycle' => [
+                        'table' => 'scms_term_activity_cycle',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_term_activity_cycle.term_activity_cycle_id   = scms_student_activity.term_activity_cycle_id'],
+                    ],
+                    'scms_activity_cycle' => [
+                        'table' => 'scms_activity_cycle',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_term_activity_cycle.activity_cycle_id  = scms_activity_cycle.activity_cycle_id'],
+                    ],
+                    'scms_result_students' => [
+                        'table' => 'scms_result_students',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_result_students.student_term_cycle_id  = scms_student_activity.student_term_cycle_id'],
+                    ],
+                ])
+                ->toArray();
         $filter_scms_activity_remarks = $this->get_result_activity_names($result_id);
 
         foreach ($student_activities as $activity) {
@@ -4202,8 +4129,7 @@ class ResultsController extends AppController
         return $filter_result_studnets;
     }
 
-    private function get_result_student_attendance_month($filter_result_studnets, $result_student_ids)
-    {
+    private function get_result_student_attendance_month($filter_result_studnets, $result_student_ids) {
         $scms_result_student_attendance_month = TableRegistry::getTableLocator()->get('scms_result_student_attendance_month');
         $result_attendance_months = $scms_result_student_attendance_month->find()->where(['result_student_id IN' => $result_student_ids])->enableAutoFields(true)->enableHydration(false)->toArray();
 
@@ -4213,8 +4139,7 @@ class ResultsController extends AppController
         return $filter_result_studnets;
     }
 
-    private function get_result_student_courses($result_student_id, $result_students)
-    {
+    private function get_result_student_courses($result_student_id, $result_students) {
         $single_courses = $this->get_result_student_single_courses($result_student_id);
 
         $merge_courses = $this->get_result_student_merge_courses($result_student_id);
@@ -4237,12 +4162,12 @@ class ResultsController extends AppController
             'course_code' => 'scms_courses.course_code',
             'course_type_id' => 'scms_courses.course_type_id',
         ])->join([
-            'scms_courses' => [
-                'table' => 'scms_courses',
-                'type' => 'LEFT',
-                'conditions' => ['scms_courses.course_id   = scms_result_student_courses.course_id'],
-            ],
-        ])->toArray();
+                    'scms_courses' => [
+                        'table' => 'scms_courses',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_courses.course_id   = scms_result_student_courses.course_id'],
+                    ],
+                ])->toArray();
         $result = array();
         foreach ($scms_result_student_courses as $scms_result_student_course) {
             $result['total_marks'] = $scms_result_student_course['total_mark'];
@@ -4277,12 +4202,12 @@ class ResultsController extends AppController
                 'course_code' => 'scms_courses.course_code',
                 'course_type_id' => 'scms_courses.course_type_id',
             ])->join([
-                'scms_courses' => [
-                    'table' => 'scms_courses',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_courses.course_id   = scms_result_student_courses.course_id'],
-                ],
-            ])->toArray();
+                        'scms_courses' => [
+                            'table' => 'scms_courses',
+                            'type' => 'LEFT',
+                            'conditions' => ['scms_courses.course_id   = scms_result_student_courses.course_id'],
+                        ],
+                    ])->toArray();
             $merge_courses = array_merge($scms_result_student_merge_courses, $scms_result_student_merge_single_courses);
             $result_student_course_ids = array();
             $filter_merge_courses = array();
@@ -4319,19 +4244,18 @@ class ResultsController extends AppController
         return $return;
     }
 
-    private function get_result_student_course_parts($result_student_course_ids, $filter_scms_result_student_courses)
-    {
+    private function get_result_student_course_parts($result_student_course_ids, $filter_scms_result_student_courses) {
         $scms_result_student_course_part = TableRegistry::getTableLocator()->get('scms_result_student_course_parts');
         $scms_result_student_course_parts = $scms_result_student_course_part->find()->where(['result_student_course_id  IN' => $result_student_course_ids])->select([
-            'term_course_cycle_part_type_name' => 'scms_term_course_cycle_part_type.term_course_cycle_part_type_name',
-            'marks' => 'scms_result_student_course_parts.obtain_mark',
-        ])->enableAutoFields(true)->enableHydration(false)->join([
-            'scms_term_course_cycle_part_type' => [
-                'table' => 'scms_term_course_cycle_part_type',
-                'type' => 'LEFT',
-                'conditions' => ['scms_result_student_course_parts.term_course_cycle_part_type_id   = scms_term_course_cycle_part_type.term_course_cycle_part_type_id'],
-            ]
-        ])->toArray();
+                    'term_course_cycle_part_type_name' => 'scms_term_course_cycle_part_type.term_course_cycle_part_type_name',
+                    'marks' => 'scms_result_student_course_parts.obtain_mark',
+                ])->enableAutoFields(true)->enableHydration(false)->join([
+                    'scms_term_course_cycle_part_type' => [
+                        'table' => 'scms_term_course_cycle_part_type',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_result_student_course_parts.term_course_cycle_part_type_id   = scms_term_course_cycle_part_type.term_course_cycle_part_type_id'],
+                    ]
+                ])->toArray();
 
         foreach ($scms_result_student_course_parts as $scms_result_student_course_part) {
             $filter_scms_result_student_courses[$scms_result_student_course_part['result_student_course_id']]['parts'][$scms_result_student_course_part['term_course_cycle_part_type_id']] = $scms_result_student_course_part;
@@ -4340,8 +4264,7 @@ class ResultsController extends AppController
         return $filter_scms_result_student_courses;
     }
 
-    private function get_result_student_course_persentage_groups($result_student_course_ids, $filter_scms_result_student_courses)
-    {
+    private function get_result_student_course_persentage_groups($result_student_course_ids, $filter_scms_result_student_courses) {
         $scms_result_student_course_persentage_group = TableRegistry::getTableLocator()->get('scms_result_student_course_persentage_groups');
         $scms_result_student_course_persentage_groups = $scms_result_student_course_persentage_group->find()->where(['result_student_course_id  IN' => $result_student_course_ids])->enableAutoFields(true)->enableHydration(false)->toArray();
 
@@ -4352,8 +4275,7 @@ class ResultsController extends AppController
         return $filter_scms_result_student_courses;
     }
 
-    public function tabulationView($id)
-    {
+    public function tabulationView($id) {
         $scms_results = TableRegistry::getTableLocator()->get('scms_results');
         $results = $scms_results->find()->where(['result_id' => $id])->enableAutoFields(true)->enableHydration(false)->toArray();
 
@@ -4380,8 +4302,7 @@ class ResultsController extends AppController
         $this->render('/result/tabulation');
     }
 
-    public function viewMergeResult()
-    {
+    public function viewMergeResult() {
         if ($this->request->is(['post'])) {
             $data = $this->request->getData();
             $scms_results = TableRegistry::getTableLocator()->get('scms_results');
@@ -4421,13 +4342,13 @@ class ResultsController extends AppController
 
                 if ($data['sort'] == 'roll') {
                     usort($students, function ($a, $b) {
-                        return [$a['section_id'], $a['roll']] <=>
-                            [$b['section_id'], $b['roll']];
+                        return [$a ['section_id'], $a ['roll']] <=>
+                        [$b ['section_id'], $b ['roll']];
                     });
                 } else {
                     usort($students, function ($a, $b) {
-                        return [$b['gpa_with_forth_subject'], $b['marks_with_forth_subject'], $a['roll']] <=>
-                            [$a['gpa_with_forth_subject'], $a['marks_with_forth_subject'], $b['roll']];
+                        return [$b ['gpa_with_forth_subject'], $b ['marks_with_forth_subject'], $a ['roll']] <=>
+                        [$a ['gpa_with_forth_subject'], $a ['marks_with_forth_subject'], $b ['roll']];
                     });
                 }
                 if ($data['type'] == 'result_summary') {
@@ -4463,30 +4384,29 @@ class ResultsController extends AppController
         $this->set('sort_by', $sort_by);
     }
 
-    private function result_merge_marksheet($merge_students, $request_data, $results)
-    {
+    private function result_merge_marksheet($merge_students, $request_data, $results) {
         $template = $this->get_template($results['result_template_id']);
         $term_ids = $template['term']['value']['term_id'];
         $scms_result = TableRegistry::getTableLocator()->get('scms_results');
         $single_base_results = $scms_result
-            ->find()
-            ->where(['scms_results.session_id' => $request_data['session_id']])
-            ->where(['scms_results.level_id' => $request_data['level_id']])
-            ->where(['scms_term_cycle.term_id' => $term_ids[0]])
-            ->where(['type' => 'single'])
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->select([
-                'term_id' => 'scms_term_cycle.term_id',
-            ])
-            ->join([
-                'scms_term_cycle' => [
-                    'table' => 'scms_term_cycle',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_term_cycle.term_cycle_id  = scms_results.term_cycle_id'],
-                ],
-            ])
-            ->toArray();
+                ->find()
+                ->where(['scms_results.session_id' => $request_data['session_id']])
+                ->where(['scms_results.level_id' => $request_data['level_id']])
+                ->where(['scms_term_cycle.term_id' => $term_ids[0]])
+                ->where(['type' => 'single'])
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->select([
+                    'term_id' => 'scms_term_cycle.term_id',
+                ])
+                ->join([
+                    'scms_term_cycle' => [
+                        'table' => 'scms_term_cycle',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_term_cycle.term_cycle_id  = scms_results.term_cycle_id'],
+                    ],
+                ])
+                ->toArray();
 
         $base_template = $this->get_template($single_base_results[0]['result_template_id']);
         $term_cycle_id = $single_base_results[0]['term_cycle_id'];
@@ -4518,24 +4438,24 @@ class ResultsController extends AppController
 
         unset($term_ids[0]);
         $single_results = $scms_result
-            ->find()
-            ->where(['scms_results.session_id' => $request_data['session_id']])
-            ->where(['scms_results.level_id' => $request_data['level_id']])
-            ->where(['scms_term_cycle.term_id IN' => $term_ids])
-            ->where(['type' => 'single'])
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->select([
-                'term_id' => 'scms_term_cycle.term_id',
-            ])
-            ->join([
-                'scms_term_cycle' => [
-                    'table' => 'scms_term_cycle',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_term_cycle.term_cycle_id  = scms_results.term_cycle_id'],
-                ],
-            ])
-            ->toArray();
+                ->find()
+                ->where(['scms_results.session_id' => $request_data['session_id']])
+                ->where(['scms_results.level_id' => $request_data['level_id']])
+                ->where(['scms_term_cycle.term_id IN' => $term_ids])
+                ->where(['type' => 'single'])
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->select([
+                    'term_id' => 'scms_term_cycle.term_id',
+                ])
+                ->join([
+                    'scms_term_cycle' => [
+                        'table' => 'scms_term_cycle',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_term_cycle.term_cycle_id  = scms_results.term_cycle_id'],
+                    ],
+                ])
+                ->toArray();
         $result_ids = array();
 
         foreach ($single_results as $result) {
@@ -4639,7 +4559,7 @@ class ResultsController extends AppController
 
         $this->render('/result/markSheet_merge');
     }
-
+    
     public function publish($id)
     {
 
@@ -4690,69 +4610,68 @@ class ResultsController extends AppController
         return $this->redirect(['action' => 'mergeResult']);
     }
 
-    public function sendSMS($id)
-    {
+    public function sendSMS($id) {
         $scms_result_students = TableRegistry::getTableLocator()->get('scms_result_students');
         $result_students = $scms_result_students->find()->where(['scms_result_students.result_id' => $id])->enableAutoFields(true)->enableHydration(false)->select([
-            'level_id' => 'scms_student_cycle.level_id',
-            'roll' => 'scms_student_cycle.roll',
-            'shift_name' => 'hr_shift.shift_name',
-            'level_name' => 'scms_levels.level_name',
-            'section_name' => 'scms_sections.section_name',
-            'section_name' => 'scms_sections.section_name',
-            'name' => 'scms_students.name',
-            'student_id' => 'scms_students.student_id',
-            'active_guardian' => 'scms_students.active_guardian',
-            'sid' => 'scms_students.sid',
-            'group_name' => 'scms_groups.group_name',
-            'session_name' => 'scms_sessions.session_name',
-        ])->join([
-            'scms_student_term_cycle' => [
-                'table' => 'scms_student_term_cycle',
-                'type' => 'LEFT',
-                'conditions' => ['scms_student_term_cycle.student_term_cycle_id = scms_result_students.student_term_cycle_id'],
-            ],
-            'scms_term_cycle' => [
-                'table' => 'scms_term_cycle',
-                'type' => 'LEFT',
-                'conditions' => ['scms_student_term_cycle.term_cycle_id = scms_term_cycle.term_cycle_id'],
-            ],
-            'scms_student_cycle' => [
-                'table' => 'scms_student_cycle',
-                'type' => 'LEFT',
-                'conditions' => ['scms_student_cycle.student_cycle_id  = scms_student_term_cycle.student_cycle_id'],
-            ],
-            'hr_shift' => [
-                'table' => 'hr_shift',
-                'type' => 'LEFT',
-                'conditions' => ['scms_student_cycle.shift_id = hr_shift.shift_id'],
-            ],
-            'scms_levels' => [
-                'table' => 'scms_levels',
-                'type' => 'LEFT',
-                'conditions' => ['scms_student_cycle.level_id = scms_levels.level_id'],
-            ],
-            'scms_sections' => [
-                'table' => 'scms_sections',
-                'type' => 'LEFT',
-                'conditions' => ['scms_student_cycle.section_id = scms_sections.section_id'],
-            ],
-            'scms_students' => [
-                'table' => 'scms_students',
-                'type' => 'LEFT',
-                'conditions' => ['scms_students.student_id  = scms_student_cycle.student_id'],
-            ],
-            'scms_groups' => [
-                'table' => 'scms_groups',
-                'type' => 'LEFT',
-                'conditions' => ['scms_groups.group_id = scms_student_cycle.group_id'],
-            ],
-            'scms_sessions' => [
-                'table' => 'scms_sessions',
-                'type' => 'LEFT',
-                'conditions' => ['scms_sessions.session_id  = scms_student_cycle.session_id'],
-            ],
-        ])->toArray();
+                    'level_id' => 'scms_student_cycle.level_id',
+                    'roll' => 'scms_student_cycle.roll',
+                    'shift_name' => 'hr_shift.shift_name',
+                    'level_name' => 'scms_levels.level_name',
+                    'section_name' => 'scms_sections.section_name',
+                    'section_name' => 'scms_sections.section_name',
+                    'name' => 'scms_students.name',
+                    'student_id' => 'scms_students.student_id',
+                    'active_guardian' => 'scms_students.active_guardian',
+                    'sid' => 'scms_students.sid',
+                    'group_name' => 'scms_groups.group_name',
+                    'session_name' => 'scms_sessions.session_name',
+                ])->join([
+                    'scms_student_term_cycle' => [
+                        'table' => 'scms_student_term_cycle',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_student_term_cycle.student_term_cycle_id = scms_result_students.student_term_cycle_id'],
+                    ],
+                    'scms_term_cycle' => [
+                        'table' => 'scms_term_cycle',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_student_term_cycle.term_cycle_id = scms_term_cycle.term_cycle_id'],
+                    ],
+                    'scms_student_cycle' => [
+                        'table' => 'scms_student_cycle',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_student_cycle.student_cycle_id  = scms_student_term_cycle.student_cycle_id'],
+                    ],
+                    'hr_shift' => [
+                        'table' => 'hr_shift',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_student_cycle.shift_id = hr_shift.shift_id'],
+                    ],
+                    'scms_levels' => [
+                        'table' => 'scms_levels',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_student_cycle.level_id = scms_levels.level_id'],
+                    ],
+                    'scms_sections' => [
+                        'table' => 'scms_sections',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_student_cycle.section_id = scms_sections.section_id'],
+                    ],
+                    'scms_students' => [
+                        'table' => 'scms_students',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_students.student_id  = scms_student_cycle.student_id'],
+                    ],
+                    'scms_groups' => [
+                        'table' => 'scms_groups',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_groups.group_id = scms_student_cycle.group_id'],
+                    ],
+                    'scms_sessions' => [
+                        'table' => 'scms_sessions',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_sessions.session_id  = scms_student_cycle.session_id'],
+                    ],
+                ])->toArray();
         $filter_result_students = array();
         $student_ids = array();
         foreach ($result_students as $result_student) {
@@ -4761,11 +4680,11 @@ class ResultsController extends AppController
         }
         $guardian = TableRegistry::getTableLocator()->get('scms_guardians'); //Execute First
         $guardians = $guardian
-            ->find()
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->where(['student_id IN' => $student_ids])
-            ->toArray();
+                ->find()
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->where(['student_id IN' => $student_ids])
+                ->toArray();
         foreach ($guardians as $guardian) {
             if ($filter_result_students[$guardian['student_id']]['active_guardian'] == $guardian['rtype']) {
                 if ($guardian['mobile']) {
@@ -4775,34 +4694,33 @@ class ResultsController extends AppController
                 }
             }
         }
-        #result
         $scms_results = TableRegistry::getTableLocator()->get('scms_results');
         $results = $scms_results
-            ->find()
-            ->select([
-                'term_name' => 'scms_term.term_name',
-                'merit' => 'scms_result_template.merit',
-            ])
-            ->where(['result_id' => $id])
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->join([
-                'scms_term_cycle' => [
-                    'table' => 'scms_term_cycle',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_term_cycle.term_cycle_id = scms_results.term_cycle_id'],
-                ],
-                'scms_term' => [
-                    'table' => 'scms_term',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_term.term_id = scms_term_cycle.term_id'],
-                ],
-                'scms_result_template' => [
-                    'table' => 'scms_result_template',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_result_template.result_template_id = scms_results.result_template_id'],
-                ],
-            ])->toArray();
+                        ->find()
+                        ->select([
+                            'term_name' => 'scms_term.term_name',
+                            'merit' => 'scms_result_template.merit',
+                        ])
+                        ->where(['result_id' => $id])
+                        ->enableAutoFields(true)
+                        ->enableHydration(false)
+                        ->join([
+                            'scms_term_cycle' => [
+                                'table' => 'scms_term_cycle',
+                                'type' => 'LEFT',
+                                'conditions' => ['scms_term_cycle.term_cycle_id = scms_results.term_cycle_id'],
+                            ],
+                            'scms_term' => [
+                                'table' => 'scms_term',
+                                'type' => 'LEFT',
+                                'conditions' => ['scms_term.term_id = scms_term_cycle.term_id'],
+                            ],
+                            'scms_result_template' => [
+                                'table' => 'scms_result_template',
+                                'type' => 'LEFT',
+                                'conditions' => ['scms_result_template.result_template_id = scms_results.result_template_id'],
+                            ],
+                        ])->toArray();
         $arg['recipients'] = array_values($filter_result_students);
         $arg['term_name'] = $results[0]['term_name'];
         $arg['merit'] = $results[0]['merit'];
@@ -4824,19 +4742,18 @@ class ResultsController extends AppController
         }
     }
 
-    public function studentResultView($id, $where)
-    {
+    public function studentResultView($id, $where) {
         $scms_results = TableRegistry::getTableLocator()->get('scms_results');
         $results = $scms_results->find()->where(['result_id' => $id])->enableAutoFields(true)->enableHydration(false)->toArray();
         $students = $this->get_scms_result_students($results[0]['result_id'], $where);
 
         $template = $this->get_template($results[0]['result_template_id']);
         $heads = $this->genarate_marks_heads($template);
-
+        
         // echo '<pre>';
         // print_r($heads);die;
         $students = $this->filter_data_for_view($students, $heads, $template);
-
+        
 
         $scms_result_attendance_month = TableRegistry::getTableLocator()->get('scms_result_attendance_month');
         $result_attendance_month = $scms_result_attendance_month->find()->where(['result_id' => $results[0]['result_id']])->enableAutoFields(true)->enableHydration(false)->toArray();
@@ -4872,7 +4789,7 @@ class ResultsController extends AppController
         $heads = $this->viewAbleHead($heads);
         // echo '<pre>';
         // print_r($heads);die;
-        //##// DATA Sending of ContactController of CONTACTS PLUGIN BLOCK
+//##// DATA Sending of ContactController of CONTACTS PLUGIN BLOCK
         return [
             'students' => $students,
             'scms_activity_remarks' => $scms_activity_remarks,
@@ -4883,35 +4800,34 @@ class ResultsController extends AppController
             'decemal_point' => $decemal_point,
             'total_attandance' => $month,
         ];
-        //##// DATA Sending of ContactController of CONTACTS PLUGIN BLOCK
+//##// DATA Sending of ContactController of CONTACTS PLUGIN BLOCK
     }
-
-
-    private function result_merge_marksheet_single($merge_students, $request_data, $results)
-    {
+    
+    
+    private function result_merge_marksheet_single($merge_students, $request_data, $results) {
         $template = $this->get_template($results['result_template_id']);
-
+        
         $term_ids = $template['term']['value']['term_id'];
         $scms_result = TableRegistry::getTableLocator()->get('scms_results');
         $single_base_results = $scms_result
-            ->find()
-            ->where(['scms_results.session_id' => $request_data['session_id']])
-            ->where(['scms_results.level_id' => $request_data['level_id']])
-            ->where(['scms_term_cycle.term_id' => $term_ids[0]])
-            ->where(['type' => 'single'])
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->select([
-                'term_id' => 'scms_term_cycle.term_id',
-            ])
-            ->join([
-                'scms_term_cycle' => [
-                    'table' => 'scms_term_cycle',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_term_cycle.term_cycle_id  = scms_results.term_cycle_id'],
-                ],
-            ])
-            ->toArray();
+                ->find()
+                ->where(['scms_results.session_id' => $request_data['session_id']])
+                ->where(['scms_results.level_id' => $request_data['level_id']])
+                ->where(['scms_term_cycle.term_id' => $term_ids[0]])
+                ->where(['type' => 'single'])
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->select([
+                    'term_id' => 'scms_term_cycle.term_id',
+                ])
+                ->join([
+                    'scms_term_cycle' => [
+                        'table' => 'scms_term_cycle',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_term_cycle.term_cycle_id  = scms_results.term_cycle_id'],
+                    ],
+                ])
+                ->toArray();
         // echo '<pre>';
         // print_r($single_base_results);die;
         $base_template = $this->get_template($single_base_results[0]['result_template_id']);
@@ -4946,33 +4862,33 @@ class ResultsController extends AppController
 
         unset($term_ids[0]);
         $single_results = $scms_result
-            ->find()
-            ->where(['scms_results.session_id' => $request_data['session_id']])
-            ->where(['scms_results.level_id' => $request_data['level_id']])
-            ->where(['scms_term_cycle.term_id IN' => $term_ids])
-            ->where(['type' => 'single'])
-            ->enableAutoFields(true)
-            ->enableHydration(false)
-            ->select([
-                'term_id' => 'scms_term_cycle.term_id',
-            ])
-            ->join([
-                'scms_term_cycle' => [
-                    'table' => 'scms_term_cycle',
-                    'type' => 'LEFT',
-                    'conditions' => ['scms_term_cycle.term_cycle_id  = scms_results.term_cycle_id'],
-                ],
-            ])
-            ->toArray();
+                ->find()
+                ->where(['scms_results.session_id' => $request_data['session_id']])
+                ->where(['scms_results.level_id' => $request_data['level_id']])
+                ->where(['scms_term_cycle.term_id IN' => $term_ids])
+                ->where(['type' => 'single'])
+                ->enableAutoFields(true)
+                ->enableHydration(false)
+                ->select([
+                    'term_id' => 'scms_term_cycle.term_id',
+                ])
+                ->join([
+                    'scms_term_cycle' => [
+                        'table' => 'scms_term_cycle',
+                        'type' => 'LEFT',
+                        'conditions' => ['scms_term_cycle.term_cycle_id  = scms_results.term_cycle_id'],
+                    ],
+                ])
+                ->toArray();
         $result_ids = array();
-
+ 
         foreach ($single_results as $result) {
             $result_ids[] = $result['result_id'];
         }
         unset($where['result_id']);
         $where['result_id IN'] = $result_ids;
         $other_results = $this->get_other_scms_result_students_for_merge($result_ids, $where);
-
+        
         foreach ($other_results as $other_result) {
             $term_id = $other_result['term_id'];
             foreach ($other_result['courses'] as $course_id => $single_course) {
@@ -5088,13 +5004,12 @@ class ResultsController extends AppController
 
         // $this->render('/Students/merge_result');
     }
-
-    public function studentResultMerge($id, $where)
-    {
+    
+    public function studentResultMerge($id, $where) {
         $scms_results = TableRegistry::getTableLocator()->get('scms_results');
         $results = $scms_results->find()->where(['result_id' => $id])->enableAutoFields(true)->enableHydration(false)->toArray();
         $students = $this->get_scms_result_students($results[0]['result_id'], $where);
-
+        
         $students = array_values($students);
         // echo '<pre>';
         // print_r($students);die;
@@ -5111,7 +5026,10 @@ class ResultsController extends AppController
         // print_r($students);die;
         $this->autoRender = false;
         $data = $this->result_merge_marksheet_single($students, $data, $results[0]);
+        
+          return $data;
 
-        return $data;
+      
     }
+
 }
