@@ -1,0 +1,199 @@
+{
+    "data": {
+        "type": "countries",
+        "id": "1",
+        "attributes": {
+            "code": "NL",
+            "name": "The Netherlands",
+            "dummy-counter": 11111
+        },
+        "relationships": {
+            "currency": {
+                "links": {
+                    "self": "\/currencies\/1"
+                },
+                "data": {
+                    "type": "currencies",
+                    "id": "1"
+                }
+            },
+            "national-capital": {
+                "links": {
+                    "self": "\/national-capitals\/1"
+                },
+                "data": {
+                    "type": "national-capitals",
+                    "id": "1"
+                }
+            },
+            "cultures": {
+                "links": {
+                    "related": "\/cultures?country_id=1"
+                },
+                "data": [
+                    {
+                        "type": "cultures",
+                        "id": "1"
+                    }
+                ]
+            },
+            "national-cities": {
+                "links": {
+                    "related": "\/national-cities?country_id=1"
+                },
+                "data": [
+                    {
+                        "type": "national-cities",
+                        "id": "1"
+                    },
+                    {
+                        "type": "national-cities",
+                        "id": "2"
+                    },
+                    {
+                        "type": "national-cities",
+                        "id": "5"
+                    },
+                    {
+                        "type": "national-cities",
+                        "id": "6"
+                    }
+                ]
+            }
+        },
+        "links": {
+            "self": "\/countries\/1"
+        }
+    },
+    "included": [
+        {
+            "type": "currencies",
+            "id": "1",
+            "attributes": {
+                "code": "EUR",
+                "name": "Euro"
+            },
+            "links": {
+                "self": "\/currencies\/1"
+            }
+        },
+        {
+            "type": "national-capitals",
+            "id": "1",
+            "attributes": {
+                "name": "Amsterdam",
+                "description": "National capital of the Netherlands"
+            },
+            "links": {
+                "self": "\/national-capitals\/1"
+            }
+        },
+        {
+            "type": "cultures",
+            "id": "1",
+            "attributes": {
+                "code": "nl-NL",
+                "name": "Dutch",
+                "another-dummy-counter": 11111
+            },
+            "relationships": {
+                "country": {
+                    "links": {
+                        "self": "\/countries\/1"
+                    },
+                    "data": {
+                        "type": "countries",
+                        "id": "1"
+                    }
+                }
+            },
+            "links": {
+                "self": "\/cultures\/1"
+            }
+        },
+        {
+            "type": "national-cities",
+            "id": "1",
+            "attributes": {
+                "name": "Amsterdam"
+            },
+            "relationships": {
+                "country": {
+                    "links": {
+                        "self": "\/countries\/1"
+                    },
+                    "data": {
+                        "type": "countries",
+                        "id": "1"
+                    }
+                }
+            },
+            "links": {
+                "self": "\/national-cities\/1"
+            }
+        },
+        {
+            "type": "national-cities",
+            "id": "2",
+            "attributes": {
+                "name": "Rotterdam"
+            },
+            "relationships": {
+                "country": {
+                    "links": {
+                        "self": "\/countries\/1"
+                    },
+                    "data": {
+                        "type": "countries",
+                        "id": "1"
+                    }
+                }
+            },
+            "links": {
+                "self": "\/national-cities\/2"
+            }
+        },
+        {
+            "type": "national-cities",
+            "id": "5",
+            "attributes": {
+                "name": "Eindhoven"
+            },
+            "relationships": {
+                "country": {
+                    "links": {
+                        "self": "\/countries\/1"
+                    },
+                    "data": {
+                        "type": "countries",
+                        "id": "1"
+                    }
+                }
+            },
+            "links": {
+                "self": "\/national-cities\/5"
+            }
+        },
+        {
+            "type": "national-cities",
+            "id": "6",
+            "attributes": {
+                "name": "Nuenen"
+            },
+            "relationships": {
+                "country": {
+                    "links": {
+                        "self": "\/countries\/1"
+                    },
+                    "data": {
+                        "type": "countries",
+                        "id": "1"
+                    }
+                }
+            },
+            "links": {
+                "self": "\/national-cities\/6"
+            }
+        }
+    ]
+}

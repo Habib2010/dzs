@@ -1,0 +1,2 @@
+INSERT INTO `settings` (`key`, `value`, `title`, `description`, `input_type`, `editable`, `weight`, `params`, `created`, `modified`, `created_by`, `modified_by`) VALUES
+('Site.govFeatured', '/uploads/built-in/National-Portal-Card-PM.jpeg', '', '', 'text', 1, NULL, '', '2023-09-21 06:46:54', NULL, 1, 1);

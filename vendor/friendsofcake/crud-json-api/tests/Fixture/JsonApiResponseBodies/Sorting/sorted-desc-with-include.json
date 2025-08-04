@@ -1,0 +1,144 @@
+{
+    "meta": {
+        "record_count": 5,
+        "page_count": 2,
+        "page_limit": null
+    },
+    "links": {
+        "self": "\/countries?page=1&sort=-code&include=currency",
+        "first": "\/countries?page=1&sort=-code&include=currency",
+        "last": "\/countries?page=2&sort=-code&include=currency",
+        "next": "\/countries?page=2&sort=-code&include=currency"
+    },
+    "data": [
+        {
+            "type": "countries",
+            "id": "4",
+            "attributes": {
+                "code": "VT",
+                "name": "Vatican",
+                "dummy-counter": 44444
+            },
+            "relationships": {
+                "currency": {
+                    "links": {
+                        "self": "\/currencies\/1"
+                    },
+                    "data": {
+                        "type": "currencies",
+                        "id": "1"
+                    }
+                },
+                "national-capital": {
+                    "links": {
+                        "self": "\/national-capitals\/5"
+                    },
+                    "data": {
+                        "type": "national-capitals",
+                        "id": "5"
+                    }
+                },
+                "supercountry": {
+                    "links": {
+                        "self": "\/countries\/3"
+                    },
+                    "data": {
+                        "type": "countries",
+                        "id": "3"
+                    }
+                }
+            },
+            "links": {
+                "self": "\/countries\/4"
+            }
+        },
+        {
+            "type": "countries",
+            "id": "5",
+            "attributes": {
+                "code": "US",
+                "name": "United States of America",
+                "dummy-counter": 33333
+            },
+            "relationships": {
+                "currency": {
+                    "links": {
+                        "self": "\/currencies\/2"
+                    },
+                    "data": {
+                        "type": "currencies",
+                        "id": "2"
+                    }
+                },
+                "national-capital": {
+                    "links": {
+                        "self": "\/national-capitals\/6"
+                    },
+                    "data": {
+                        "type": "national-capitals",
+                        "id": "6"
+                    }
+                }
+            },
+            "links": {
+                "self": "\/countries\/5"
+            }
+        },
+        {
+            "type": "countries",
+            "id": "1",
+            "attributes": {
+                "code": "NL",
+                "name": "The Netherlands",
+                "dummy-counter": 11111
+            },
+            "relationships": {
+                "currency": {
+                    "links": {
+                        "self": "\/currencies\/1"
+                    },
+                    "data": {
+                        "type": "currencies",
+                        "id": "1"
+                    }
+                },
+                "national-capital": {
+                    "links": {
+                        "self": "\/national-capitals\/1"
+                    },
+                    "data": {
+                        "type": "national-capitals",
+                        "id": "1"
+                    }
+                }
+            },
+            "links": {
+                "self": "\/countries\/1"
+            }
+        }
+    ],
+    "included": [
+        {
+            "type": "currencies",
+            "id": "1",
+            "attributes": {
+                "code": "EUR",
+                "name": "Euro"
+            },
+            "links": {
+                "self": "\/currencies\/1"
+            }
+        },
+        {
+            "type": "currencies",
+            "id": "2",
+            "attributes": {
+                "code": "USD",
+                "name": "US Dollar"
+            },
+            "links": {
+                "self": "\/currencies\/2"
+            }
+        }
+    ]
+}

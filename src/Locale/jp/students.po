@@ -1,0 +1,240 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2022-10-05 11:22+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Template/Admin/Students/add.ctp:30
+msgid "student's Personal Information"
+msgstr ""
+
+#: Template/Admin/Students/add.ctp:33
+#: Template/Admin/Students/edit.ctp:34
+msgid "Student ID"
+msgstr ""
+
+#: Template/Admin/Students/add.ctp:38
+msgid "student's Name"
+msgstr ""
+
+#: Template/Admin/Students/add.ctp:42
+#: Template/Admin/Students/add.ctp:133
+#: Template/Admin/Students/add.ctp:171
+#: Template/Admin/Students/edit.ctp:44
+#: Template/Admin/Students/edit.ctp:150
+#: Template/Admin/Students/edit.ctp:189
+msgid "Email"
+msgstr ""
+
+#: Template/Admin/Students/add.ctp:46
+#: Template/Admin/Students/add.ctp:137
+#: Template/Admin/Students/add.ctp:175
+#: Template/Admin/Students/edit.ctp:49
+#: Template/Admin/Students/edit.ctp:154
+#: Template/Admin/Students/edit.ctp:193
+msgid "Mobile Number"
+msgstr ""
+
+#: Template/Admin/Students/add.ctp:50
+#: Template/Admin/Students/edit.ctp:54
+msgid "Present Address"
+msgstr ""
+
+#: Template/Admin/Students/add.ctp:56
+#: Template/Admin/Students/edit.ctp:60
+msgid "Gender"
+msgstr ""
+
+#: Template/Admin/Students/add.ctp:58
+#: Template/Admin/Students/add.ctp:67
+#: Template/Admin/Students/add.ctp:93
+#: Template/Admin/Students/add.ctp:103
+#: Template/Admin/Students/add.ctp:113
+#: Template/Admin/Students/add.ctp:151
+#: Template/Admin/Students/add.ctp:189
+#: Template/Admin/Students/edit.ctp:108
+#: Template/Admin/Students/edit.ctp:123
+#: Template/Admin/Students/edit.ctp:168
+#: Template/Admin/Students/edit.ctp:207
+msgid "Choose..."
+msgstr ""
+
+#: Template/Admin/Students/add.ctp:59
+#: Template/Admin/Students/edit.ctp:64
+msgid "Male"
+msgstr ""
+
+#: Template/Admin/Students/add.ctp:60
+#: Template/Admin/Students/edit.ctp:67
+msgid "Female"
+msgstr ""
+
+#: Template/Admin/Students/add.ctp:61
+msgid "Other"
+msgstr ""
+
+#: Template/Admin/Students/add.ctp:65
+#: Template/Admin/Students/edit.ctp:72
+msgid "Religion"
+msgstr ""
+
+#: Template/Admin/Students/add.ctp:68
+#: Template/Admin/Students/edit.ctp:77
+msgid "Islam"
+msgstr ""
+
+#: Template/Admin/Students/add.ctp:69
+#: Template/Admin/Students/edit.ctp:80
+msgid "Hindu"
+msgstr ""
+
+#: Template/Admin/Students/add.ctp:70
+#: Template/Admin/Students/edit.ctp:83
+msgid "Christian"
+msgstr ""
+
+#: Template/Admin/Students/add.ctp:71
+#: Template/Admin/Students/edit.ctp:86
+msgid "Buddhist"
+msgstr ""
+
+#: Template/Admin/Students/add.ctp:78
+#: Template/Admin/Students/edit.ctp:93
+msgid "Date of Birth"
+msgstr ""
+
+#: Template/Admin/Students/add.ctp:82
+#: Template/Admin/Students/edit.ctp:97
+msgid "Birth Registration No."
+msgstr ""
+
+#: Template/Admin/Students/add.ctp:86
+#: Template/Admin/Students/edit.ctp:101
+msgid "Nationality"
+msgstr ""
+
+#: Template/Admin/Students/add.ctp:91
+msgid "Session"
+msgstr ""
+
+#: Template/Admin/Students/add.ctp:101
+#: Template/Admin/Students/edit.ctp:106
+msgid "Admission Year"
+msgstr ""
+
+#: Template/Admin/Students/add.ctp:111
+#: Template/Admin/Students/edit.ctp:121
+msgid "Class"
+msgstr ""
+
+#: Template/Admin/Students/add.ctp:124
+#: Template/Admin/Students/edit.ctp:140
+msgid "Father's Information"
+msgstr ""
+
+#: Template/Admin/Students/add.ctp:129
+#: Template/Admin/Students/add.ctp:167
+#: Template/Admin/Students/edit.ctp:146
+#: Template/Admin/Students/edit.ctp:185
+#: Template/Admin/Students/index.ctp:22
+msgid "Name"
+msgstr ""
+
+#: Template/Admin/Students/add.ctp:141
+#: Template/Admin/Students/add.ctp:179
+#: Template/Admin/Students/edit.ctp:158
+#: Template/Admin/Students/edit.ctp:197
+msgid "Occupation"
+msgstr ""
+
+#: Template/Admin/Students/add.ctp:145
+#: Template/Admin/Students/add.ctp:183
+#: Template/Admin/Students/edit.ctp:162
+#: Template/Admin/Students/edit.ctp:201
+msgid "Yearly Income"
+msgstr ""
+
+#: Template/Admin/Students/add.ctp:149
+#: Template/Admin/Students/add.ctp:187
+#: Template/Admin/Students/edit.ctp:166
+#: Template/Admin/Students/edit.ctp:205
+msgid "Relation Type"
+msgstr ""
+
+#: Template/Admin/Students/add.ctp:152
+#: Template/Admin/Students/add.ctp:190
+#: Template/Admin/Students/edit.ctp:169
+#: Template/Admin/Students/edit.ctp:208
+msgid "Father"
+msgstr ""
+
+#: Template/Admin/Students/add.ctp:153
+#: Template/Admin/Students/add.ctp:191
+#: Template/Admin/Students/edit.ctp:170
+#: Template/Admin/Students/edit.ctp:209
+msgid "Mother"
+msgstr ""
+
+#: Template/Admin/Students/add.ctp:162
+#: Template/Admin/Students/edit.ctp:179
+msgid "Mother's Information"
+msgstr ""
+
+#: Template/Admin/Students/add.ctp:201
+msgid "Submit"
+msgstr ""
+
+#: Template/Admin/Students/edit.ctp:30
+msgid "Student's Personal Information"
+msgstr ""
+
+#: Template/Admin/Students/edit.ctp:39
+msgid "Student's Name"
+msgstr ""
+
+#: Template/Admin/Students/edit.ctp:219
+msgid "Update"
+msgstr ""
+
+#: Template/Admin/Students/index.ctp:14
+msgid "List of All Students"
+msgstr ""
+
+#: Template/Admin/Students/index.ctp:21
+msgid "ID"
+msgstr ""
+
+#: Template/Admin/Students/index.ctp:23
+msgid "Mobile"
+msgstr ""
+
+#: Template/Admin/Students/index.ctp:24
+msgid "Father's Name"
+msgstr ""
+
+#: Template/Admin/Students/index.ctp:25
+msgid "Father's Mobile"
+msgstr ""
+
+#: Template/Admin/Students/index.ctp:26
+msgid "Mother's Name"
+msgstr ""
+
+#: Template/Admin/Students/index.ctp:27
+msgid "Mother's Mobile"
+msgstr ""
+
+#: Template/Admin/Students/index.ctp:28
+msgid "Action"
+msgstr ""
+

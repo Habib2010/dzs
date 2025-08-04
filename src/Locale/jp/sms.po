@@ -1,0 +1,72 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2022-10-05 11:22+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Template/Admin/Sms/sms.ctp:20
+msgid "SMS"
+msgstr ""
+
+#: Template/Admin/Sms/sms.ctp:26
+msgid "Check All"
+msgstr ""
+
+#: Template/Admin/Sms/sms.ctp:32
+msgid "Class"
+msgstr ""
+
+#: Template/Admin/Sms/sms.ctp:33
+msgid "All Students"
+msgstr ""
+
+#: Template/Admin/Sms/sms.ctp:45
+msgid "Send SMS to:"
+msgstr ""
+
+#: Template/Admin/Sms/sms.ctp:48
+msgid "Student"
+msgstr ""
+
+#: Template/Admin/Sms/sms.ctp:51
+msgid "Father"
+msgstr ""
+
+#: Template/Admin/Sms/sms.ctp:54
+msgid "Mother"
+msgstr ""
+
+#: Template/Admin/Sms/sms.ctp:69
+msgid "Departments"
+msgstr ""
+
+#: Template/Admin/Sms/sms.ctp:70
+msgid "All Teachers"
+msgstr ""
+
+#: Template/Admin/Sms/sms.ctp:92
+msgid "Staffs"
+msgstr ""
+
+#: Template/Admin/Sms/sms.ctp:93
+msgid "All Staffs"
+msgstr ""
+
+#: Template/Admin/Sms/sms.ctp:100
+msgid "External Number"
+msgstr ""
+
+#: Template/Admin/Sms/sms.ctp:107
+msgid "Submit"
+msgstr ""
+

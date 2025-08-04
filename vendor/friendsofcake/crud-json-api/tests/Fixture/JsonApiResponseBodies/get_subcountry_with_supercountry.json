@@ -1,0 +1,77 @@
+{
+    "data": {
+        "type": "countries",
+        "id": "4",
+        "attributes": {
+            "code": "VT",
+            "name": "Vatican",
+            "dummy-counter": 44444
+        },
+        "relationships": {
+            "currency": {
+                "links": {
+                    "self": "\/currencies\/1"
+                },
+                "data": {
+                    "type": "currencies",
+                    "id": "1"
+                }
+            },
+            "national-capital": {
+                "links": {
+                    "self": "\/national-capitals\/5"
+                },
+                "data": {
+                    "type": "national-capitals",
+                    "id": "5"
+                }
+            },
+            "supercountry": {
+                "links": {
+                    "self": "\/countries\/3"
+                },
+                "data": {
+                    "type": "countries",
+                    "id": "3"
+                }
+            }
+        },
+        "links": {
+            "self": "\/countries\/4"
+        }
+    },
+    "included": [
+        {
+            "type": "countries",
+            "id": "3",
+            "attributes": {
+                "code": "IT",
+                "name": "Italy",
+                "dummy-counter": 33333
+            },
+            "relationships": {
+                "currency": {
+                    "links": {
+                        "self": "\/currencies\/1"
+                    },
+                    "data": {
+                        "type": "currencies",
+                        "id": "1"
+                    }
+                },
+                "national-capital": {
+                    "links": {
+                        "self": "\/national-capitals\/4"
+                    },
+                    "data": {
+                        "type": "national-capitals",
+                        "id": "4"
+                    }
+                }
+            },
+            "links": {
+                "self": "\/countries\/3"
+            }
+        }
+    ]
+}

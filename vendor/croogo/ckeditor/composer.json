@@ -1,0 +1,28 @@
+{
+    "name": "croogo/ckeditor",
+    "type": "cakephp-plugin",
+    "description": "Integrate Ckeditor with Croogo",
+    "homepage": "http://github.com/croogo/ckeditor",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Fahad Ibnay Heylall",
+            "email": "contact@fahad19.com",
+            "homepage": "http://fahad19.com"
+        },
+        {
+            "name": "Rachman Chavik",
+            "email": "contact@xintesa.com",
+            "homepage": "http://xintesa.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.0",
+        "croogo/croogo": "^4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Croogo\\Ckeditor\\": "src"
+        }
+    }
+}

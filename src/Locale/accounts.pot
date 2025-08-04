@@ -1,0 +1,163 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2022-10-05 11:22+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Template/Admin/Accounts/add_bank.ctp:12
+#: Template/Admin/Accounts/edit_bank.ctp:12
+msgid "Bank Information"
+msgstr ""
+
+#: Template/Admin/Accounts/add_bank.ctp:15
+#: Template/Admin/Accounts/add_bank.ctp:23
+#: Template/Admin/Accounts/bank.ctp:24
+#: Template/Admin/Accounts/edit_bank.ctp:15
+#: Template/Admin/Accounts/edit_bank.ctp:23
+msgid "Bank Code"
+msgstr ""
+
+#: Template/Admin/Accounts/add_bank.ctp:19
+#: Template/Admin/Accounts/add_transaction.ctp:49
+#: Template/Admin/Accounts/bank.ctp:25
+#: Template/Admin/Accounts/edit_bank.ctp:19
+#: Template/Admin/Accounts/edit_transaction.ctp:47
+#: Template/Admin/Accounts/transaction.ctp:27
+msgid "Bank Name"
+msgstr ""
+
+#: Template/Admin/Accounts/add_bank.ctp:27
+#: Template/Admin/Accounts/bank.ctp:27
+#: Template/Admin/Accounts/edit_bank.ctp:27
+msgid "Bank Account Number"
+msgstr ""
+
+#: Template/Admin/Accounts/add_bank.ctp:31
+#: Template/Admin/Accounts/edit_bank.ctp:31
+msgid "Bank Address"
+msgstr ""
+
+#: Template/Admin/Accounts/add_bank.ctp:37
+#: Template/Admin/Accounts/add_purpose.ctp:30
+#: Template/Admin/Accounts/add_transaction.ctp:64
+msgid "Submit"
+msgstr ""
+
+#: Template/Admin/Accounts/add_purpose.ctp:8
+#: Template/Admin/Accounts/edit_purpose.ctp:9
+#: Template/Admin/Accounts/purpose.ctp:14
+msgid "All Purposes"
+msgstr ""
+
+#: Template/Admin/Accounts/add_purpose.ctp:11
+#: Template/Admin/Accounts/add_transaction.ctp:39
+#: Template/Admin/Accounts/edit_purpose.ctp:12
+#: Template/Admin/Accounts/edit_transaction.ctp:37
+#: Template/Admin/Accounts/purpose.ctp:24
+msgid "Purpose name"
+msgstr ""
+
+#: Template/Admin/Accounts/add_purpose.ctp:15
+#: Template/Admin/Accounts/add_transaction.ctp:23
+#: Template/Admin/Accounts/edit_purpose.ctp:16
+#: Template/Admin/Accounts/edit_transaction.ctp:23
+#: Template/Admin/Accounts/purpose.ctp:26
+#: Template/Admin/Accounts/transaction.ctp:23
+msgid "Reason"
+msgstr ""
+
+#: Template/Admin/Accounts/add_purpose.ctp:19
+#: Template/Admin/Accounts/edit_purpose.ctp:20
+#: Template/Admin/Accounts/purpose.ctp:25
+msgid "Purpose Parent"
+msgstr ""
+
+#: Template/Admin/Accounts/add_purpose.ctp:21
+#: Template/Admin/Accounts/add_transaction.ctp:41
+#: Template/Admin/Accounts/add_transaction.ctp:51
+#: Template/Admin/Accounts/edit_purpose.ctp:22
+#: Template/Admin/Accounts/edit_transaction.ctp:39
+#: Template/Admin/Accounts/edit_transaction.ctp:49
+msgid "Choose..."
+msgstr ""
+
+#: Template/Admin/Accounts/add_transaction.ctp:16
+#: Template/Admin/Accounts/edit_transaction.ctp:16
+#: Template/Admin/Accounts/transaction.ctp:13
+msgid "All Transactions"
+msgstr ""
+
+#: Template/Admin/Accounts/add_transaction.ctp:19
+#: Template/Admin/Accounts/edit_transaction.ctp:19
+msgid "Voucher No."
+msgstr ""
+
+#: Template/Admin/Accounts/add_transaction.ctp:27
+#: Template/Admin/Accounts/edit_transaction.ctp:27
+#: Template/Admin/Accounts/transaction.ctp:24
+msgid "Amount"
+msgstr ""
+
+#: Template/Admin/Accounts/add_transaction.ctp:32
+#: Template/Admin/Accounts/edit_transaction.ctp:32
+#: Template/Admin/Accounts/transaction.ctp:25
+msgid "Transaction Date"
+msgstr ""
+
+#: Template/Admin/Accounts/add_transaction.ctp:58
+#: Template/Admin/Accounts/edit_transaction.ctp:56
+msgid "Note"
+msgstr ""
+
+#: Template/Admin/Accounts/bank.ctp:14
+msgid "All Bank Information"
+msgstr ""
+
+#: Template/Admin/Accounts/bank.ctp:23
+#: Template/Admin/Accounts/purpose.ctp:23
+#: Template/Admin/Accounts/transaction.ctp:21
+msgid "ID"
+msgstr ""
+
+#: Template/Admin/Accounts/bank.ctp:26
+msgid "Branch"
+msgstr ""
+
+#: Template/Admin/Accounts/bank.ctp:28
+#: Template/Admin/Accounts/purpose.ctp:27
+#: Template/Admin/Accounts/transaction.ctp:30
+msgid "Action"
+msgstr ""
+
+#: Template/Admin/Accounts/edit_bank.ctp:37
+#: Template/Admin/Accounts/edit_purpose.ctp:31
+#: Template/Admin/Accounts/edit_transaction.ctp:64
+msgid "Update"
+msgstr ""
+
+#: Template/Admin/Accounts/transaction.ctp:22
+msgid "Voucher No"
+msgstr ""
+
+#: Template/Admin/Accounts/transaction.ctp:26
+msgid "Purpose"
+msgstr ""
+
+#: Template/Admin/Accounts/transaction.ctp:28
+msgid "User Name"
+msgstr ""
+
+#: Template/Admin/Accounts/transaction.ctp:29
+msgid "Notes"
+msgstr ""
+

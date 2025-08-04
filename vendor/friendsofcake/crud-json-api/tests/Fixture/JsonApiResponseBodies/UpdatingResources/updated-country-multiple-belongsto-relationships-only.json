@@ -1,0 +1,34 @@
+{
+    "data": {
+        "type": "countries",
+        "id": "2",
+        "attributes": {
+            "code": "BG",
+            "name": "Bulgaria",
+            "dummy-counter": 22222
+        },
+        "relationships": {
+            "currency": {
+                "links": {
+                    "self": "\/currencies\/2"
+                },
+                "data": {
+                    "type": "currencies",
+                    "id": "2"
+                }
+            },
+            "national-capital": {
+                "links": {
+                    "self": "\/national-capitals\/4"
+                },
+                "data": {
+                    "type": "national-capitals",
+                    "id": "4"
+                }
+            }
+        },
+        "links": {
+            "self": "\/countries\/2"
+        }
+    }
+}

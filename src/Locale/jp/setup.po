@@ -1,0 +1,293 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2022-10-05 11:22+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Template/Admin/Setup/add_course.ctp:7
+msgid "Course Information"
+msgstr ""
+
+#: Template/Admin/Setup/add_course.ctp:10
+msgid "Add A Course"
+msgstr ""
+
+#: Template/Admin/Setup/add_course.ctp:14
+#: Template/Admin/Teachers/form.ctp:25
+msgid "Department"
+msgstr ""
+
+#: Template/Admin/Setup/add_course.ctp:16
+#: Template/Admin/Setup/add_department.ctp:17
+#: Template/Admin/Setup/add_section.ctp:17
+#: Template/Admin/Setup/edit_course.ctp:17
+#: Template/Admin/Setup/edit_department.ctp:17
+#: Template/Admin/Teachers/assign_teacher_add.ctp:19
+#: Template/Admin/Teachers/assign_teacher_add.ctp:29
+#: Template/Admin/Teachers/assign_teacher_add.ctp:38
+#: Template/Admin/Teachers/form.ctp:27
+#: Template/Admin/Teachers/form.ctp:36
+msgid "Choose..."
+msgstr ""
+
+#: Template/Admin/Setup/add_course.ctp:24
+#: Template/Admin/Setup/add_department.ctp:25
+#: Template/Admin/Setup/add_faculty.ctp:14
+#: Template/Admin/Setup/add_level.ctp:15
+#: Template/Admin/Setup/add_section.ctp:25
+#: Template/Admin/Setup/add_session.ctp:15
+#: Template/Admin/Setup/add_shift.ctp:15
+#: Template/Admin/Teachers/add_designation.ctp:16
+#: Template/Admin/Teachers/assign_teacher_add.ctp:48
+msgid "Submit"
+msgstr ""
+
+#: Template/Admin/Setup/add_department.ctp:8
+#: Template/Admin/Setup/edit_department.ctp:8
+msgid "Department Information"
+msgstr ""
+
+#: Template/Admin/Setup/add_department.ctp:11
+#: Template/Admin/Setup/edit_department.ctp:11
+msgid "Add A Department"
+msgstr ""
+
+#: Template/Admin/Setup/add_department.ctp:15
+#: Template/Admin/Setup/edit_department.ctp:15
+msgid "Faculties"
+msgstr ""
+
+#: Template/Admin/Setup/add_faculty.ctp:6
+#: Template/Admin/Setup/edit_faculty.ctp:10
+msgid "Faculty Information"
+msgstr ""
+
+#: Template/Admin/Setup/add_faculty.ctp:9
+#: Template/Admin/Setup/edit_faculty.ctp:13
+msgid "Add A Faculty"
+msgstr ""
+
+#: Template/Admin/Setup/add_level.ctp:7
+msgid "Class Information"
+msgstr ""
+
+#: Template/Admin/Setup/add_level.ctp:10
+msgid ""
+msgstr ""
+
+#: Template/Admin/Setup/add_level.ctp:10
+msgid "Add A Class"
+msgstr ""
+
+#: Template/Admin/Setup/add_section.ctp:8
+msgid "Section Information"
+msgstr ""
+
+#: Template/Admin/Setup/add_section.ctp:11
+msgid "Add A Section"
+msgstr ""
+
+#: Template/Admin/Setup/add_section.ctp:15
+#: Template/Admin/Setup/section.ctp:25
+msgid "Shift"
+msgstr ""
+
+#: Template/Admin/Setup/add_session.ctp:7
+#: Template/Admin/Setup/edit_session.ctp:7
+msgid "Session Information"
+msgstr ""
+
+#: Template/Admin/Setup/add_session.ctp:10
+#: Template/Admin/Setup/edit_session.ctp:10
+msgid "Add A Session"
+msgstr ""
+
+#: Template/Admin/Setup/add_shift.ctp:7
+msgid "Shift Information"
+msgstr ""
+
+#: Template/Admin/Setup/add_shift.ctp:10
+msgid "Add A shift"
+msgstr ""
+
+#: Template/Admin/Setup/course.ctp:14
+msgid "All Courses"
+msgstr ""
+
+#: Template/Admin/Setup/course.ctp:21
+#: Template/Admin/Setup/department.ctp:23
+#: Template/Admin/Setup/faculty.ctp:23
+#: Template/Admin/Setup/level.ctp:23
+#: Template/Admin/Setup/section.ctp:23
+#: Template/Admin/Setup/session.ctp:23
+#: Template/Admin/Setup/shift.ctp:23
+#: Template/Admin/Teachers/assign_teacher.ctp:20
+#: Template/Admin/Teachers/designation.ctp:22
+#: Template/Admin/Teachers/index.ctp:18
+msgid "ID"
+msgstr ""
+
+#: Template/Admin/Setup/course.ctp:22
+#: Template/Admin/Teachers/assign_teacher.ctp:22
+msgid "Course Name"
+msgstr ""
+
+#: Template/Admin/Setup/course.ctp:23
+#: Template/Admin/Setup/department.ctp:24
+msgid "Department Name"
+msgstr ""
+
+#: Template/Admin/Setup/course.ctp:24
+#: Template/Admin/Setup/department.ctp:25
+#: Template/Admin/Setup/faculty.ctp:25
+#: Template/Admin/Setup/level.ctp:25
+#: Template/Admin/Setup/section.ctp:26
+#: Template/Admin/Setup/session.ctp:25
+#: Template/Admin/Setup/shift.ctp:25
+#: Template/Admin/Teachers/assign_teacher.ctp:23
+#: Template/Admin/Teachers/designation.ctp:24
+#: Template/Admin/Teachers/index.ctp:20
+msgid "Action"
+msgstr ""
+
+#: Template/Admin/Setup/department.ctp:14
+msgid "All Departments"
+msgstr ""
+
+#: Template/Admin/Setup/edit_course.ctp:8
+msgid "course Information"
+msgstr ""
+
+#: Template/Admin/Setup/edit_course.ctp:11
+msgid "Add A course"
+msgstr ""
+
+#: Template/Admin/Setup/edit_course.ctp:15
+msgid "departments"
+msgstr ""
+
+#: Template/Admin/Setup/edit_course.ctp:29
+#: Template/Admin/Setup/edit_department.ctp:30
+#: Template/Admin/Setup/edit_faculty.ctp:19
+#: Template/Admin/Setup/edit_level.ctp:16
+#: Template/Admin/Setup/edit_session.ctp:16
+#: Template/Admin/Teachers/edit_designation.ctp:16
+#: Template/Admin/Teachers/form.ctp:45
+msgid "Update"
+msgstr ""
+
+#: Template/Admin/Setup/edit_level.ctp:7
+msgid "Level Information"
+msgstr ""
+
+#: Template/Admin/Setup/edit_level.ctp:10
+msgid "Add A Level"
+msgstr ""
+
+#: Template/Admin/Setup/faculty.ctp:14
+msgid "All Faculties"
+msgstr ""
+
+#: Template/Admin/Setup/faculty.ctp:24
+msgid "Faculty Name"
+msgstr ""
+
+#: Template/Admin/Setup/level.ctp:14
+msgid "All Classes"
+msgstr ""
+
+#: Template/Admin/Setup/level.ctp:24
+msgid "Class Name"
+msgstr ""
+
+#: Template/Admin/Setup/section.ctp:14
+msgid "All Sections"
+msgstr ""
+
+#: Template/Admin/Setup/section.ctp:24
+msgid "Section Name"
+msgstr ""
+
+#: Template/Admin/Setup/session.ctp:14
+msgid "All Sessions"
+msgstr ""
+
+#: Template/Admin/Setup/session.ctp:24
+msgid "Sessions"
+msgstr ""
+
+#: Template/Admin/Setup/shift.ctp:14
+msgid "All shifts"
+msgstr ""
+
+#: Template/Admin/Setup/shift.ctp:24
+#: Template/Admin/Teachers/index.ctp:19
+msgid "Name"
+msgstr ""
+
+#: Template/Admin/Teachers/add_designation.ctp:8
+#: Template/Admin/Teachers/edit_designation.ctp:7
+msgid "Designation Information"
+msgstr ""
+
+#: Template/Admin/Teachers/add_designation.ctp:11
+#: Template/Admin/Teachers/edit_designation.ctp:10
+msgid "Add Designation"
+msgstr ""
+
+#: Template/Admin/Teachers/assign_teacher.ctp:13
+#: Template/Admin/Teachers/assign_teacher_add.ctp:14
+msgid "Assign Courses"
+msgstr ""
+
+#: Template/Admin/Teachers/assign_teacher.ctp:21
+msgid "Level"
+msgstr ""
+
+#: Template/Admin/Teachers/assign_teacher_add.ctp:17
+msgid "Course"
+msgstr ""
+
+#: Template/Admin/Teachers/assign_teacher_add.ctp:27
+msgid "Teacher"
+msgstr ""
+
+#: Template/Admin/Teachers/assign_teacher_add.ctp:36
+msgid "Session"
+msgstr ""
+
+#: Template/Admin/Teachers/designation.ctp:13
+msgid "All designations"
+msgstr ""
+
+#: Template/Admin/Teachers/designation.ctp:23
+#: Template/Admin/Teachers/form.ctp:34
+msgid "Designation"
+msgstr ""
+
+#: Template/Admin/Teachers/form.ctp:13
+msgid "Teacher Form"
+msgstr ""
+
+#: Template/Admin/Teachers/form.ctp:16
+msgid "Teacher Name"
+msgstr ""
+
+#: Template/Admin/Teachers/form.ctp:20
+msgid "Mobile Number"
+msgstr ""
+
+#: Template/Admin/Teachers/index.ctp:11
+msgid "List of Teachers"
+msgstr ""
+

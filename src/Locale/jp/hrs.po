@@ -1,0 +1,417 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2022-10-05 11:22+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Template/Admin/Hrs/add_config.ctp:13
+#: Template/Admin/Hrs/edit_config.ctp:15
+msgid "HR Config"
+msgstr ""
+
+#: Template/Admin/Hrs/add_config.ctp:18
+#: Template/Admin/Hrs/edit_config.ctp:20
+msgid "Config Name :"
+msgstr ""
+
+#: Template/Admin/Hrs/add_config.ctp:34
+#: Template/Admin/Hrs/edit_config.ctp:37
+msgid "Action Name :"
+msgstr ""
+
+#: Template/Admin/Hrs/add_config.ctp:43
+#: Template/Admin/Hrs/add_config_setup.ctp:88
+#: Template/Admin/Hrs/add_payroll.ctp:221
+#: Template/Admin/Hrs/add_shift.ctp:149
+#: Template/Admin/Hrs/attendance.ctp:110
+msgid "Submit"
+msgstr ""
+
+#: Template/Admin/Hrs/add_config_setup.ctp:15
+#: Template/Admin/Hrs/edit_config_setup.ctp:16
+msgid "HR Config Setup"
+msgstr ""
+
+#: Template/Admin/Hrs/add_config_setup.ctp:20
+#: Template/Admin/Hrs/edit_config_setup.ctp:22
+msgid "Config Action Name :"
+msgstr ""
+
+#: Template/Admin/Hrs/add_config_setup.ctp:36
+#: Template/Admin/Hrs/edit_config_setup.ctp:38
+msgid "User's Name :"
+msgstr ""
+
+#: Template/Admin/Hrs/add_config_setup.ctp:51
+#: Template/Admin/Hrs/add_payroll.ctp:41
+#: Template/Admin/Hrs/edit_config_setup.ctp:53
+msgid "Year :"
+msgstr ""
+
+#: Template/Admin/Hrs/add_config_setup.ctp:62
+#: Template/Admin/Hrs/edit_config_setup.ctp:64
+msgid "Month :"
+msgstr ""
+
+#: Template/Admin/Hrs/add_config_setup.ctp:79
+#: Template/Admin/Hrs/edit_config_setup.ctp:80
+msgid "Value :"
+msgstr ""
+
+#: Template/Admin/Hrs/add_payroll.ctp:22
+msgid "Payroll Generate"
+msgstr ""
+
+#: Template/Admin/Hrs/add_payroll.ctp:27
+msgid "Months :"
+msgstr ""
+
+#: Template/Admin/Hrs/add_payroll.ctp:53
+msgid "Full Payroll :"
+msgstr ""
+
+#: Template/Admin/Hrs/add_payroll.ctp:63
+msgid "Partial Payroll :"
+msgstr ""
+
+#: Template/Admin/Hrs/add_payroll.ctp:74
+msgid "Management Type :"
+msgstr ""
+
+#: Template/Admin/Hrs/add_payroll.ctp:88
+msgid "Employees :"
+msgstr ""
+
+#: Template/Admin/Hrs/add_payroll.ctp:107
+msgid "Late Attendance :"
+msgstr ""
+
+#: Template/Admin/Hrs/add_payroll.ctp:118
+msgid "Attendance Grace :"
+msgstr ""
+
+#: Template/Admin/Hrs/add_payroll.ctp:128
+msgid "Days Late For One Salary Deduction :"
+msgstr ""
+
+#: Template/Admin/Hrs/add_payroll.ctp:138
+#: Template/Admin/Hrs/add_payroll.ctp:176
+msgid "Deducation From :"
+msgstr ""
+
+#: Template/Admin/Hrs/add_payroll.ctp:142
+#: Template/Admin/Hrs/add_payroll.ctp:180
+msgid "Basic Salary"
+msgstr ""
+
+#: Template/Admin/Hrs/add_payroll.ctp:143
+#: Template/Admin/Hrs/add_payroll.ctp:181
+msgid "Gross Salary"
+msgstr ""
+
+#: Template/Admin/Hrs/add_payroll.ctp:156
+msgid "Absent :"
+msgstr ""
+
+#: Template/Admin/Hrs/add_payroll.ctp:166
+msgid "Percentage Of Salary Deduction For Absent :"
+msgstr ""
+
+#: Template/Admin/Hrs/add_payroll.ctp:193
+msgid "Overtime :"
+msgstr ""
+
+#: Template/Admin/Hrs/add_payroll.ctp:204
+msgid "Payroll configuration setup"
+msgstr ""
+
+#: Template/Admin/Hrs/add_shift.ctp:27
+msgid "Add Shift"
+msgstr ""
+
+#: Template/Admin/Hrs/add_shift.ctp:32
+msgid "Shift Name: "
+msgstr ""
+
+#: Template/Admin/Hrs/add_shift.ctp:43
+#: Template/Admin/Hrs/edit_shift.ctp:44
+msgid "Monday:"
+msgstr ""
+
+#: Template/Admin/Hrs/add_shift.ctp:57
+#: Template/Admin/Hrs/edit_shift.ctp:58
+msgid "Tuesday:"
+msgstr ""
+
+#: Template/Admin/Hrs/add_shift.ctp:71
+#: Template/Admin/Hrs/edit_shift.ctp:72
+msgid "Wednesday:"
+msgstr ""
+
+#: Template/Admin/Hrs/add_shift.ctp:85
+#: Template/Admin/Hrs/edit_shift.ctp:86
+msgid "Thursday:"
+msgstr ""
+
+#: Template/Admin/Hrs/add_shift.ctp:98
+#: Template/Admin/Hrs/edit_shift.ctp:99
+msgid "Friday:"
+msgstr ""
+
+#: Template/Admin/Hrs/add_shift.ctp:111
+#: Template/Admin/Hrs/edit_shift.ctp:112
+msgid "Saturday:"
+msgstr ""
+
+#: Template/Admin/Hrs/add_shift.ctp:124
+#: Template/Admin/Hrs/edit_shift.ctp:125
+msgid "Sunday:"
+msgstr ""
+
+#: Template/Admin/Hrs/add_shift.ctp:138
+#: Template/Admin/Hrs/edit_shift.ctp:139
+msgid "Break:"
+msgstr ""
+
+#: Template/Admin/Hrs/all_leaves.ctp:13
+msgid "List of Leave Application"
+msgstr ""
+
+#: Template/Admin/Hrs/all_leaves.ctp:19
+msgid "#"
+msgstr ""
+
+#: Template/Admin/Hrs/all_leaves.ctp:20
+msgid "Employee Name"
+msgstr ""
+
+#: Template/Admin/Hrs/all_leaves.ctp:21
+msgid "Leave Type"
+msgstr ""
+
+#: Template/Admin/Hrs/all_leaves.ctp:22
+msgid "Date From"
+msgstr ""
+
+#: Template/Admin/Hrs/all_leaves.ctp:23
+msgid "Date to"
+msgstr ""
+
+#: Template/Admin/Hrs/all_leaves.ctp:24
+msgid "Half Leave"
+msgstr ""
+
+#: Template/Admin/Hrs/all_leaves.ctp:25
+msgid "Applied Date"
+msgstr ""
+
+#: Template/Admin/Hrs/all_leaves.ctp:26
+msgid "Status"
+msgstr ""
+
+#: Template/Admin/Hrs/attendance.ctp:11
+msgid "Search Employee"
+msgstr ""
+
+#: Template/Admin/Hrs/attendance.ctp:16
+msgid "Date"
+msgstr ""
+
+#: Template/Admin/Hrs/attendance.ctp:24
+msgid "Search"
+msgstr ""
+
+#: Template/Admin/Hrs/attendance.ctp:52
+msgid "Employee"
+msgstr ""
+
+#: Template/Admin/Hrs/attendance.ctp:57
+msgid "ID"
+msgstr ""
+
+#: Template/Admin/Hrs/attendance.ctp:60
+msgid "Name"
+msgstr ""
+
+#: Template/Admin/Hrs/attendance.ctp:63
+msgid "In Time"
+msgstr ""
+
+#: Template/Admin/Hrs/attendance.ctp:66
+msgid "Out Time"
+msgstr ""
+
+#: Template/Admin/Hrs/attendance.ctp:69
+msgid "Overtime"
+msgstr ""
+
+#: Template/Admin/Hrs/attendance.ctp:72
+msgid "Overtime Amount"
+msgstr ""
+
+#: Template/Admin/Hrs/config.ctp:14
+msgid "List of All Config"
+msgstr ""
+
+#: Template/Admin/Hrs/config.ctp:21
+msgid "Config ID"
+msgstr ""
+
+#: Template/Admin/Hrs/config.ctp:22
+msgid "Action Name"
+msgstr ""
+
+#: Template/Admin/Hrs/config.ctp:23
+msgid "Config Name"
+msgstr ""
+
+#: Template/Admin/Hrs/config.ctp:24
+#: Template/Admin/Hrs/config_setup.ctp:26
+#: Template/Admin/Hrs/payroll.ctp:26
+#: Template/Admin/Hrs/shifts.ctp:31
+msgid "Action"
+msgstr ""
+
+#: Template/Admin/Hrs/config_setup.ctp:14
+msgid "List of All Config Setup"
+msgstr ""
+
+#: Template/Admin/Hrs/config_setup.ctp:21
+msgid "User Name"
+msgstr ""
+
+#: Template/Admin/Hrs/config_setup.ctp:22
+msgid "Config Action Name"
+msgstr ""
+
+#: Template/Admin/Hrs/config_setup.ctp:23
+#: Template/Admin/Hrs/payroll.ctp:21
+msgid "Year"
+msgstr ""
+
+#: Template/Admin/Hrs/config_setup.ctp:24
+#: Template/Admin/Hrs/payroll.ctp:22
+msgid "Month"
+msgstr ""
+
+#: Template/Admin/Hrs/config_setup.ctp:25
+msgid "Value"
+msgstr ""
+
+#: Template/Admin/Hrs/edit_config.ctp:46
+#: Template/Admin/Hrs/edit_config_setup.ctp:89
+#: Template/Admin/Hrs/edit_shift.ctp:151
+#: Template/Admin/Hrs/leave_action.ctp:126
+msgid "Update"
+msgstr ""
+
+#: Template/Admin/Hrs/edit_shift.ctp:28
+msgid "Add Shif"
+msgstr ""
+
+#: Template/Admin/Hrs/edit_shift.ctp:33
+msgid "Shift Name:"
+msgstr ""
+
+#: Template/Admin/Hrs/leave_action.ctp:22
+msgid "Leave Type :"
+msgstr ""
+
+#: Template/Admin/Hrs/leave_action.ctp:27
+msgid "Choose Leave Type"
+msgstr ""
+
+#: Template/Admin/Hrs/leave_action.ctp:42
+msgid "Start Date :"
+msgstr ""
+
+#: Template/Admin/Hrs/leave_action.ctp:52
+msgid "End Date :"
+msgstr ""
+
+#: Template/Admin/Hrs/leave_action.ctp:62
+msgid "Half Leave :"
+msgstr ""
+
+#: Template/Admin/Hrs/leave_action.ctp:72
+msgid "Body :"
+msgstr ""
+
+#: Template/Admin/Hrs/leave_action.ctp:82
+msgid "Attachments :"
+msgstr ""
+
+#: Template/Admin/Hrs/leave_action.ctp:96
+msgid "Approval :"
+msgstr ""
+
+#: Template/Admin/Hrs/leave_action.ctp:115
+msgid "Comment :"
+msgstr ""
+
+#: Template/Admin/Hrs/payroll.ctp:14
+msgid "List of All Payroll"
+msgstr ""
+
+#: Template/Admin/Hrs/payroll.ctp:23
+msgid "Type"
+msgstr ""
+
+#: Template/Admin/Hrs/payroll.ctp:24
+msgid "Generate Date"
+msgstr ""
+
+#: Template/Admin/Hrs/payroll.ctp:25
+msgid "Payment"
+msgstr ""
+
+#: Template/Admin/Hrs/shifts.ctp:14
+msgid "List of All Shift"
+msgstr ""
+
+#: Template/Admin/Hrs/shifts.ctp:22
+msgid "Shift Name"
+msgstr ""
+
+#: Template/Admin/Hrs/shifts.ctp:23
+msgid "Monday"
+msgstr ""
+
+#: Template/Admin/Hrs/shifts.ctp:24
+msgid "Tuesday"
+msgstr ""
+
+#: Template/Admin/Hrs/shifts.ctp:25
+msgid "Wednesday"
+msgstr ""
+
+#: Template/Admin/Hrs/shifts.ctp:26
+msgid "Thursday"
+msgstr ""
+
+#: Template/Admin/Hrs/shifts.ctp:27
+msgid "Friday"
+msgstr ""
+
+#: Template/Admin/Hrs/shifts.ctp:28
+msgid "Saturday"
+msgstr ""
+
+#: Template/Admin/Hrs/shifts.ctp:29
+msgid "Sunday"
+msgstr ""
+
+#: Template/Admin/Hrs/shifts.ctp:30
+msgid "Break"
+msgstr ""
+

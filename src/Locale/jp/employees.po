@@ -1,0 +1,233 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2022-10-05 11:22+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Template/Admin/Employees/add_designation.ctp:8
+msgid "Employee Designation Add"
+msgstr ""
+
+#: Template/Admin/Employees/add_designation.ctp:14
+#: Template/Admin/Employees/designation.ctp:18
+#: Template/Admin/Employees/edit_designation.ctp:16
+msgid "Designation Name"
+msgstr ""
+
+#: Template/Admin/Employees/add_designation.ctp:23
+#: Template/Admin/Employees/add_leave.ctp:104
+#: Template/Admin/Employees/edit.ctp:69
+#: Template/Admin/Employees/edit_designation.ctp:24
+msgid "Submit"
+msgstr ""
+
+#: Template/Admin/Employees/add_leave.ctp:20
+#: Template/Admin/Employees/edit_leave.ctp:24
+msgid "Leave Type :"
+msgstr ""
+
+#: Template/Admin/Employees/add_leave.ctp:24
+#: Template/Admin/Employees/edit_leave.ctp:28
+msgid "Choose Leave Type"
+msgstr ""
+
+#: Template/Admin/Employees/add_leave.ctp:35
+#: Template/Admin/Employees/edit_leave.ctp:42
+msgid "Start Date :"
+msgstr ""
+
+#: Template/Admin/Employees/add_leave.ctp:45
+#: Template/Admin/Employees/edit_leave.ctp:52
+msgid "End Date :"
+msgstr ""
+
+#: Template/Admin/Employees/add_leave.ctp:56
+#: Template/Admin/Employees/edit_leave.ctp:63
+msgid "Half Leave :"
+msgstr ""
+
+#: Template/Admin/Employees/add_leave.ctp:66
+#: Template/Admin/Employees/edit_leave.ctp:73
+msgid "Half Leave Type :"
+msgstr ""
+
+#: Template/Admin/Employees/add_leave.ctp:70
+#: Template/Admin/Employees/edit_leave.ctp:77
+msgid "Choose Half Leave Type"
+msgstr ""
+
+#: Template/Admin/Employees/add_leave.ctp:71
+#: Template/Admin/Employees/edit_leave.ctp:80
+msgid "First Half"
+msgstr ""
+
+#: Template/Admin/Employees/add_leave.ctp:72
+#: Template/Admin/Employees/edit_leave.ctp:83
+msgid "Second Half"
+msgstr ""
+
+#: Template/Admin/Employees/add_leave.ctp:82
+#: Template/Admin/Employees/edit_leave.ctp:95
+msgid "Body :"
+msgstr ""
+
+#: Template/Admin/Employees/add_leave.ctp:92
+#: Template/Admin/Employees/edit_leave.ctp:105
+msgid "Attachments :"
+msgstr ""
+
+#: Template/Admin/Employees/designation.ctp:11
+msgid "List of Employee Designation"
+msgstr ""
+
+#: Template/Admin/Employees/designation.ctp:17
+#: Template/Admin/Employees/index.ctp:18
+#: Template/Admin/Employees/leave.ctp:20
+msgid "#"
+msgstr ""
+
+#: Template/Admin/Employees/designation.ctp:19
+#: Template/Admin/Employees/index.ctp:23
+msgid "Action"
+msgstr ""
+
+#: Template/Admin/Employees/edit.ctp:18
+msgid "Employee Edit From"
+msgstr ""
+
+#: Template/Admin/Employees/edit.ctp:21
+#: Template/Admin/Employees/leave.ctp:21
+msgid "Employee Name"
+msgstr ""
+
+#: Template/Admin/Employees/edit.ctp:25
+#: Template/Admin/Employees/index.ctp:20
+msgid "Email"
+msgstr ""
+
+#: Template/Admin/Employees/edit.ctp:29
+#: Template/Admin/Employees/index.ctp:21
+msgid "Role"
+msgstr ""
+
+#: Template/Admin/Employees/edit.ctp:31
+msgid "Choose Role"
+msgstr ""
+
+#: Template/Admin/Employees/edit.ctp:38
+#: Template/Admin/Employees/edit.ctp:47
+#: Template/Admin/Employees/index.ctp:22
+msgid "Shift"
+msgstr ""
+
+#: Template/Admin/Employees/edit.ctp:40
+#: Template/Admin/Employees/edit.ctp:49
+msgid "Choose Shift"
+msgstr ""
+
+#: Template/Admin/Employees/edit.ctp:60
+msgid "Employee Image"
+msgstr ""
+
+#: Template/Admin/Employees/edit_designation.ctp:10
+msgid "Employee Designation Edit"
+msgstr ""
+
+#: Template/Admin/Employees/edit_leave.ctp:14
+msgid "Accepted"
+msgstr ""
+
+#: Template/Admin/Employees/edit_leave.ctp:15
+msgid "Declined"
+msgstr ""
+
+#: Template/Admin/Employees/edit_leave.ctp:16
+msgid "Canceled"
+msgstr ""
+
+#: Template/Admin/Employees/edit_leave.ctp:126
+msgid "Admin Comment :"
+msgstr ""
+
+#: Template/Admin/Employees/edit_leave.ctp:134
+msgid "Update"
+msgstr ""
+
+#: Template/Admin/Employees/index.ctp:11
+msgid "List of Employee"
+msgstr ""
+
+#: Template/Admin/Employees/index.ctp:19
+msgid "Name"
+msgstr ""
+
+#: Template/Admin/Employees/leave.ctp:13
+msgid "List of Leave Application"
+msgstr ""
+
+#: Template/Admin/Employees/leave.ctp:22
+msgid "Leave Type"
+msgstr ""
+
+#: Template/Admin/Employees/leave.ctp:23
+msgid "Date From"
+msgstr ""
+
+#: Template/Admin/Employees/leave.ctp:24
+msgid "Date to"
+msgstr ""
+
+#: Template/Admin/Employees/leave.ctp:25
+msgid "Half Leave"
+msgstr ""
+
+#: Template/Admin/Employees/leave.ctp:26
+msgid "Applied Date"
+msgstr ""
+
+#: Template/Admin/Employees/leave.ctp:27
+msgid "Status"
+msgstr ""
+
+#: Template/Admin/Employees/profile.ctp:16
+msgid "Total Salary"
+msgstr ""
+
+#: Template/Admin/Employees/profile.ctp:24
+msgid "Remaining Casual Leave"
+msgstr ""
+
+#: Template/Admin/Employees/profile.ctp:32
+msgid "Remaining Sick Leave"
+msgstr ""
+
+#: Template/Admin/Employees/profile.ctp:42
+msgid "Basic salary"
+msgstr ""
+
+#: Template/Admin/Employees/profile.ctp:50
+msgid "Total allowances"
+msgstr ""
+
+#: Template/Admin/Employees/profile.ctp:58
+msgid "Total bonus"
+msgstr ""
+
+#: Template/Admin/Employees/profile.ctp:66
+msgid "Total penalty"
+msgstr ""
+
+#: Template/Admin/Employees/profile.ctp:76
+msgid "Enter"
+msgstr ""
+
